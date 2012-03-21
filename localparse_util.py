@@ -1,3 +1,9 @@
+# Filename:                localparse_util.py
+# Author:                  Team 13
+# Description:             The local progamming language parser utilies
+# Supported Lanauge(s):    Python 2.x
+# Time-stamp:              <2012-03-21 17:12:36 mc>
+
 # Number of space a tab equals
 INDENT = 4
 
