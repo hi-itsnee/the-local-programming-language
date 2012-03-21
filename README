@@ -2,17 +2,21 @@ local compiler
 
 To run,
 
- python local.py PROGRAME
+  python local.py PROGRAME
 
 where PROGNAME is the name of the program you wish to compile
 
 If you want the output saved to a file that you can then execute with Python,
 run
 
- python local.py PROGNAME > TARGNAME
+  python local.py PROGNAME > TARGNAME
 
 where TARGNAME is the name of the target Python file
 
 For example,
 
- python local.py hello.local > hello.py
+  python local.py hello.local > hello.py
+
+You can then run hello.py with Python.
+
+  python hello.py

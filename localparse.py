@@ -2,13 +2,11 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-20 22:56:03 mc>
+# Time-stamp:              <2012-03-21 16:59:37 mc>
 
 import ply.yacc as yacc
 import locallex
-
-# Send semantically equivalent Python code to stdout
-emit_code = True
+from io_statement import *
 
 # Enable/disable debugging
 DEBUG = True
@@ -16,8 +14,8 @@ DEBUG = True
 # The tokens from our lexer
 tokens = locallex.tokens
 
-# Number of spaces a tab equals
-INDENT = 4
+# The first rule
+start = 'program'
 
 precedence = (
     # ('left', 'PLUS','MINUS'),
@@ -36,14 +34,6 @@ def p_program_error(p):
     p[0] = None
     p.parser.error = 1
 
-def p_io_statement(p):
-    '''io_statement : print_statement'''
-
-def p_print_statement(p):
-    '''print_statement : PRINT LPAREN STRING RPAREN SEMI'''
-    code = "print \"%s\"" % p[3]
-    print_code(code, 0)
-
 # Catastrophic error handler
 def p_error(p):
     if not p:
@@ -57,11 +47,3 @@ def parse(data, debug=DEBUG):
     if lparser.error:
         return None
     return p
-
-def print_code(code, indent):
-    indent *= INDENT
-    if not emit_code:
-        return
-    codelines = code.splitlines()
-    for c in codelines:
-        print "%s%s" % (" "*indent, c)
