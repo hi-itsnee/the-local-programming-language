@@ -1,7 +1,14 @@
-# local lexer
+# Filename:                locallex.py
+# Author:                  Team 13
+# Description:             The local programming language lexer
+# Supported Lanauge(s):    Python 2.x
+# Time-stamp:              <2012-03-20 22:30:02 mc>
 
 import ply.lex as lex
 #import decimal
+
+# Enable/disable debugging
+DEBUG = True
 
 reserved = (
     'PRINT',
@@ -107,7 +114,7 @@ def t_error(t):
     print("Illegal character %s" % repr(t.value[0]))
     t.lexer.skip(1)
 
-lexer = lex.lex(debug=1)
+lexer = lex.lex(debug=DEBUG)
 
 if __name__ == "__main__":
     lex.runmain(lexer)
