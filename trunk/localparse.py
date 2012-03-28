@@ -37,19 +37,19 @@ precedence = (
 
 def p_program(p):
     '''program : program io_statement
-               | io_statement
-               | string_statement
-               | list_statement
-               | except_statement
-               | coord_statement
-               | iter_statement
-               | cond_statement
-               | math_statement
-               | logic_statement
-               | assign_statement
-               | def_statement
-               | exit_statement
-               '''
+               | io_statement'''
+               # | string_statement
+               # | list_statement
+               # | except_statement
+               # | coord_statement
+               # | iter_statement
+               # | cond_statement
+               # | math_statement
+               # | logic_statement
+               # | assign_statement
+               # | def_statement
+               # | exit_statement
+               # '''
 
 # Error handler. Return nothing.
 def p_program_error(p):
@@ -70,9 +70,3 @@ def parse(data, debug=DEBUG):
     if lparser.error:
         return None
     return p
-Welcome to Ubuntu 11.10 (GNU/Linux 3.0.0-16-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com/
-Last login: Wed Mar 28 17:15:38 2012 from 172.16.248.1
-plt@plt:~$ tramp_exit_status 0
-///e93b924d0f68d29db0ed3160dbf7d71a#$
