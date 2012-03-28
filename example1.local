@@ -1,0 +1,31 @@
+''' This is a very basic program that will help us do basic lexing
+    and parsing'''
+
+x = 1;
+y = 2;
+z = 1.1
+w1 = x + y;
+w2 = x - y;
+w3 = x + z; // this will be interesting
+
+a = true;
+b = false;
+
+c = a and b;
+b = a or b;
+
+print("The integer sum is %d", w1);
+print("the float sum is %f", w3);
+
+if b
+    print("b is true");
+else
+    print("b is false");
+
+exit(1337);
+
+// mc - cond
+// je - assign and math
+// nr - logic
+// ab - exit and comments
+// ys - print
