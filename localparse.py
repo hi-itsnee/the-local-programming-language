@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-28 17:33:27 mc>
+# Time-stamp:              <2012-03-28 20:06:30 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -37,8 +37,9 @@ precedence = (
 
 def p_program(p):
     '''program : program io_statement
-               | io_statement'''
-               # | string_statement
+               | program string_statement
+               | io_statement
+               | string_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
