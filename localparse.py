@@ -39,7 +39,8 @@ def p_program(p):
     '''program : program io_statement
                | program string_statement
                | io_statement
-               | string_statement'''
+               | string_statement
+               | assign_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
@@ -47,7 +48,6 @@ def p_program(p):
                # | cond_statement
                # | math_statement
                # | logic_statement
-               # | assign_statement
                # | def_statement
                # | exit_statement
                # '''
