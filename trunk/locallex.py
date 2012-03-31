@@ -19,7 +19,8 @@ reserved = (
 
 tokens = reserved + (
     # Operators and assignment
-    # 'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER',
+    'EQUALS', 
+    # 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -28,8 +29,7 @@ tokens = reserved + (
     # 'LBRACE', 'RBRACE',
 
     # Literals
-    'ID', 'STRING',
-    # 'NUMBER',
+    'ID', 'STRING', 'NUMBER',
     )
 
 t_ignore = ' \t'
@@ -61,7 +61,7 @@ def t_NEWLINE(t):
 # t_NE               = r'!='
 
 # Assignment operators
-# t_EQUALS           = r'='
+t_EQUALS           = r'='
 # t_TIMESEQUAL       = r'\*='
 # t_DIVEQUAL         = r'/='
 # t_MODEQUAL         = r'%='
