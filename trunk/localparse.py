@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-01 22:49:53 plt>
+# Time-stamp:              <2012-04-02 16:56:12 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -10,17 +10,18 @@ from io_statement import *
 from string_statement import *
 #from list_statement import *
 #from except_statement import *
-#from coord_statement import *
+from coord_statement import *
 #from iter_statement import *
-#from cond_statement import *
+from cond_statement import *
 #from math_statement import *
 #from logic_statement import *
 from assign_statement import *
 #from def_statement import *
 #from exit_statement import *
+from expr_statement import *
 
 from localast import Node
-# Node(type, children=None, value=None, indent_next=False)
+# Node(type, children=None, value=None, line=None)
 
 # Enable/disable debugging
 DEBUG = False
@@ -33,8 +34,8 @@ start = 'program'
 
 # Operator precendence and associativity
 precedence = (
-    # ('nonassoc', 'IFX'),
-    # ('nonassoc', 'ELSE'),
+    ('nonassoc', 'IFX'),
+    ('nonassoc', 'ELSE'),
     # ('left', 'PLUS','MINUS'),
     # ('left', 'TIMES','DIVIDE'),
     # ('left', 'POWER'),
@@ -60,7 +61,9 @@ def p_statement_list(p):
 def p_statement(p):
     '''statement : string_statement
                  | io_statement
-                 | assign_statement'''
+                 | assign_statement
+                 | cond_statement
+                 | expr_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
@@ -69,7 +72,6 @@ def p_statement(p):
                # | logic_statement
                # | def_statement
                # | exit_statement
-               # | cond_statement
                # '''
     p[0] = Node("statement", [p[1]])
 
