@@ -2,12 +2,14 @@
 # Author:                  Team 13
 # Description:             local parser I/O statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-28 20:04:13 plt>
+# Time-stamp:              <2012-04-01 21:06:38 plt>
 
-from localparse_util import print_code
+from localast import Node
+# Node(type, children=None, value=None, indent_next=False)
 
 def p_io_statement(p):
     '''io_statement : open_statement'''
+    p[0] = Node("io_statement", [p[1]])
 
 def p_open_statement(p):
     '''open_statement : OPEN LPAREN STRING RPAREN SEMI
@@ -18,5 +20,5 @@ def p_open_statement(p):
         mode = "r"
     elif len(p) == 8:
         mode = p[5]
-    code = "open(\"%s\", \"%s\")" % (filename, mode)
-    print_code(code, 0)
+    value = "open(\"%s\", \"%s\")" % (filename, mode)
+    p[0] = Node("open", None, value)

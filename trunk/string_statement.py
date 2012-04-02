@@ -2,14 +2,16 @@
 # Author:                  Team 13
 # Description:             local language parser string statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-28 19:49:16 plt>
+# Time-stamp:              <2012-04-01 21:06:09 plt>
 
-from localparse_util import print_code
+from localast import Node
+# Node(type, children=None, value=None, indent_next=False)
 
 def p_string_statement(p):
     '''string_statement : print_statement'''
+    p[0] = Node("string_statement", [p[1]])
 
 def p_print_statement(p):
     '''print_statement : PRINT LPAREN STRING RPAREN SEMI'''
-    code = "print \"%s\"" % p[3]
-    print_code(code, 0)
+    value = "print \"%s\"" % p[3]
+    p[0] = Node("print", None, value)
