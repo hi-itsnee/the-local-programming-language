@@ -12,10 +12,10 @@ from string_statement import *
 #from except_statement import *
 #from coord_statement import *
 #from iter_statement import *
-from cond_statement import *
+#from cond_statement import *
 #from math_statement import *
 #from logic_statement import *
-#from assign_statement import *
+from assign_statement import *
 #from def_statement import *
 #from exit_statement import *
 
@@ -33,8 +33,8 @@ start = 'program'
 
 # Operator precendence and associativity
 precedence = (
-    ('nonassoc', 'IFX'),
-    ('nonassoc', 'ELSE'),
+    # ('nonassoc', 'IFX'),
+    # ('nonassoc', 'ELSE'),
     # ('left', 'PLUS','MINUS'),
     # ('left', 'TIMES','DIVIDE'),
     # ('left', 'POWER'),
@@ -58,11 +58,9 @@ def p_statement_list(p):
         p[0] = Node("statement_list", [p[1]])
 
 def p_statement(p):
-    '''statement : cond_statement
-                 | expression_statement
-                 | string_statement
-                 | io_statement'''
-               # | assign_statement
+    '''statement : string_statement
+                 | io_statement
+                 | assign_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
@@ -71,28 +69,9 @@ def p_statement(p):
                # | logic_statement
                # | def_statement
                # | exit_statement
+               # | cond_statement
                # '''
     p[0] = Node("statement", [p[1]])
-
-def p_expression_statement(p):
-    '''expression_statement : expression'''
-    if len(p) == 3:
-        p[0] = Node("expression_statement", [p[1], p[2]])
-    elif len(p) == 2:
-        p[0] = Node("expression_statement", [p[1]])
-
-def p_expression(p):
-    '''expression : assignment
-                  | atom'''
-    p[0] = Node("expression", [p[1]])
-
-def p_assignment(p):
-    '''assignment : ID EQUALS NUMBER'''
-    p[0] = Node("assignment", None, p[1])
-
-def p_atom(p):
-    '''atom : ID'''
-    p[0] = Node("atom", None, p[1])
 
 # Error handler. Return nothing.
 def p_program_error(p):
