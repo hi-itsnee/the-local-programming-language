@@ -2,17 +2,17 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-28 20:08:15 plt>
+# Time-stamp:              <2012-03-30 18:00:17 plt>
 
 import ply.lex as lex
 #import decimal
 
 # Enable/disable debugging
-DEBUG = True
+DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN',
-    # 'READ', 'IF', 'THEN', 'ELSE', 'ELIF', 'FOR', 'IN', 'WHILE',
+    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE',
+    # 'READ', 'FOR', 'IN', 'WHILE',
     # 'CONTINUE', 'PASS', 'BREAK', 'AND', 'OR', 'NOT', 'RETURN', 'EXIT', 'DEF',
     # 'DIST',
     )
@@ -24,9 +24,8 @@ tokens = reserved + (
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
-    'SEMI', 'LPAREN', 'RPAREN', 'COMMA',
+    'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
     # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
-    # 'LBRACE', 'RBRACE',
 
     # Literals
     'ID', 'STRING', 'NUMBER',
@@ -80,8 +79,8 @@ t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
 # t_LBRACKET         = r'\['
 # t_RBRACKET         = r'\]'
-# t_LBRACE           = r'\{'
-# t_RBRACE           = r'\}'
+t_LBRACE           = r'\{'
+t_RBRACE           = r'\}'
 t_COMMA            = r','
 # t_PERIOD           = r'\.'
 t_SEMI             = r';'
