@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-01 21:57:38 plt>
+# Time-stamp:              <2012-04-02 18:09:00 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -40,8 +40,8 @@ def walk_the_tree(node, code="", debug=False):
     else:
         for child in node.children:
             code = walk_the_tree(child, code, debug)
-    # Append the node's value to the list
+    # Set the return value
     if node.value:
-        code = code + node.value
+        code = node.value
     # Return statement for the function. Builds target code in order
     return code
