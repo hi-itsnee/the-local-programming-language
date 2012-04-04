@@ -11,15 +11,16 @@ import ply.lex as lex
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE',
+    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT'
     # 'READ', 'FOR', 'IN', 'WHILE',
-    # 'CONTINUE', 'PASS', 'BREAK', 'AND', 'OR', 'NOT', 'RETURN', 'EXIT', 'DEF',
+    # 'CONTINUE', 'PASS', 'BREAK', 'RETURN', 'EXIT', 'DEF',
     # 'DIST',
     )
 
 tokens = reserved + (
     # Operators and assignment
-    'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER',
+    'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
+    'POWER',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -47,11 +48,9 @@ t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
 t_POWER            = r'\^'
 # t_MOD              = r'%'
-# t_OR               = r'or'
-# t_AND              = r'and'
-# t_NOT              = r'not'
-# t_XOR              = r'\^'
-# t_LT               = r'<'
+t_OR               = r'or'
+t_AND              = r'and'
+t_NOT              = r'not'
 # t_GT               = r'>'
 # t_LE               = r'<='
 # t_GE               = r'>='
