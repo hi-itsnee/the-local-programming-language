@@ -21,15 +21,15 @@ You can then run hello.py with Python.
 
   python hello.py
 
---------------------------
-### Developer Instructions
---------------------------
+------------------------------------------
+### Developer Instructions For Dummies ###
+------------------------------------------
 To compile a working copy of our code for testing, do the following steps:
 1. Create your new file, e.g. assign_statement.py
-2. Check for compilation errors by running:
-    python assign_statement.py
-3. Create a local program to test your statement, e.g. /local/checkassign.local
-4. Test the program with the following:
+2. Create a local program to test your statement, e.g. /local/checkassign.local
+3. Test the program compilation with the following (adjust for your statement):
+    python local.py /local/checkassign.local
+4. Redirect the program output with the following (adjust for your statement):
     python local.py /local/checkassign.local > /local/checkassign.py
 5. Run the test output:
     python /local/checkassign.py
