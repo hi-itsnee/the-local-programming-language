@@ -38,7 +38,7 @@ precedence = (
     ('nonassoc', 'ELSE'),
     ('left', 'PLUS','MINUS'),
     ('left', 'TIMES','DIVIDE'),
-    ('left', 'POWER'),
+    ('left', 'POWER')
     # ('right','UMINUS')
     )
 
