@@ -6,42 +6,36 @@
 from localast import Node
 
 def p_logic_statement(p):
-    '''logic_statement : ID EQUALS logic_expr '''
+    '''logic_statement : ID EQUALS logic_expr SEMI'''
 
     value = "%s = " % (p[1]) 
     p[0] = Node("logic_statement",[p[3]], value, None)
 
 def p_logic_expr(p):
-    '''logic_expr : and_or_statement
+    '''logic_expr : and_statement
+		  | or_statement
                   | not_statement
-                  | end_statement '''
+                  | end_statement'''
 
     p[0] = Node("logic_expr",[p[1]],None,None)
 
 def p_end_statement(p):
-    '''end_statement : ID SEMI'''
+    '''end_statement : ID '''
 
     value = "%s" % (p[1])
     p[0] = Node("end_statement",None, value, value)
 
-def p_and_or_statement(p):
-    '''and_or_statement : ID and_statement
-			| ID or_statement'''
-
-    value = "%s" % (p[1])
-    p[0] = Node("and_or_statement",[p[2]],value,None)
-
 # AND
 def p_and_statement(p):
-    '''and_statement : AND logic_expr '''
-
-    p[0] = Node("and", [p[2]], "and" , None) 
+    '''and_statement : ID AND logic_expr '''
+    value = "%s and " % (p[1])
+    p[0] = Node("and", [p[3]], value , None) 
 
 #OR
 def p_or_statement(p):
-    '''or_statement : OR logic_expr '''
-    
-    p[0] = Node("or", [p[2]], "or", None)
+    '''or_statement : ID OR logic_expr '''
+    value = "%s or " % (p[1])
+    p[0] = Node("or", [p[3]], value, None)
 
 #NOT
 def p_not_statement(p):
