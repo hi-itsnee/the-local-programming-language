@@ -13,7 +13,7 @@ from string_statement import *
 from coord_statement import *
 #from iter_statement import *
 from cond_statement import *
-#from math_statement import *
+from math_statement import *
 #from logic_statement import *
 from assign_statement import *
 #from def_statement import *
@@ -36,9 +36,9 @@ start = 'program'
 precedence = (
     ('nonassoc', 'IFX'),
     ('nonassoc', 'ELSE'),
-    # ('left', 'PLUS','MINUS'),
-    # ('left', 'TIMES','DIVIDE'),
-    # ('left', 'POWER'),
+    ('left', 'PLUS','MINUS'),
+    ('left', 'TIMES','DIVIDE'),
+    ('left', 'POWER'),
     # ('right','UMINUS')
     )
 
@@ -63,12 +63,12 @@ def p_statement(p):
                  | io_statement
                  | assign_statement
                  | cond_statement
+                 | math_statement
                  | expr_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
                # | iter_statement
-               # | math_statement
                # | logic_statement
                # | def_statement
                # | exit_statement

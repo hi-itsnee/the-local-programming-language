@@ -19,8 +19,8 @@ reserved = (
 
 tokens = reserved + (
     # Operators and assignment
-    'EQUALS', 
-    # 'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER',
+    'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
+    # 'POWER',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -37,16 +37,16 @@ def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
-# def t_NUMBER(t):
-#     r"""(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?"""
-#     t.value = decimal.Decimal(t.value)
-#     return t
+def t_NUMBER(t):
+    r'(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?'
+    t.value = decimal.Decimal(t.value)
+    return t
 
 # Operators
-# t_PLUS             = r'\+'
-# t_MINUS            = r'-'
-# t_TIMES            = r'\*'
-# t_DIVIDE           = r'/'
+t_PLUS             = r'\+'
+t_MINUS            = r'-'
+t_TIMES            = r'\*'
+t_DIVIDE           = r'/'
 # t_MOD              = r'%'
 # t_OR               = r'or'
 # t_AND              = r'and'
