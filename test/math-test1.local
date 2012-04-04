@@ -1,4 +1,3 @@
 a = 3;
 b = 4;
 c = a + b;
-print("c is equal to %d", c);
