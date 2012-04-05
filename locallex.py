@@ -20,7 +20,7 @@ reserved = (
 tokens = reserved + (
     # Operators and assignment
     'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'POWER',
+    'MODULO', 'POWER',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -46,8 +46,8 @@ t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
+t_MODULO           = r'%'
 t_POWER            = r'\^'
-# t_MOD              = r'%'
 t_OR               = r'or'
 t_AND              = r'and'
 t_NOT              = r'not'

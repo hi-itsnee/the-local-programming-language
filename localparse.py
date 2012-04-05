@@ -40,7 +40,7 @@ precedence = (
     ('right','NOT'),
     ('left', 'PLUS','MINUS'),
     ('left', 'TIMES','DIVIDE'),
-    ('left', 'POWER')
+    ('left', 'MODULO','POWER')
     # ('right','UMINUS')
     )
 
