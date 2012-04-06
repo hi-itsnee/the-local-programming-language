@@ -34,3 +34,4 @@ To compile a working copy of our code for testing, do the following steps:
 5. Run the test output:
     python test/checkassign.py
 
+** 'Testing' folder is for automated testing as per our test plan. 'Test' folder is for stim testing by individual team members.

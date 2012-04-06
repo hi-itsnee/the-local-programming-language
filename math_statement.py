@@ -29,7 +29,7 @@ def p_math_expr(p):
     elif p[2] == '/':
         p[0] = Node("divide", None, "%s / %s" % (p[1], p[3]))
     elif p[2] == '%':
-        p[0] = Node("modulo", None, "%s % %s" % (p[1], p[3]))
+        p[0] = Node("modulo", None, "%s %s %s" % (p[1], '%', p[3]))
     elif p[2] == '^':
         p[0] = Node("power", None, "%s ** %s" % (p[1], p[3]))
     else: 
