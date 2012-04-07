@@ -10,6 +10,7 @@ from localast import Node
 def p_expr_statement(p):
     '''expr_statement : ID
                       | LPAREN ID RPAREN'''
+
     if len(p) == 2:
         p[0] = Node("expr", None, p[1])
     elif len(p) == 4:
