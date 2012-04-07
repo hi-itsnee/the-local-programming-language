@@ -11,7 +11,8 @@ import ply.lex as lex
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT'
+    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT',
+    'EXIT'
     # 'READ', 'FOR', 'IN', 'WHILE',
     # 'CONTINUE', 'PASS', 'BREAK', 'RETURN', 'EXIT', 'DEF',
     # 'DIST',

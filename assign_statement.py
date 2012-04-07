@@ -9,7 +9,5 @@ from localast import Node
 def p_assign_statement(p): 
     '''assign_statement : ID EQUALS ID SEMI
                         | ID EQUALS NUMBER SEMI'''
-
-    value = "%s = %s" % (p[1], p[3])
-    # Setup the AST Walk:
+    value = "%s = %s" % (p[1],p[3])
     p[0] = Node("assign", None, value)

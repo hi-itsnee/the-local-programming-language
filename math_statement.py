@@ -7,30 +7,37 @@
 from localast import Node
 
 def p_math_statement(p):
-    '''math_statement : ID EQUALS math_expr SEMI'''
-    line = p[1] + " = %s"
-    p[0] = Node("math_expr", [p[3]], None, line)
+    '''math_statement : math_statement PLUS math_term
+		      | math_statement MINUS math_term 
+		      | math_term'''
+    if len(p) == 2:
+        p[0] = Node("math_statement", [p[1]], None, "%s")
+    elif len(p) == 4:
+        if p[2] == '+':
+            p[0] = Node("math_statement", [p[1],p[3]], None, "%s + %s")
+        elif p[2] == '-':
+            p[0] = Node("math_statement", [p[1],p[3]], None, "%s - %s")
 
+def p_math_term(p):
+    '''math_term : math_term TIMES math_factor
+                 | math_term DIVIDE math_factor
+		 | math_factor'''
+   
+    if len(p) == 4:
+	if p[2] == '*':
+	    p[0] = Node("math_term", [p[1],p[3]], None, "%s * %s")
+	elif p[2] == '/':
+	    p[0] = Node("math_term", [p[1],p[3]], None, "%s / %s")
+    elif len(p) == 2:
+	p[0] = Node("math_term", [p[1]], None, "%s")
 
-def p_math_expr(p):
-    '''math_expr : NUMBER PLUS NUMBER
-                 | NUMBER MINUS NUMBER
-                 | NUMBER TIMES NUMBER
-                 | NUMBER DIVIDE NUMBER
-                 | NUMBER MODULO NUMBER
-                 | NUMBER POWER NUMBER'''
+def p_math_factor(p):
+    '''math_factor : ID
+	           | LPAREN math_statement RPAREN'''
+#		   | UMINUS math_factor '''
 
-    if p[2] == '+':
-        p[0] = Node("plus", None, "%s + %s" % (p[1], p[3]))
-    elif p[2] == '-':
-        p[0] = Node("minus", None, "%s - %s" % (p[1], p[3]))
-    elif p[2] == '*':
-        p[0] = Node("times", None, "%s * %s" % (p[1], p[3]))
-    elif p[2] == '/':
-        p[0] = Node("divide", None, "%s / %s" % (p[1], p[3]))
-    elif p[2] == '%':
-        p[0] = Node("modulo", None, "%s %s %s" % (p[1], '%', p[3]))
-    elif p[2] == '^':
-        p[0] = Node("power", None, "%s ** %s" % (p[1], p[3]))
-    else: 
-        print 'Error in math expression\n'
+    if len(p) == 4:
+        p[0] = Node("math_factor", [p[2]], None, "(%s)")
+    if len(p) == 2:
+       value = "%s" % (p[1])
+       p[0] = Node("math_factor",None, value, value)

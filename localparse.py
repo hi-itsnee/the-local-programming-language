@@ -17,7 +17,7 @@ from math_statement import *
 from logic_statement import *
 from assign_statement import *
 #from def_statement import *
-#from exit_statement import *
+from exit_statement import *
 from expr_statement import *
 
 from localast import Node
@@ -62,18 +62,18 @@ def p_statement_list(p):
 
 def p_statement(p):
     '''statement : string_statement
+                 | math_statement
                  | io_statement
                  | assign_statement
                  | cond_statement
                  | logic_statement
-                 | math_statement
-                 | expr_statement'''
+                 | expr_statement
+                 | exit_statement'''
                # | list_statement
                # | except_statement
                # | coord_statement
                # | iter_statement
                # | def_statement
-               # | exit_statement
                # '''
     p[0] = Node("statement", [p[1]])
 
