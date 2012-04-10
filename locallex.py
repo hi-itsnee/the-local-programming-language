@@ -104,7 +104,8 @@ def t_STRING(t):
 
 # Comments
 def t_comment(t):
-    r'/\*(.|\n)*?\*/'
+#    r'/\*(.|\n)*?\*/'
+    r'\'\'\'(.|\n)*\'\'\''
     t.lexer.lineno += t.value.count('\n')
 
 # Lexical errors
