@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-09 22:12:37 plt>
+# Time-stamp:              <2012-04-10 10:59:45 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -44,8 +44,9 @@ def walk_the_tree(node, code="", indent=0, debug=False):
             indent += INDENT
         for child in node.children:
             values = values + (walk_the_tree(child, code, indent, debug),)
-        # Children have been properly indented, now return to our level
-        indent -= INDENT
+        # Return to our level if we've indented our children
+        if node.type in indent_them:
+            indent -= INDENT
         code = code + " "*indent + (node.line % values)
     # Otherwise, just walk the tree
     else:

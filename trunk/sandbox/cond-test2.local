@@ -2,6 +2,8 @@ if a {
     print("a is true");
     if b
         print("made it here");
+    else
+        print("made it there");
 }
 else
     print("a is false");
