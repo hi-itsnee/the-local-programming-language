@@ -7,8 +7,8 @@
 from localast import Node
 # Node(type, children=None, value=None, indent_next=False)
 
-def p_io_statement(p):
-    '''io_statement : open_statement'''
+def p_io_stmt(p):
+    '''io_stmt : open_statement'''
     p[0] = Node("io_statement", [p[1]])
 
 def p_open_statement(p):

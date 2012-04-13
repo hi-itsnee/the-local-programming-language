@@ -7,11 +7,7 @@
 from localast import Node
 # Node(type, children=None, value=None, line=None)
 
-def p_string_statement(p):
-    '''string_statement : print_statement'''
-    p[0] = Node("string_statement", [p[1]])
-
-def p_print_statement(p):
-    '''print_statement : PRINT LPAREN STRING RPAREN SEMI'''
+def p_print_stmt(p):
+    '''print_stmt : PRINT LPAREN STRING RPAREN SEMI'''
     value = "print \"%s\"\n" % p[3]
     p[0] = Node("print", None, value)

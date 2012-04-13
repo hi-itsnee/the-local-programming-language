@@ -11,9 +11,9 @@ import ply.lex as lex
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT',
+    'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT',
     'EXIT'
-    # 'READ', 'FOR', 'IN', 'WHILE',
+    # 'ELIF','READ', 'FOR', 'IN', 'WHILE',
     # 'CONTINUE', 'PASS', 'BREAK', 'RETURN', 'EXIT', 'DEF',
     # 'DIST',
     )
@@ -21,15 +21,15 @@ reserved = (
 tokens = reserved + (
     # Operators and assignment
     'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'MODULO', 'POWER',
-    # 'LT', 'LE', 'GT', 'GE', 'NE',
+     'POWER',
+    # 'MODULO','LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
     # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
 
     # Literals
-    'ID', 'STRING', 'NUMBER',
+    'ID', 'STRING', 'NUMBER', 'BOOL',
     )
 
 t_ignore = ' \t'
@@ -42,12 +42,16 @@ def t_NUMBER(t):
     r'(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?'
     return t
 
+def t_BOOL(t):
+   r'true|false'
+   return t
+
 # Operators
 t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
-t_MODULO           = r'\%'
+#t_MODULO           = r'\%'
 t_POWER            = r'\^'
 t_OR               = r'or'
 t_AND              = r'and'
