@@ -23,7 +23,7 @@ def p_assign_stmt(p):
 def p_expr_stmt(p):
     '''expr_stmt : math_expr SEMI
 		 | logic_expr SEMI
-                 | ID'''
+                 | identifier'''
 #		 | relop_expr
 #		 | defcall'''
  
