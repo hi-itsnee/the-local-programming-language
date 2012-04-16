@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-03-30 18:00:17 plt>
+# Time-stamp:              <2012-04-15 20:57:18 plt>
 
 import ply.lex as lex
 #import decimal
@@ -12,7 +12,7 @@ DEBUG = False
 
 reserved = (
     'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT',
-    'EXIT'
+    'EXIT', 'APPEND', 'REMOVE', 'POP',
     # 'ELIF','READ', 'FOR', 'IN', 'WHILE',
     # 'CONTINUE', 'PASS', 'BREAK', 'RETURN', 'EXIT', 'DEF',
     # 'DIST',
