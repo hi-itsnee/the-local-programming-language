@@ -2,23 +2,21 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-02 16:56:12 plt>
+# Time-stamp:              <2012-04-15 21:24:52 plt>
 
 import ply.yacc as yacc
 import locallex
 from io_stmt import *
 from print_stmt import *
-#from list_statement import *
-#from except_statement import *
+#from except_stmt import *
 #from coord_stmt import *
-#from iter_statement import *
+#from iter_stmt import *
 from cond_stmt import *
 #from math_expr import *
 #from logic_expr import *
 from assign_stmt import *
-#from def_statement import *
+from def_stmt import *
 from exit_stmt import *
-#from expr_statement import *
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -66,12 +64,11 @@ def p_stmt(p):
             | assign_stmt
             | cond_stmt
             | print_stmt
-            | exit_stmt'''
+            | exit_stmt
+            | def_stmt'''
           # | print_stmt
           # | except_stmt
           # | iter_stmt
-          # | def_stmt
-               # '''
     p[0] = Node("statement", [p[1]])
 
 # Error handler. Return nothing.
