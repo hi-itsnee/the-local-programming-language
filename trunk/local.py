@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language compiler
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 11:45:49 plt>
+# Time-stamp:              <2012-04-18 17:48:31 plt>
 
 import argparse
 from localparse import parse
@@ -15,7 +15,7 @@ def main(filename, debug):
     if not ast:
         raise SystemExit
     # Walk the AST to produce target (Python) code
-    code = walk_the_tree(ast, debug).split("\n")
+    code = walk_the_tree(ast, debug=debug).split("\n")
     # One can go insane making newlines/empty lines perfect throughout the
     # compiler, or they can be stripped out here
     clean_code = [ ]
