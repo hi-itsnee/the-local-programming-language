@@ -2,37 +2,42 @@
 # Author:                  Team 13
 # Description:             The local programming language compiler
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 10:51:32 plt>
+# Time-stamp:              <2012-04-18 11:45:49 plt>
 
-import sys
+import argparse
 from localparse import parse
 from localast import walk_the_tree
 
-# Enable debugging
-DEBUG = True
-
-# Parse the input. There should be one argument: the program to compile.
-if len(sys.argv) == 2:
-    sourcecode = open(sys.argv[1]).read()
-    ast = parse(sourcecode, DEBUG)
+def main(filename, debug):
+    # Read the source file and build the AST
+    sourcecode = filename.read()
+    ast = parse(sourcecode, debug)
     if not ast:
         raise SystemExit
-else:
-    print "Usage: python local.py PROGNAME"
-    print "where PROGNAME = the program name"
-    exit(1)
+    # Walk the AST to produce target (Python) code
+    code = walk_the_tree(ast, debug).split("\n")
+    # One can go insane making newlines/empty lines perfect throughout the
+    # compiler, or they can be stripped out here
+    clean_code = [ ]
+    for line in code:
+        if not line.strip():
+            # Blank line
+            continue
+        else:
+            clean_code.append(line)
+    # Print file sans empty lines
+    print "\n".join(clean_code)
 
-# Walk the AST to produce target (Python) code
-code = walk_the_tree(ast, debug=DEBUG).split("\n")
-
-# One can go insane making newlines/empty lines perfect throughout the
-# compiler, or they can be stripped out here
-clean_code = [ ]
-for line in code:
-    if not line.strip():
-        # Blank line
-        continue
-    else:
-        clean_code.append(line)
-# Print file sans empty lines
-print "\n".join(clean_code)
+if __name__ == "__main__":
+    argparser = argparse.ArgumentParser(description='The local compiler.')
+    argparser.add_argument('filename', metavar='FILENAME',
+                           type=argparse.FileType('r'),
+                           help='the local sourcecode')
+    argparser.add_argument('-d', '--debug', action='store_true', dest='debug',
+                           default=False,
+                           help='enable debugging (default: False)')
+    try:
+        args = argparser.parse_args()
+        main(args.filename, args.debug)
+    except Exception as e:
+        argparser.error(str(e))
