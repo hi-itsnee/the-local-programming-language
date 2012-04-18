@@ -2,18 +2,18 @@
 # Author:                  Team 13
 # Description:             local parser I/O statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-01 21:06:38 plt>
+# Time-stamp:              <2012-04-18 10:35:30 plt>
 
 from localast import Node
-# Node(type, children=None, value=None, indent_next=False)
+# Node(type, children=None, value=None, line=None)
 
 def p_io_stmt(p):
-    '''io_stmt : open_statement'''
-    p[0] = Node("io_statement", [p[1]])
+    '''io_stmt : open_stmt'''
+    p[0] = Node("io_stmt", [p[1]])
 
-def p_open_statement(p):
-    '''open_statement : OPEN LPAREN STRING RPAREN SEMI
-                      | OPEN LPAREN STRING COMMA STRING RPAREN SEMI'''
+def p_open_stmt(p):
+    '''open_stmt : OPEN LPAREN STRING RPAREN SEMI
+                 | OPEN LPAREN STRING COMMA STRING RPAREN SEMI'''
     filename = p[3]
     if len(p) == 6:
         # Default is read (r)
