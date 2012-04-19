@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 17:43:06 plt>
+# Time-stamp:              <2012-04-18 21:01:19 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -33,7 +33,7 @@ def walk_the_tree(node, code="", debug=False):
     # Debugging to watch tree traversal
     if debug:
         print "#type: %s, value: %s" % (node.type, node.value)
-    # Certain statements require substatements to be indented
+    # Certain statements require substatements to be indented during the walk
     if node.type in indent_them:
         if node.type == 'if':
             # Walk tree to build expression
@@ -57,17 +57,17 @@ def walk_the_tree(node, code="", debug=False):
             for line in else_stmt:
                 else_stmt_i += " "*INDENT + line + "\n"
             code = "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
-    # Otherwise, just walk the tree
-    else:
-        for child in node.children:
-            code = walk_the_tree(child, code, debug)
     # If we need to synthesize a string, build a tuple from the subtree
-    if node.line:
+    elif node.line:
         values = ( )
         # Visit the children
         for child in node.children:
             values = values + (walk_the_tree(child, code, debug),)
         code = code + (node.line % values)
+    # Otherwise, just walk the tree
+    else:
+        for child in node.children:
+            code = walk_the_tree(child, code, debug)
     # Set the return value
     if node.value:
         code = node.value
