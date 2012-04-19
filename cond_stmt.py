@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language parser conditional statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 17:09:20 plt>
+# Time-stamp:              <2012-04-18 20:53:07 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -23,11 +23,11 @@ def p_if_stmt(p):
     p[0] = Node("if_stmt", [p[1]])
 
 def p_if_simple(p):
-    '''if_simple : IF expr_stmt stmt_list %prec IFX'''
+    '''if_simple : IF expr stmt_list %prec IFX'''
     p[0] = Node("if", [p[2], p[3]])
 
 def p_if_lbrace(p):
-    '''if_lbrace : IF expr_stmt LBRACE stmt_list RBRACE %prec IFX'''
+    '''if_lbrace : IF expr LBRACE stmt_list RBRACE %prec IFX'''
     p[0] = Node("if", [p[2], p[4]])
 
 # def p_if_simple_parens(p):
@@ -93,11 +93,11 @@ def p_if_else_stmt(p):
     p[0] = Node("if_else_stmt", [p[1]])
 
 def p_if_else_simple(p):
-    '''if_else_simple : IF expr_stmt stmt_list ELSE stmt_list'''
+    '''if_else_simple : IF expr stmt_list ELSE stmt_list'''
     p[0] = Node("else", [p[2], p[3], p[5]])
 
 def p_if_else_lbrace(p):
-    '''if_else_lbrace : IF expr_stmt LBRACE stmt_list RBRACE ELSE stmt_list'''
+    '''if_else_lbrace : IF expr LBRACE stmt_list RBRACE ELSE stmt_list'''
     p[0] = Node("else", [p[2], p[4], p[7]])
 
 # def p_else_rbrace(p):
