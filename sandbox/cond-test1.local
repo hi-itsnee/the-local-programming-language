@@ -1,4 +1,7 @@
+a = 1;
 if a
     print("a is true");
 else
     print("a is false");
+if b 
+    print("this should produce an error");
