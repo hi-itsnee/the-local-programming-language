@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 21:01:19 plt>
+# Time-stamp:              <2012-04-18 21:24:07 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -45,7 +45,7 @@ def walk_the_tree(node, code="", debug=False):
             for line in if_stmt:
                 if_stmt_i += " "*INDENT + line + "\n"
             # Construct the if statment
-            code = "if %s:\n%s" % (expr, if_stmt_i)
+            code += "if %s:\n%s" % (expr, if_stmt_i)
         if node.type == 'else':
             expr = walk_the_tree(node.children[0], debug)
             if_stmt = walk_the_tree(node.children[1], debug).split("\n")
@@ -56,14 +56,14 @@ def walk_the_tree(node, code="", debug=False):
                 if_stmt_i += " "*INDENT + line + "\n"
             for line in else_stmt:
                 else_stmt_i += " "*INDENT + line + "\n"
-            code = "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
+            code += "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
     # If we need to synthesize a string, build a tuple from the subtree
     elif node.line:
         values = ( )
         # Visit the children
         for child in node.children:
             values = values + (walk_the_tree(child, code, debug),)
-        code = code + (node.line % values)
+        code += (node.line % values)
     # Otherwise, just walk the tree
     else:
         for child in node.children:
