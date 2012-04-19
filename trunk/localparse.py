@@ -84,7 +84,7 @@ def p_error(p):
 # The PLY parser (internally runs the lexer)
 lparser = yacc.yacc()
 
-def parse(data, debug):
+def parse(data, debug=False):
     lparser.error = 0
     p = lparser.parse(data, debug=debug) # The AST
     if lparser.error:

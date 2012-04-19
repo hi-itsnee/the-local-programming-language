@@ -28,6 +28,17 @@ def main(filename, debug):
     # Print file sans empty lines
     print "\n".join(clean_code)
 
+def tester(testinput):
+    ast_test = parse(testinput)
+    code = walk_the_tree(ast_test).split("\n")
+    clean_code = [ ]
+    for line in code:
+        if not line.strip():
+            continue
+        else:
+            clean_code.append(line)
+    return "\n".join(clean_code)
+
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(description='The local compiler.')
     argparser.add_argument('filename', metavar='FILENAME',
