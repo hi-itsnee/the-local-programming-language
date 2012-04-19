@@ -26,12 +26,12 @@ You can then run hello.py with Python.
 ------------------------------------------
 To compile a working copy of our code for testing, do the following steps:
 1. Create your new file, e.g. assign_statement.py
-2. Create a local program to test your statement, e.g. test/checkassign.local
+2. Create a local program to test your statement, e.g. sandbox/checkassign.local
 3. Test the program compilation with the following (adjust for your statement):
-    python local.py test/checkassign.local
+    python local.py sandbox/checkassign.local
 4. Redirect the program output with the following (adjust for your statement):
-    python local.py test/checkassign.local > test/checkassign.py
+    python local.py sandbox/checkassign.local > sandbox/checkassign.py
 5. Run the test output:
-    python test/checkassign.py
+    python sandbox/checkassign.py
 
 ** 'Testing' folder is for automated testing as per our test plan. 'Test' folder is for stim testing by individual team members.
