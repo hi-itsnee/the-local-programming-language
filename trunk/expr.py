@@ -2,47 +2,48 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-19 23:25:01 plt>
+# Time-stamp:            <2012-04-20 14:33:14 plt>
 
 from localast import Node
-from localast import var_names
-#from relop_expr import *
-#from defcall import *
-
-def p_expr(p):
-    '''expr : atom
-            | math_expr
-            | logic_expr'''
-#           | relop_expr
-#           | defcall'''
-    p[0] = Node("expression", [p[1]])
 
 def p_atom(p):
-    '''atom : variable
-            | number
-            | boolean
+    '''atom : ID
+            | NUMBER
+            | BOOL
             | NULL
             | STRING'''
 #           | COORD'''
-    p[0] = Node("atom", [p[1]])
+    p[0] = Node("atom", None, p[1])
 
-def p_variable(p):
-    '''variable : ID'''
-    if not var_names.has_key(p[1]):
-        print "Undefined variable", p[1], "in line", p.lineno(1)
-        p[0] = None
-        p.parser.error = 1
-    else:
-        p[0] = Node("variable", None, p[1])
-
-def p_number(p):
-    '''number : NUMBER'''
-    p[0] = Node("number", None, p[1])
-
-def p_boolean(p):
-    '''boolean : BOOL'''
-    if p[1] == 'true':
-        value = 'True'
-    if p[1] == 'false':
-        value = 'False'
-    p[0] = Node("boolean", None, value)
+def p_expr(p):
+    '''expr : expr PLUS expr
+            | expr MINUS expr
+            | expr TIMES expr
+            | expr DIVIDE expr
+            | expr POWER expr
+            | expr OR expr
+            | expr AND expr
+            | NOT expr
+            | LPAREN expr RPAREN
+            | atom'''
+    # ATOM
+    if len(p) == 2:
+        p[0] = Node("expr", [p[1]])
+    # BINOP or parenthesis
+    elif len(p) == 4:
+        if p[2] == '+':
+            p[0] = Node("add", [p[1], p[3]], None, "%s + %s")
+        elif p[2] == '-':
+            p[0] = Node("subract", [p[1], p[3]], None, "%s - %s")
+        elif p[2] == '*':
+            p[0] = Node("multiply", [p[1], p[3]], None, "%s * %s")
+        elif p[2] == '/':
+            p[0] = Node("divide", [p[1], p[3]], None, "%s / %s")
+        elif p[2] == '^':
+            p[0] = Node("exponent", [p[1], p[3]], None, "%s ^ %s")
+        # Parenthesis
+        else:
+            p[0] = Node("parens", [p[2]], None, "(%s)")
+    # NOT
+    elif len(p) == 3:
+        p[0] = Node("not", [p[2]], None, "not %s")
