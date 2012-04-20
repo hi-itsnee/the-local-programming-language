@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 14:37:27 plt>
+# Time-stamp:              <2012-04-20 14:45:37 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -16,6 +16,7 @@ from assign_stmt import *
 from def_stmt import *
 from exit_stmt import *
 from expr import *
+from list_funcn import *
 from localast import Node
 # Node(type, children=None, value=None, line=None)
 
@@ -63,7 +64,8 @@ def p_stmt(p):
             | cond_stmt
             | print_stmt
             | exit_stmt
-            | def_stmt'''
+            | def_stmt
+            | list_funcn'''
           # | except_stmt
           # | iter_stmt
     p[0] = Node("statement", [p[1]])
