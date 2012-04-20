@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 15:51:31 plt>
+# Time-stamp:              <2012-04-20 18:08:40 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -33,12 +33,13 @@ start = 'program'
 precedence = (
     ('nonassoc', 'IFX'),
     ('nonassoc', 'ELSE'),
-    ('left', 'AND','OR'),
+    ('left', 'OR'),
+    ('left', 'AND'),
     ('right','NOT'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE', 'MODULO'),
-    ('left','POWER')
-    # ('right','UMINUS')
+    ('left','POWER'),
+    ('right','UMINUS')
     )
 
 def p_program(p):
