@@ -1,9 +1,10 @@
+a = true;
+b = false;
 if a {
     print("a is true");
     if b
         print("made it here");
     else
         print("made it there");
-}
-else
+} else
     print("a is false");
