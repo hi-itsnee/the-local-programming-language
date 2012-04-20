@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 12:41:04 plt>
+# Time-stamp:              <2012-04-20 16:57:28 plt>
 
 import ply.lex as lex
 #import decimal
@@ -14,15 +14,15 @@ reserved = (
     'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT',
     'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS',
     # 'ELIF','READ', 'FOR', 'IN', 'WHILE',
-    # 'CONTINUE', 'BREAK', 'RETURN', 'EXIT',
+    # 'CONTINUE', 'BREAK', 'RETURN',
     # 'DIST',
     )
 
 tokens = reserved + (
     # Operators and assignment
     'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-     'POWER',
-    # 'MODULO','LT', 'LE', 'GT', 'GE', 'NE',
+    'POWER', 'MODULO',
+    # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
@@ -55,7 +55,7 @@ t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
 t_DIVIDE           = r'/'
-#t_MODULO           = r'\%'
+t_MODULO           = r'\%'
 t_POWER            = r'\^'
 t_OR               = r'or'
 t_AND              = r'and'
@@ -112,9 +112,8 @@ def t_STRING(t):
 
 # Comments
 def t_comment(t):
-#    r'/\*(.|\n)*?\*/'
-    r'\'\'\'(.|\n)*\'\'\''
-    t.lexer.lineno += t.value.count('\n')
+    r"\'\'\'(.|\n)*?\'\'\'|//(.)*?\n"
+    t.lexer.lineno += t.value.count("\n")
 
 # Lexical errors
 def t_error(t):

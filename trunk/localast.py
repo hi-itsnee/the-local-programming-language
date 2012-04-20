@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-19 22:00:58 plt>
+# Time-stamp:              <2012-04-20 17:27:46 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -71,22 +71,31 @@ def walk_the_tree(node, code="", debug=False):
     # Debugging to watch tree traversal
     if debug:
         print "#type: %s, value: %s" % (node.type, node.value)
-    # Certain statements require substatements to be indented during the walk
-    if node.type in indent_them:
-        code += _indent_subtree(node, code, debug)
-    # If we need to synthesize a string, build a tuple from the subtree
-    elif node.line:
-        values = ( )
-        # Visit the children
-        for child in node.children:
-            values = values + (walk_the_tree(child, code, debug),)
-        code += (node.line % values)
-    # Otherwise, just walk the tree
+    # For nodes with children
+    if node.children:
+        # Certain statements require substatements to be indented
+        if node.type in indent_them:
+            code += _indent_subtree(node, code, debug)
+        # Assignments needs their right side synthesized
+        elif node.type == "assign":
+            rhs = walk_the_tree(node.children[0], code, debug)
+            assmnt = node.value + " = " + rhs + "\n"
+            code += assmnt
+        # If we need to synthesize a string, build a tuple from the subtree
+        elif node.line:
+            values = ( )
+            # Visit the children
+            for child in node.children:
+                values += (walk_the_tree(child, code, debug),)
+            line = (node.line % values)
+            # We're building a line here, not appending to target code
+            code = line
+        # Otherwise, just walk the tree
+        else:
+            for child in node.children:
+                code = walk_the_tree(child, code, debug)
+    # Otherwise is a leaf node (must have a value)
     else:
-        for child in node.children:
-            code = walk_the_tree(child, code, debug)
-    # Set the return value
-    if node.value:
         code = node.value
     # Return statement for the function. Builds target code in order
     return code
