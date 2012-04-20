@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-15 20:57:18 plt>
+# Time-stamp:              <2012-04-19 22:14:44 plt>
 
 import ply.lex as lex
 #import decimal
@@ -29,7 +29,7 @@ tokens = reserved + (
     # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
 
     # Literals
-    'ID', 'STRING', 'NUMBER', 'BOOL',
+    'ID', 'STRING', 'NUMBER', 'BOOL', 'NULL',
     )
 
 t_ignore = ' \t'
@@ -45,6 +45,10 @@ def t_NUMBER(t):
 def t_BOOL(t):
    r'true|false'
    return t
+
+def t_NULL(t):
+    r'null'
+    return t
 
 # Operators
 t_PLUS             = r'\+'

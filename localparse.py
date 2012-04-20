@@ -2,22 +2,22 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 20:59:01 plt>
+# Time-stamp:              <2012-04-19 23:10:14 plt>
 
 import ply.yacc as yacc
 import locallex
-from expr import *
 from io_stmt import *
 from print_stmt import *
 #from except_stmt import *
 #from coord_stmt import *
 #from iter_stmt import *
 from cond_stmt import *
-#from math_expr import *
-#from logic_expr import *
 from assign_stmt import *
 from def_stmt import *
 from exit_stmt import *
+from expr import *
+from math_expr import *
+from logic_expr import *
 from localast import Node
 # Node(type, children=None, value=None, line=None)
 
