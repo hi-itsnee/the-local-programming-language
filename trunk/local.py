@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language compiler
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 17:48:31 plt>
+# Time-stamp:              <2012-04-19 22:44:31 plt>
 
 import argparse
 from localparse import parse
@@ -13,7 +13,8 @@ def main(filename, debug):
     sourcecode = filename.read()
     ast = parse(sourcecode, debug)
     if not ast:
-        raise SystemExit
+        print "Error compiling"
+        exit(1)
     # Walk the AST to produce target (Python) code
     code = walk_the_tree(ast, debug=debug).split("\n")
     # One can go insane making newlines/empty lines perfect throughout the

@@ -2,13 +2,16 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 21:57:47 plt>
+# Time-stamp:              <2012-04-19 22:00:58 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
 
 # Indent your children if you are one of these statements
 indent_them = ('if', 'elif', 'else', 'for', 'while', 'def', 'try', 'except')
+
+# For variable declaration (this only works for global)
+var_names = {}
 
 class Node:
     '''Node class for the AST'''
@@ -26,7 +29,7 @@ class Node:
         self.line = line
 
 def _if_subtree(node, code, debug):
-    '''For indenting if code blocks'''
+    '''For indenting IF code blocks'''
     # Walk tree to build expression
     expr = walk_the_tree(node.children[0], code, debug)
     # Walk tree to build statement and split statement on newlines
@@ -39,7 +42,7 @@ def _if_subtree(node, code, debug):
     return "if %s:\n%s" % (expr, if_stmt_i)
 
 def _else_subtree(node, code, debug):
-    '''For indenting if/else code blocks'''
+    '''For indenting IF/ELSE code blocks'''
     expr = walk_the_tree(node.children[0], code, debug)
     if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     else_stmt = walk_the_tree(node.children[2], code, debug).split("\n")
