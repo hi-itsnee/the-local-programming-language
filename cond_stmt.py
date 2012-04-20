@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language parser conditional statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-18 20:53:07 plt>
+# Time-stamp:              <2012-04-19 23:56:58 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -17,9 +17,7 @@ def p_cond_stmt(p):
 # IF
 def p_if_stmt(p):
     '''if_stmt : if_simple
-               | if_lbrace'''
-                    # | if_simple_parens
-                    # | if_lbrace_parens'''
+               | if_brace'''
     p[0] = Node("if_stmt", [p[1]])
 
 def p_if_simple(p):
@@ -27,17 +25,8 @@ def p_if_simple(p):
     p[0] = Node("if", [p[2], p[3]])
 
 def p_if_lbrace(p):
-    '''if_lbrace : IF expr LBRACE stmt_list RBRACE %prec IFX'''
+    '''if_brace : IF expr LBRACE stmt_list RBRACE %prec IFX'''
     p[0] = Node("if", [p[2], p[4]])
-
-# def p_if_simple_parens(p):
-#     '''if_simple_parens : IF LPAREN expression RPAREN statement_list'''
-#     p[0] = Node("if", [p[3]], p[2], True, True)
-
-# def p_if_lbrace_parens(p):
-#     '''if_lbrace_parens : IF LPAREN expression RPAREN LBRACE statement_list'''
-#     p[0] = Node("if", [p[4]], p[2], True, True)
-
 
 # # ELIF
 # def p_elif_statement(p):
@@ -87,23 +76,23 @@ def p_if_lbrace(p):
 # ELSE
 def p_if_else_stmt(p):
     '''if_else_stmt : if_else_simple
-                    | if_else_lbrace'''
-#                       | else_rbrace
-#                       | else_rlbrace'''
+                    | if_brace_else
+                    | if_else_brace
+                    | ifelse_braces'''
     p[0] = Node("if_else_stmt", [p[1]])
 
 def p_if_else_simple(p):
     '''if_else_simple : IF expr stmt_list ELSE stmt_list'''
     p[0] = Node("else", [p[2], p[3], p[5]])
 
-def p_if_else_lbrace(p):
-    '''if_else_lbrace : IF expr LBRACE stmt_list RBRACE ELSE stmt_list'''
+def p_if_brace_else(p):
+    '''if_brace_else : IF expr LBRACE stmt_list RBRACE ELSE stmt_list'''
     p[0] = Node("else", [p[2], p[4], p[7]])
 
-# def p_else_rbrace(p):
-#     '''else_rbrace : RBRACE ELSE statement_list'''
-#     p[0] = Node("else", [p[3]])
+def p_if_else_brace(p):
+    '''if_else_brace : IF expr stmt_list ELSE LBRACE stmt_list RBRACE'''
+    p[0] = Node("else", [p[2], p[3], p[6]])
 
-# def p_else_rlbrace(p):
-#     '''else_rlbrace : RBRACE ELSE LBRACE statement_list'''
-#     p[0] = Node("else", [p[4]])
+def p_ifelse_braces(p):
+    '''ifelse_braces : IF expr RBRACE stmt_list RBRACE ELSE LBRACE stmt_list'''
+    p[0] = Node("else", [p[2], p[4], p[8]])
