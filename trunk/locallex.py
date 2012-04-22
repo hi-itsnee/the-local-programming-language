@@ -5,6 +5,7 @@
 # Time-stamp:              <2012-04-20 16:57:28 plt>
 
 import ply.lex as lex
+import re as tre
 #import decimal
 
 # Enable/disable debugging
@@ -29,7 +30,7 @@ tokens = reserved + (
     # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
 
     # Literals
-    'ID', 'STRING', 'NUMBER', 'BOOL', 'NULL',
+    'ID','COORD', 'STRING', 'NUMBER', 'BOOL','NULL'
     )
 
 t_ignore = ' \t'
@@ -37,6 +38,28 @@ t_ignore = ' \t'
 def t_NEWLINE(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
+
+def t_COORD(t):
+   r'[+-]?\d+\.\d+,[+-]?\d+\.\d+'
+   #split the string into two parts - lat and long - and make that a list
+   m = str(t.value)
+   print m
+   print "===================>"
+   mo = tre.search('(?P<lat>[+-]?\d+\.\d+),(?P<longi>[+-]?\d+\.\d+)', m)
+   mw = []
+   mw.append( mo.group('lat'))
+   mw.append( mo.group('longi'))
+#  print mw
+   #ms = str(m)
+   #mw = list.append(tre.split('[+-]?\d+\.\d+', m, 2))
+#   print t.type
+#   t.type = tuple
+#  print "boo"
+#   print t.type
+#   t.value = list([]) 
+#   print t.value
+   t.value = str(mw)
+   return t
 
 def t_NUMBER(t):
     r'(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?'
@@ -47,8 +70,8 @@ def t_BOOL(t):
    return t
 
 def t_NULL(t):
-    r'null'
-    return t
+   r'null'
+   return None
 
 # Operators
 t_PLUS             = r'\+'
