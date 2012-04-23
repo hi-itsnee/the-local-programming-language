@@ -55,11 +55,12 @@ def p_atom(p):
             | NUMBER
             | BOOL
             | NULL
-	    | LPAREN COORD RPAREN
+            | COORD
             | STRING'''
 #           | LIST'''
 #           | COORD
-    if len(p) == 2:
-        p[0] = Node("atom", None, p[1])
-    else:
-        p[0] = Node("atom",None,p[2])
+#	    | LPAREN COORD RPAREN
+#    if len(p) == 2:
+    p[0] = Node("atom", None, p[1])
+#    else:
+#        p[0] = Node("atom",None,p[2])
