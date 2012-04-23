@@ -40,7 +40,7 @@ def t_NEWLINE(t):
     t.lexer.lineno += t.value.count("\n")
 
 def t_COORD(t):
-   r'([+-]?\d+\.\d+,[+-]?\d+\.\d+)'
+   r'\([+-]?\d+\.\d+,[+-]?\d+\.\d+\)'
    #split the string into two parts - lat and long - and make that a list
    m = str(t.value)
    print m
