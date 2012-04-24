@@ -2,11 +2,10 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 10:56:09 plt>
+# Time-stamp:              <2012-04-24 11:46:47 plt>
 
 import ply.lex as lex
-import re as tre
-#import decimal
+import re
 
 # Enable/disable debugging
 DEBUG = False
@@ -26,10 +25,10 @@ tokens = reserved + (
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
-    # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
+    # 'LBRACKET', 'RBRACKET',
 
     # Literals
-    'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL'
+    'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL', 'LIST'
     )
 
 t_ignore = ' \t'
@@ -39,26 +38,19 @@ def t_NEWLINE(t):
     t.lexer.lineno += t.value.count("\n")
 
 def t_COORD(t):
-   r'\([+-]?\d+\.\d+,[+-]?\d+\.\d+\)'
-   #split the string into two parts - lat and long - and make that a list
-   m = str(t.value)
-#   print m
-#   print "===================>"
-   mo = tre.search('(?P<lat>[+-]?\d+\.\d+),(?P<longi>[+-]?\d+\.\d+)', m)
-   mw = []
-   mw.append( mo.group('lat'))
-   mw.append( mo.group('longi'))
-#  print mw
-   #ms = str(m)
-   #mw = list.append(tre.split('[+-]?\d+\.\d+', m, 2))
-#   print t.type
-#   t.type = tuple
-#  print "boo"
-#   print t.type
-#   t.value = list([]) 
-#   print t.value
-   t.value = str(mw)
-   return t
+    r'\(\s*[+-]?\d+\.\d+\s*,\s*[+-]?\d+\.\d+\s*\)'
+    #split the string into two parts - lat and long - and make that a list
+    m = str(t.value)
+    mo = re.search('(?P<lat>[+-]?\d+\.\d+),(?P<longi>[+-]?\d+\.\d+)', m)
+    mw = []
+    mw.append(mo.group('lat'))
+    mw.append(mo.group('longi'))
+    t.value = str(mw)
+    return t
+
+def t_LIST(t):
+    r'\[.+,.*\]'
+    return t
 
 def t_NUMBER(t):
     r'(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?'
@@ -66,11 +58,16 @@ def t_NUMBER(t):
 
 def t_BOOL(t):
    r'true|false'
+   if t.value == "true":
+       t.value = "True"
+   elif t.value == "false":
+       t.value = "False"
    return t
 
 def t_NULL(t):
    r'null'
-   return "None"
+   t.value = "None"
+   return t
 
 # Operators
 t_PLUS             = r'\+'
@@ -111,10 +108,7 @@ t_RPAREN           = r'\)'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
-#t_COLON            = r':'
-# t_PERIOD           = r'\.'
 t_SEMI             = r';'
-#t_DQUOTE           = r'\"'
 
 # Identifiers and reserved words
 reserved_map = { }
