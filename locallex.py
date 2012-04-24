@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 15:41:59 plt>
+# Time-stamp:              <2012-04-24 15:58:56 plt>
 
 import ply.lex as lex
 import re
@@ -22,8 +22,7 @@ tokens = reserved + (
     # Operators and assignment
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER', 'MODULO',
     'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
-    'ANDEQUAL', 'OREQUAL',
-    # 'LT', 'LE', 'GT', 'GE', 'NE',
+    'ANDEQUAL', 'OREQUAL', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
@@ -88,11 +87,12 @@ t_POWER            = r'\^'
 t_OR               = r'or'
 t_AND              = r'and'
 t_NOT              = r'not'
-# t_GT               = r'>'
-# t_LE               = r'<='
-# t_GE               = r'>='
-# t_EQ               = r'=='
-# t_NE               = r'!='
+t_LT               = r'<'
+t_LE               = r'<='
+t_GT               = r'>'
+t_GE               = r'>='
+t_EQ               = r'=='
+t_NE               = r'!='
 
 # Assignment operators
 t_EQUALS           = r'='

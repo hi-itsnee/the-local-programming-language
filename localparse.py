@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 13:30:42 plt>
+# Time-stamp:              <2012-04-24 15:58:03 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -24,9 +24,6 @@ from atom import *
 from localast import Node
 # Node(type, children=None, value=None, line=None)
 
-# Enable/disable debugging
-DEBUG = False
-
 # The tokens from our lexer
 tokens = locallex.tokens
 
@@ -37,6 +34,9 @@ start = 'program'
 precedence = (
     ('nonassoc', 'IFX'),
     ('nonassoc', 'ELSE'),
+    ('left', 'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL',
+     'MINUSEQUAL', 'ANDEQUAL', 'OREQUAL'),
+    ('left', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE'),
     ('left', 'OR'),
     ('left', 'AND'),
     ('right','NOT'),
