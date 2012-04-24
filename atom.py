@@ -12,9 +12,6 @@ def p_atom(p):
             | BOOL
             | NULL
             | COORD
-            | STRING'''
-#           | LIST'''
-#    if len(p) == 2:
+            | STRING
+            | LIST'''
     p[0] = Node("atom", None, p[1])
-#    else:
-#        p[0] = Node("atom",None,p[2])
