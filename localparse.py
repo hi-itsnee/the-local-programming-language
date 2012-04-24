@@ -8,15 +8,17 @@ import ply.yacc as yacc
 import locallex
 from io_stmt import *
 from print_stmt import *
-#from except_stmt import *
+from except_stmt import *
 #from coord_stmt import *
-#from iter_stmt import *
 from cond_stmt import *
 from assign_stmt import *
 from def_stmt import *
 from exit_stmt import *
+from iter_stmt import *
 from expr import *
+from jump_stmt import *
 from list_funcn import *
+
 from localast import Node
 # Node(type, children=None, value=None, line=None)
 
@@ -65,9 +67,10 @@ def p_stmt(p):
             | print_stmt
             | exit_stmt
             | def_stmt
-            | list_funcn'''
-          # | except_stmt
-          # | iter_stmt
+            | iter_stmt
+            | jump_stmt
+            | list_funcn
+            | except_stmt'''
     p[0] = Node("statement", [p[1]])
 
 # Error handler. Return nothing.
