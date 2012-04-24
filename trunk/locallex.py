@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 15:22:58 plt>
+# Time-stamp:              <2012-04-24 15:41:59 plt>
 
 import ply.lex as lex
 import re
@@ -20,9 +20,9 @@ reserved = (
 
 tokens = reserved + (
     # Operators and assignment
-    'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'POWER', 'MODULO', 'TIMESEQUAL', 'DIVEQUAL',
-    'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL', 'ANDEQUAL', 'OREQUAL',
+    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER', 'MODULO',
+    'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
+    'ANDEQUAL', 'OREQUAL',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -30,9 +30,10 @@ tokens = reserved + (
     # 'LBRACKET', 'RBRACKET',
 
     # Literals
-    'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL', 'LIST'
+    'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL', 'LIST',
     )
 
+# Ignore whitespace
 t_ignore = ' \t'
 
 def t_NEWLINE(t):
@@ -51,8 +52,7 @@ def t_COORD(t):
     return t
 
 def t_LIST(t):
-    r'\[.+(,\s*\w+)*\]'
-    # This RE must be fixed to fail on trailing commas
+    r'\[\s*\]|\[\s*\w+\s*(,\s*\w+\s*)*\]'
     t.value = t.value.strip('[]')
     t.value = t.value.split(',')
     tmp = [ ]
@@ -132,7 +132,7 @@ def t_ID(t):
 # Strings (double-quoted)
 def t_STRING(t):
     r'\"([^\\\n]|(\\.))*?\"'
-    t.value=t.value[1:-1].decode("string-escape")
+    t.value = t.value[1:-1].decode("string-escape")
     return t
 
 # Comments
