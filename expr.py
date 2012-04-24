@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-24 10:50:07 plt>
+# Time-stamp:            <2012-04-24 11:35:48 plt>
 
 from localast import Node
 
@@ -19,7 +19,8 @@ def p_expr(p):
             | NOT expr
             | MINUS expr %prec UMINUS
             | atom
-            | coord_fn'''
+            | coord_fn
+            | list_fn'''
     # BINOP or parenthesis
     if len(p) == 4:
         if p[2] == '+':
@@ -50,16 +51,3 @@ def p_expr(p):
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])
-
-def p_atom(p):
-    '''atom : ID
-            | NUMBER
-            | BOOL
-            | NULL
-            | COORD
-            | STRING'''
-#           | LIST'''
-#    if len(p) == 2:
-    p[0] = Node("atom", None, p[1])
-#    else:
-#        p[0] = Node("atom",None,p[2])
