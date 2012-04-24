@@ -75,7 +75,7 @@ def _for_subtree(node, code, debug):
     for_stmt_indented = ""
     for line in for_stmtchild:
         for_stmt_indented += " "*INDENT + line + "\n"
-    return "for %s in %s:\n %s" % (node.value, for_atomchild, for_stmt_indented)
+    return "for %s in %s:\n%s" % (node.value, for_atomchild, for_stmt_indented)
 
 def _while_subtree(node, code, debug):
     '''For indenting While loop block'''
