@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-24 11:35:48 plt>
+# Time-stamp:            <2012-04-24 13:31:07 plt>
 
 from localast import Node
 
@@ -20,7 +20,8 @@ def p_expr(p):
             | MINUS expr %prec UMINUS
             | atom
             | coord_fn
-            | list_fn'''
+            | list_fn
+            | str_fn'''
     # BINOP or parenthesis
     if len(p) == 4:
         if p[2] == '+':
