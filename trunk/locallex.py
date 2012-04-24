@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 16:57:28 plt>
+# Time-stamp:              <2012-04-24 10:56:09 plt>
 
 import ply.lex as lex
 import re as tre
@@ -12,14 +12,10 @@ import re as tre
 DEBUG = False
 
 reserved = (
-
     'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT', 'WHILE',
     'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
-    'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 
-
-    # 'ELIF','READ', 'FOR', 'IN', 'WHILE',
-    # 'CONTINUE', 'BREAK', 'RETURN',
-    # 'DIST',
+    'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 'DIST', 'CONVERTDIST',
+    # 'ELIF','READ',
     )
 
 tokens = reserved + (
@@ -33,7 +29,7 @@ tokens = reserved + (
     # 'PERIOD', 'LBRACKET', 'RBRACKET', 'DQUOTE',
 
     # Literals
-    'ID','COORD', 'STRING', 'NUMBER', 'BOOL','NULL'
+    'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL'
     )
 
 t_ignore = ' \t'
@@ -74,7 +70,7 @@ def t_BOOL(t):
 
 def t_NULL(t):
    r'null'
-   return None
+   return "None"
 
 # Operators
 t_PLUS             = r'\+'
