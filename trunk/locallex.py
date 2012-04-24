@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 12:45:56 plt>
+# Time-stamp:              <2012-04-24 15:22:58 plt>
 
 import ply.lex as lex
 import re
@@ -21,7 +21,8 @@ reserved = (
 tokens = reserved + (
     # Operators and assignment
     'EQUALS', 'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
-    'POWER', 'MODULO',
+    'POWER', 'MODULO', 'TIMESEQUAL', 'DIVEQUAL',
+    'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL', 'ANDEQUAL', 'OREQUAL',
     # 'LT', 'LE', 'GT', 'GE', 'NE',
 
     # Delimeters
@@ -40,7 +41,7 @@ def t_NEWLINE(t):
 
 def t_COORD(t):
     r'\(\s*[+-]?\d+\.\d+\s*,\s*[+-]?\d+\.\d+\s*\)'
-    #split the string into two parts - lat and long - and make that a list
+    #split the string into two parts - lat and long - and make that a tuple
     m = str(t.value)
     mo = re.search('(?P<lat>[+-]?\d+\.\d+)\s*,\s*(?P<longi>[+-]?\d+\.\d+)', m)
     mw = ( )
@@ -95,14 +96,13 @@ t_NOT              = r'not'
 
 # Assignment operators
 t_EQUALS           = r'='
-# t_TIMESEQUAL       = r'\*='
-# t_DIVEQUAL         = r'/='
-# t_MODEQUAL         = r'%='
-# t_PLUSEQUAL        = r'\+='
-# t_MINUSEQUAL       = r'-='
-# t_ANDEQUAL         = r'&='
-# t_OREQUAL          = r'\|='
-# t_XOREQUAL         = r'^='
+t_TIMESEQUAL       = r'\*='
+t_DIVEQUAL         = r'/='
+t_MODEQUAL         = r'%='
+t_PLUSEQUAL        = r'\+='
+t_MINUSEQUAL       = r'-='
+t_ANDEQUAL         = r'and='
+t_OREQUAL          = r'or='
 
 # Increment/decrement
 # t_PLUSPLUS         = r'\+\+'
