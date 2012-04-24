@@ -2,15 +2,14 @@
 # Author:                  Team 13
 # Description:             local parser I/O statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 12:53:41 plt>
+# Time-stamp:              <2012-04-24 13:13:46 plt>
 
 from localast import Node
-from print_statement import *
 # Node(type, children=None, value=None, line=None)
 
 def p_io_stmt(p):
     '''io_stmt : open_stmt
-               | print_statement'''
+               | print_stmt'''
     p[0] = Node("io_stmt", [p[1]])
 
 def p_open_stmt(p):
