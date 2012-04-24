@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 11:51:43 plt>
+# Time-stamp:              <2012-04-24 12:45:56 plt>
 
 import ply.lex as lex
 import re
@@ -39,18 +39,25 @@ def t_NEWLINE(t):
     t.lexer.lineno += t.value.count("\n")
 
 def t_COORD(t):
-    r'\(\s*[+-]?\d+\.\d+\s*,\s*[+-]?\d+\.\d+\)'
+    r'\(\s*[+-]?\d+\.\d+\s*,\s*[+-]?\d+\.\d+\s*\)'
     #split the string into two parts - lat and long - and make that a list
     m = str(t.value)
     mo = re.search('(?P<lat>[+-]?\d+\.\d+)\s*,\s*(?P<longi>[+-]?\d+\.\d+)', m)
-    mw = []
-    mw.append(mo.group('lat'))
-    mw.append(mo.group('longi'))
+    mw = ( )
+    mw += (float(mo.group('lat')),)
+    mw += (float(mo.group('longi')),)
     t.value = str(mw)
     return t
 
 def t_LIST(t):
-    r'\[.+,.*\]'
+    r'\[.+(,\s*\w+)*\]'
+    # This RE must be fixed to fail on trailing commas
+    t.value = t.value.strip('[]')
+    t.value = t.value.split(',')
+    tmp = [ ]
+    for v in t.value:
+        tmp.append(v.strip())
+    t.value = str(tmp)
     return t
 
 def t_NUMBER(t):
