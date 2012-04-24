@@ -103,7 +103,17 @@ def _except_subtree(node, code, debug):
         except_catchchild_indented += " "*INDENT + line + "\n"
     print except_catch_child 
     return "try:\n%s\nexcept %s:\n%s" % (except_trychild_indented, node.value, except_catchchild_indented)
+
+def _format_subtree(node, code, debug):
+    format_print_statement_child = walk_the_tree(node.children[0], code, debug)
+    return "%s %% (%s)" % (node.value, format_print_statement_child)
+
  
+def _print_subtree(node, code, debug):
+    if node.children:
+        print_child = "%s,\"%s\"" % (walk_the_tree(node.children[0], code, debug), node.value)
+    return "%s" % print_child
+
 
 def _indent_subtree(node, code, debug):
     '''For indenting statements'''
@@ -153,6 +163,10 @@ def walk_the_tree(node, code="", debug=False):
             code += assmnt
         elif node.type == "arglist":
             code += _indent_subtree(node, code, debug)
+        elif node.type == "format_print_statement":
+            code += _format_subtree(node, code, debug)
+        elif node.type == "format_statement":
+            code += _print_subtree(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )
@@ -168,6 +182,9 @@ def walk_the_tree(node, code="", debug=False):
                 code = walk_the_tree(child, code, debug)
     # Otherwise is a leaf node (must have a value)
     else:
-        code = node.value
+        if node.type == "format_statement":
+            code = "\"" + node.value + "\""
+        else:    
+            code = node.value
     # Return statement for the function. Builds target code in order
     return code
