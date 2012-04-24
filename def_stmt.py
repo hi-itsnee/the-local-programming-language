@@ -1,12 +1,14 @@
-# Filename:                except_statement.py
-# Author:                  Team 13
-# Description:             local language parser exception statements
-# Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 14:41:57 plt>
-
 from localast import Node
-# Node(type, children=None, value=None, line=None)
 
-def p_def_stmt(p):
-    '''def_stmt : DEF ID LPAREN atom RPAREN LBRACE stmt_list RBRACE
-                | DEF ID LPAREN atom RPAREN LBRACE PASS SEMI RBRACE'''
+def p_def(p):
+    '''def_stmt : DEF ID LPAREN arglist RPAREN LBRACE stmt_list RBRACE'''
+    p[0] = Node("def", [p[4], p[7]], p[2])
+
+def p_arglist(p):
+    '''arglist : arglist COMMA ID
+               | ID'''
+    if len(p) !=2: 
+        p[0] = Node("arglist", [p[1]], p[3])
+    else:
+        p[0] = Node("arglist", None, p[1])
+
