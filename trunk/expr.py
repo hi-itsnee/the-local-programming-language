@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-24 13:31:07 plt>
+# Time-stamp:            <2012-04-24 15:59:53 plt>
 
 from localast import Node
 
@@ -15,8 +15,14 @@ def p_expr(p):
             | expr POWER expr
             | expr OR expr
             | expr AND expr
+            | expr LT expr
+            | expr LE expr
+            | expr GT expr
+            | expr GE expr
+            | expr EQ expr
+            | expr NE expr
             | LPAREN expr RPAREN
-            | NOT expr
+            | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
             | coord_fn
@@ -40,6 +46,18 @@ def p_expr(p):
             p[0] = Node("or", [p[1], p[3]], None, "%s or %s")
         elif p[2] == 'and':
             p[0] = Node("and", [p[1], p[3]], None, "%s and %s")
+        elif p[2] == '<':
+            p[0] = Node("lt", [p[1], p[3]], None, "%s < %s")
+        elif p[2] == '<=':
+            p[0] = Node("le", [p[1], p[3]], None, "%s <= %s")
+        elif p[2] == '>':
+            p[0] = Node("gt", [p[1], p[3]], None, "%s > %s")
+        elif p[2] == '>=':
+            p[0] = Node("ge", [p[1], p[3]], None, "%s >= %s")
+        elif p[2] == '==':
+            p[0] = Node("eq", [p[1], p[3]], None, "%s == %s")
+        elif p[2] == '!=':
+            p[0] = Node("ne", [p[1], p[3]], None, "%s != %s")
         # Parenthesis
         else:
             p[0] = Node("parens", [p[2]], None, "(%s)")
