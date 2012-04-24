@@ -64,7 +64,6 @@ def p_stmt(p):
     '''stmt : io_stmt
             | assign_stmt
             | cond_stmt
-            | print_stmt
             | exit_stmt
             | def_stmt
             | iter_stmt

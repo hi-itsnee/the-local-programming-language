@@ -5,10 +5,12 @@
 # Time-stamp:              <2012-04-18 10:35:30 plt>
 
 from localast import Node
+from print_stmt import *
 # Node(type, children=None, value=None, line=None)
 
 def p_io_stmt(p):
-    '''io_stmt : open_stmt'''
+    '''io_stmt : open_stmt
+               | print_stmt'''
     p[0] = Node("io_stmt", [p[1]])
 
 def p_open_stmt(p):
