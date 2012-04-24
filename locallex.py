@@ -46,8 +46,8 @@ def t_COORD(t):
    r'\([+-]?\d+\.\d+,[+-]?\d+\.\d+\)'
    #split the string into two parts - lat and long - and make that a list
    m = str(t.value)
-   print m
-   print "===================>"
+#   print m
+#   print "===================>"
    mo = tre.search('(?P<lat>[+-]?\d+\.\d+),(?P<longi>[+-]?\d+\.\d+)', m)
    mw = []
    mw.append( mo.group('lat'))
