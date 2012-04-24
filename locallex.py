@@ -12,8 +12,11 @@ import re as tre
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT',
-    'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS',
+
+    'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT', 'WHILE',
+    'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
+    'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 
+
     # 'ELIF','READ', 'FOR', 'IN', 'WHILE',
     # 'CONTINUE', 'BREAK', 'RETURN',
     # 'DIST',
@@ -112,6 +115,7 @@ t_RPAREN           = r'\)'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
+#t_COLON            = r':'
 # t_PERIOD           = r'\.'
 t_SEMI             = r';'
 #t_DQUOTE           = r'\"'
