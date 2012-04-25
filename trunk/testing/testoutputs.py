@@ -30,7 +30,7 @@ b = 0'''
 exit_test = '''exit(1)'''
 
 
-### BLACK BOX TESTS:
+### PROGRAM TESTS:
 # Hello World:
 helloworld_test = '''print "Hello, world!"'''
 
