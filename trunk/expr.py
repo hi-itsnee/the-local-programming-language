@@ -21,7 +21,9 @@ def p_expr(p):
             | expr GE expr
             | expr EQ expr
             | expr NE expr
+            | expr LBRACKET atom RBRACKET
             | LPAREN expr RPAREN
+            | atom 
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
@@ -61,6 +63,11 @@ def p_expr(p):
         # Parenthesis
         else:
             p[0] = Node("parens", [p[2]], None, "(%s)")
+
+    # Indices [#]
+    elif len(p) == 5:
+        p[0] = Node("array", [p[1], p[3]], None, "%s([%s])")
+
     # NOT
     elif len(p) == 3:
         if p[1] == "not":

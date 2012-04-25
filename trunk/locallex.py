@@ -22,11 +22,12 @@ tokens = reserved + (
     # Operators and assignment
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER', 'MODULO',
     'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
-    'ANDEQUAL', 'OREQUAL', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
+    'ANDEQUAL', 'OREQUAL', 'PLUSPLUS', 'MINUSMINUS', 
+    'LT', 'LE', 'GT', 'GE', 'EQ', 'NE', 
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
-    # 'LBRACKET', 'RBRACKET',
+    'LBRACKET', 'RBRACKET',
 
     # Literals
     'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL', 'LIST',
@@ -105,14 +106,14 @@ t_ANDEQUAL         = r'and='
 t_OREQUAL          = r'or='
 
 # Increment/decrement
-# t_PLUSPLUS         = r'\+\+'
-# t_MINUSMINUS       = r'--'
+t_PLUSPLUS         = r'\+\+'
+t_MINUSMINUS       = r'--'
 
 # Delimeters
 t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
-# t_LBRACKET         = r'\['
-# t_RBRACKET         = r'\]'
+t_LBRACKET         = r'\['
+t_RBRACKET         = r'\]'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
