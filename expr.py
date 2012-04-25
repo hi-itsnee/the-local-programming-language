@@ -23,7 +23,8 @@ def p_expr(p):
             | expr NE expr
             | expr LBRACKET atom RBRACKET
             | LPAREN expr RPAREN
-            | atom 
+            | atom MINUSMINUS
+            | atom PLUSPLUS
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
@@ -74,6 +75,10 @@ def p_expr(p):
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
+        elif p[1] == '++':
+            p[0] == Node("plusplus", p[2]], None, "%s + 1")
+        elif p[1] == '--':
+            p[0] == Node("minusminus", p[2]], None, "%s - 1")
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])
