@@ -8,7 +8,7 @@ import math
 import sys
 # Node(type, children=None, value=None, line=None)
 
-def haversine(a,b):
+def fish(a,b):
     alat = math.radians(a[0])
     alon = math.radians(a[1])
     blat = math.radians(b[0])
