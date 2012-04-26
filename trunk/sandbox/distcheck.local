@@ -1,0 +1,6 @@
+c = dist(a,b);
+a = (4.0,-5.9);
+b = (3.9,-6.4);
+d = dist((9.7,-7.4),(8.5,-6.3));
+e = convertdist(a,"ft");
+f = convertdist(56,"mi","ft");

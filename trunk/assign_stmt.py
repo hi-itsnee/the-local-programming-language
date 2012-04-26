@@ -7,8 +7,9 @@
 from localast import Node
 
 def p_assign_stmt(p):
-    '''assign_stmt : id_list assmnt expr SEMI'''
-    p[0] = Node("assign", [p[1], p[2], p[3]])
+    '''assign_stmt : ID EQUALS expr SEMI'''
+    p[0] = Node("assign", [p[3]],p[1])
+#    p[0] = Node("assign", [p[1], p[2], p[3]])
 
 def p_id_list(p):
     '''id_list : id_list COMMA ID

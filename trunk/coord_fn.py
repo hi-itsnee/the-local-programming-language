@@ -15,48 +15,14 @@ def p_coord_fn(p):
     p[0] = Node("Coord_fn", [p[1]])
 
 def p_dist(p):
-    '''dist : dist_id
-            | dist_coord'''
-    p[0] = Node("Dist",[p[1]])
-
-def p_dist_id(p):
-    '''dist_id : DIST LPAREN ID COMMA ID RPAREN'''
-    value = "0"
-    value = value + "\nalat = math.radians(%s[0])" % (p[3])
-    value = value + "\nalon = math.radians(%s[1])" % (p[3])
-    value = value + "\nblat = math.radians(%s[0])" % (p[5])
-    value = value + "\nblon = math.radians(%s[1])" % (p[5])
-    value = value + "\nhlat = alat - blat"
-    value = value + "\nhlon = alon - blon"
-    value = value + "\nhlat = (1-math.cos(hlat)) / 2"
-    value = value + "\nhlon = (1-math.cos(hlon)) / 2"
-    value = value + "\nfoo = math.cos(alat) * math.cos(blat) * hlon"
-    value = value + "\nfoo = foo + hlat"
-    value = value + "\nradius = 6371"
-    value = value + "\nd = 2 * radius * math.asin(math.sqrt(foo))"
-    value = value + "\nreturn d"
-    p[0] = Node("Dist", None,value)
-
-def p_dist_coord(p):
-    '''dist_coord : DIST LPAREN COORD COMMA COORD RPAREN'''
-    value = "0"
-    mo = re.search('(?P<lat>[+-]?\d+\.\d+)\s*,\s*(?P<longi>[+-]?\d+\.\d+)', p[3])
-    value = value + "\nalat = math.radians(%f)" % (float(mo.group('lat')),)
-    value = value + "\nalon = math.radians(%f)" % (float(mo.group('longi')),)
-    mo = re.search('(?P<lat>[+-]?\d+\.\d+)\s*,\s*(?P<longi>[+-]?\d+\.\d+)', p[5])
-    value = value + "\nblat = math.radians(%f)" % (float(mo.group('lat')),) 
-    value = value + "\nblon = math.radians(%f)" % (float(mo.group('longi')),)
-    value = value + "\nhlat = alat - blat"
-    value = value + "\nhlon = alon - blon"
-    value = value + "\nhlat = (1-math.cos(hlat)) / 2"
-    value = value + "\nhlon = (1-math.cos(hlon)) / 2"
-    value = value + "\nfoo = math.cos(alat) * math.cos(blat) * hlon"
-    value = value + "\nfoo = foo + hlat"
-    value = value + "\nradius = 6371"
-    value = value + "\nd = 2 * radius * math.asin(math.sqrt(foo))"
-    value = value + "\nreturn d"
-    p[0] = Node("Dist", None,value)
-
+    '''dist : DIST LPAREN atom COMMA atom RPAREN'''
+    p[0] = Node("dist", [p[3],p[5]], None, "haversine.fish(%s,%s)")
 
 def p_convertdist(p):
-    '''convertdist : CONVERTDIST'''
+    '''convertdist : CONVERTDIST LPAREN atom COMMA atom COMMA atom RPAREN
+                   | CONVERTDIST LPAREN atom COMMA atom RPAREN'''
+    if len(p) == 9:
+        p[0] = Node("convertdist", [p[3],p[5],p[7]], None, "conversion.fly(%s,\"%s\",\"%s\")")
+    else:
+        p[0] = Node("convertdist", [p[3],p[5]], None, "conversion.fly(%s,\"%s\")")
+
