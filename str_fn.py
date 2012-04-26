@@ -16,74 +16,24 @@ def p_str_fn(p):
 
 #LEN
 def p_len(p):
-    '''len : len_str
-           | len_id'''
-    p[0] = Node("len", [p[1]], None)
-
-def p_len_str(p):
-    '''len_str : LEN LPAREN STRING RPAREN'''
-    value = "len(\"%s\")" % p[3]
-    p[0] = Node("len", None, value)
-
-def p_len_id(p):
-    '''len_id : LEN LPAREN ID RPAREN'''
-    value = "len(%s)" % p[3]
-    p[0] = Node("len", None, value)
+    '''len : LEN LPAREN atom RPAREN'''
+    p[0] = Node("len", [p[3]], None, "len(%s)")
 
 #SPLIT
 def p_split(p):
-    '''split : split_str
-             | split_id'''
-    p[0] = Node("print", [p[1]])
-
-def p_split_str(p):
-    '''split_str : SPLIT LPAREN STRING COMMA STRING RPAREN'''
-    value = "\"%s\".split(\"%s\")" % (p[3], p[5])
-    p[0] = Node("split", None, value)
-
-def p_split_id(p):
-    '''split_id : SPLIT LPAREN ID COMMA STRING RPAREN'''
-    value = "%s.split(\"%s\")" % (p[3], p[5])
-    p[0] = Node("split", None, value)
+    '''split : SPLIT LPAREN atom COMMA atom RPAREN'''
+    p[0] = Node("split", [p[3],p[5]], None, "%s.split(%s)")
 
 #STRIP
 def p_strip(p):
-    '''strip : strip_str
-             | strip_id'''
-    p[0] = Node("strip", [p[1]])
-
-def p_strip_str(p):
-    '''strip_str : STRIP LPAREN STRING COMMA STRING RPAREN
-                 | STRIP LPAREN STRING RPAREN'''
+    '''strip : STRIP LPAREN atom COMMA atom RPAREN
+             | STRIP LPAREN atom RPAREN'''
     if len(p) == 7:
-        value = "\"%s\".strip(\'%s\')" % (p[3], p[5])
-        p[0] = Node("strip", None, value)
-    if len(p) == 5:
-        value = "\"%s\".strip( )" % p[3]
-        p[0] = Node("strip", None, value)
-
-def p_strip_id(p):
-    '''strip_id : STRIP LPAREN ID COMMA STRING RPAREN
-                | STRIP LPAREN ID COMMA RPAREN'''
-    if len(p) == 7:
-        value = "%s.strip(\'%s\')" % (p[3], p[5])
-        p[0] = Node("strip", None, value)
-    if len(p) == 6:
-        value = "%s.strip( )" % p[3]
-        p[0] = Node("strip", None, value)
+        p[0] = Node("strip", [p[3],p[5]], None, "%s.strip(%s)")
+    else:
+        p[0] = Node("strip", [p[3]], None, "%s.strip()")
 
 #STR
 def p_str(p):
-    '''str : str_num
-           | str_id'''
-    p[0] = Node("str", [p[1]])
-
-def p_str_num(p):
-    '''str_num : STR LPAREN NUMBER RPAREN'''
-    value = "str(%s)" % p[3]
-    p[0] = Node("str", None, value)
-
-def p_str_id(p):
-    '''str_id : STR LPAREN ID RPAREN'''
-    value = "str(%s)" % p[3]
-    p[0] = Node("str", None, value)
+    '''str : STR LPAREN atom RPAREN'''
+    p[0] = Node("str", [p[3]], None, "str(%s)")

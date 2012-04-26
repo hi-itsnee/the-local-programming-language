@@ -11,7 +11,7 @@ import re
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'IF', 'ELSE', 'AND', 'OR', 'NOT', 'WHILE',
+    'PRINT', 'OPEN', 'CLOSE', 'IF', 'ELSE', 'AND', 'OR', 'NOT', 'WHILE',
     'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
     'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 'DIST', 'CONVERTDIST',
     'LEN', 'STRIP', 'SPLIT', 'STR',
@@ -133,7 +133,7 @@ def t_ID(t):
 # Strings (double-quoted)
 def t_STRING(t):
     r'\"([^\\\n]|(\\.))*?\"'
-    t.value = t.value[1:-1].decode("string-escape")
+    #t.value = t.value[1:-1].decode("string-escape")
     return t
 
 # Comments

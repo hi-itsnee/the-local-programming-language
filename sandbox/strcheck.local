@@ -1,0 +1,4 @@
+a = len("Hello");
+b = len(chitra);
+bar = split("this,that", ",");
+r = split(a, ",");
