@@ -59,9 +59,9 @@ def p_stmt_list(p):
     '''stmt_list : stmt_list stmt
                  | stmt'''
     if len(p) == 3:
-        p[0] = Node("stmt_list", [p[1], p[2]])
+        p[0] = Node("stmt_list", [p[1], p[2]], None, "%s\n%s")
     elif len(p) == 2:
-        p[0] = Node("stmt_list", [p[1]])
+        p[0] = Node("stmt_list", [p[1]], None, "%s")
 
 def p_stmt(p):
     '''stmt : io_stmt
