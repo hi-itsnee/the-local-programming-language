@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 12:55:56 plt>
+# Time-stamp:              <2012-04-28 13:11:34 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -33,6 +33,7 @@ start = 'program'
 # Operator precendence and associativity
 precedence = (
     ('nonassoc', 'IFX'),
+    ('nonassoc', 'ELIF'),
     ('nonassoc', 'ELSE'),
     ('left', 'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL',
      'MINUSEQUAL', 'ANDEQUAL', 'OREQUAL'),
