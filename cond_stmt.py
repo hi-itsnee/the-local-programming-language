@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language parser conditional statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 15:19:51 plt>
+# Time-stamp:              <2012-04-28 15:39:59 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -13,10 +13,6 @@ def p_cond_stmt(p):
                  | elif_else_stmt %prec ELIF
                  | if_else_stmt %prec ELSE'''
     p[0] = Node("cond_stmt", [p[1]])
-
-# def p_cond_stmt(p):
-#     '''cond_stmt : elif_stmt'''
-#     p[0] = Node("cond_stmt", [p[1]])
 
 # IF
 def p_if_stmt(p):
@@ -59,8 +55,6 @@ def p_elif_block(p):
         p[0] = Node("elif_block_simple", [p[1], p[3], p[4]])
     if len(p) == 4:
         p[0] = Node("elif_block_simple", [p[2], p[3]])
-
-
 
 #ELIF/ELSE
 def p_elif_else_stmt(p):
