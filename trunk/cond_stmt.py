@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language parser conditional statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 13:15:15 plt>
+# Time-stamp:              <2012-04-28 15:19:51 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -36,24 +36,31 @@ def p_if_brace(p):
 def p_elif_stmt(p):
     '''elif_stmt : elif_simple
                  | elif_brace'''
+    p[0] = Node("elif_stmt", [p[1]])
 
 def p_elif_simple(p):
     '''elif_simple : IF expr stmt_list elif_block'''
+    p[0] = Node("elif", [p[2], p[3], p[4]])
 
 def p_elif_brace(p):
     '''elif_brace : IF expr LBRACE stmt_list RBRACE elif_block'''
+    p[0] = Node("elif", [p[2], p[4], p[6]])
 
 def p_elif_block(p):
-    '''elif_block : elif_block_simple
-                  | elif_block_brace'''
+    '''elif_block : elif_block ELIF expr LBRACE stmt_list RBRACE
+                  | ELIF expr LBRACE stmt_list RBRACE
+                  | elif_block ELIF expr stmt_list
+                  | ELIF expr stmt_list'''
+    if len(p) == 7:
+        p[0] = Node("elif_block_brace", [p[1], p[3], p[5]])
+    if len(p) == 6:
+        p[0] = Node("elif_block_brace", [p[2], p[4]])
+    if len(p) == 5:
+        p[0] = Node("elif_block_simple", [p[1], p[3], p[4]])
+    if len(p) == 4:
+        p[0] = Node("elif_block_simple", [p[2], p[3]])
 
-def p_elif_block_simple(p):
-    '''elif_block_simple : elif_block ELIF expr stmt_list
-                         | ELIF expr stmt_list'''
 
-def p_elif_block_brace(p):
-    '''elif_block_brace : elif_block ELIF expr LBRACE stmt_list RBRACE
-                        | ELIF expr LBRACE stmt_list RBRACE'''
 
 #ELIF/ELSE
 def p_elif_else_stmt(p):
@@ -61,18 +68,23 @@ def p_elif_else_stmt(p):
                       | elif_brace_else
                       | elif_else_brace
                       | elifelse_braces'''
+    p[0] = Node("elif_else_stmt", [p[1]])
 
 def p_elif_else_simple(p):
     '''elif_else_simple : IF expr stmt_list elif_block ELSE stmt_list'''
+    p[0] = Node("elif_else", [p[2], p[3], p[4], p[6]])
 
 def p_elif_brace_else(p):
     '''elif_brace_else : IF expr LBRACE stmt_list RBRACE elif_block ELSE stmt_list'''
+    p[0] = Node("elif_else", [p[2], p[4], p[6], p[8]])
 
 def p_elif_else_brace(p):
     '''elif_else_brace : IF expr stmt_list elif_block ELSE LBRACE stmt_list RBRACE'''
+    p[0] = Node("elif_else", [p[2], p[3], p[4], p[7]])
 
 def p_elifelse_braces(p):
     '''elifelse_braces : IF expr LBRACE stmt_list RBRACE elif_block ELSE LBRACE stmt_list RBRACE'''
+    p[0] = Node("elif_else", [p[2], p[4], p[6], p[9]])
 
 # ELSE
 def p_if_else_stmt(p):

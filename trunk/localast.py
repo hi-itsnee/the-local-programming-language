@@ -2,13 +2,14 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-20 17:27:46 plt>
+# Time-stamp:              <2012-04-28 15:34:14 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
 
 # Indent your children if you are one of these statements
-indent_them = ('if', 'elif', 'else', 'for', 'while', 'def', 'try', 'except', 'return')
+indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
+               'except')
 
 # For variable declaration (this only works for global)
 var_names = {}
@@ -28,7 +29,7 @@ class Node:
         self.value = value
         self.line = line
 
-def _if_subtree(node, code, debug):
+def _do_if_subtree(node, code, debug):
     '''For indenting IF code blocks'''
     # Walk tree to build expression
     expr = walk_the_tree(node.children[0], code, debug)
@@ -41,8 +42,53 @@ def _if_subtree(node, code, debug):
     # Construct the if statment
     return "if %s:\n%s" % (expr, if_stmt_i)
 
-def _else_subtree(node, code, debug):
-    '''For indenting IF/ELSE code blocks'''
+def _do_elif_block(node, code, debug):
+    '''For building an arbitrary number of ELIF blocks'''
+    # A block of blocks
+    if len(node.children) == 3:
+        block = _do_elif_block(node.children[0], code, debug)
+        expr = walk_the_tree(node.children[1], code, debug)
+        stmt = walk_the_tree(node.children[2], code, debug).split("\n")
+        stmt_i = ""
+        for line in stmt:
+            stmt_i += " "*INDENT + line + "\n"
+        return "%s\nelif %s:\n%s" % (block, expr, stmt_i)
+    # A block
+    elif len(node.children) == 2:
+        expr = walk_the_tree(node.children[0], code, debug)
+        stmt = walk_the_tree(node.children[1], code, debug).split("\n")
+        stmt_i = ""
+        for line in stmt:
+            stmt_i += " "*INDENT + line + "\n"
+        return "elif %s:\n%s" % (expr, stmt_i)
+
+def _do_elif_subtree(node, code, debug):
+    '''For indenting IF-ELIF code blocks'''
+    expr = walk_the_tree(node.children[0], code, debug)
+    if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
+    elif_block = _do_elif_block(node.children[2], code, debug)
+    if_stmt_i = ""
+    for line in if_stmt:
+        if_stmt_i += " "*INDENT + line + "\n"
+    return "if %s:\n%s\n%s" % (expr, if_stmt_i, elif_block)
+
+def _do_elif_else_subtree(node, code, debug):
+    '''For indenting IF-ELIF-ELSE code blocks'''
+    expr = walk_the_tree(node.children[0], code, debug)
+    if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
+    elif_block = _do_elif_block(node.children[2], code, debug)
+    else_stmt = walk_the_tree(node.children[3], code, debug).split("\n")
+    if_stmt_i = ""
+    else_stmt_i = ""
+    for line in if_stmt:
+        if_stmt_i += " "*INDENT + line + "\n"
+    for line in else_stmt:
+        else_stmt_i += " "*INDENT + line + "\n"
+    return "if %s:\n%s\n%s\nelse:\n%s" % (expr, if_stmt_i, elif_block,
+                                          else_stmt_i)
+
+def _do_else_subtree(node, code, debug):
+    '''For indenting IF-ELSE code blocks'''
     expr = walk_the_tree(node.children[0], code, debug)
     if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     else_stmt = walk_the_tree(node.children[2], code, debug).split("\n")
@@ -54,7 +100,7 @@ def _else_subtree(node, code, debug):
         else_stmt_i += " "*INDENT + line + "\n"
     return "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
 
-def _def_subtree(node, code, debug):
+def _do_def_subtree(node, code, debug):
     '''For indenting DEF code blocks'''
     def_arg = walk_the_tree(node.children[0], code, debug)
     def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
@@ -88,7 +134,7 @@ def _while_subtree(node, code, debug):
 
 def _return_subtree(node, code, debug):
     return_expr_child = walk_the_tree(node.children[0], code, debug)
-    return "return %s" % (return_expr_child)    
+    return "return %s" % (return_expr_child)
 
 def _except_subtree(node, code, debug):
     except_try_child = walk_the_tree(node.children[0], code, debug).split("\n")
@@ -101,49 +147,46 @@ def _except_subtree(node, code, debug):
         except_trychild_indented += " "*INDENT + line + "\n"
     for line in except_catch_child:
         except_catchchild_indented += " "*INDENT + line + "\n"
-    print except_catch_child 
+    print except_catch_child
     return "try:\n%s\nexcept %s:\n%s" % (except_trychild_indented, node.value, except_catchchild_indented)
 
 def _format_subtree(node, code, debug):
     format_print_statement_child = walk_the_tree(node.children[0], code, debug)
     return "%s %% (%s)" % (node.value, format_print_statement_child)
 
- 
 def _print_subtree(node, code, debug):
     if node.children:
         print_child = "%s,\"%s\"" % (walk_the_tree(node.children[0], code, debug), node.value)
     return "%s" % print_child
 
-
-def _indent_subtree(node, code, debug):
-    '''For indenting statements'''
+def _do_indent_subtree(node, code, debug):
+    '''For indenting statements within blocks'''
     # IF
     if node.type == 'if':
-        return _if_subtree(node, code, debug)
+        return _do_if_subtree(node, code, debug)
+    # IF-ELIF
+    if node.type == 'elif':
+        return _do_elif_subtree(node, code, debug)
+    # IF-ELIF-ELSE
+    if node.type == 'elif_else':
+        return _do_elif_else_subtree(node, code, debug)
     # ELSE
     if node.type == 'else':
-        return _else_subtree(node, code, debug)
+        return _do_else_subtree(node, code, debug)
     # DEF
     if node.type == 'def':
-        return _def_subtree(node, code, debug)
-    # Arguments of DEF
-    if node.type == 'arglist':
-        return _arglist_subtree(node, code, debug)
+        return _do_def_subtree(node, code, debug)
     # FOR
     if node.type == 'for':
         return _for_subtree(node, code, debug)
     # WHILE
     if node.type == 'while':
         return _while_subtree(node, code, debug)
-    # RETURN
-    if node.type == 'return':
-        return _return_subtree(node, code, debug)
     # EXCEPT
     if node.type == 'except':
-        return _except_subtree(node, code, debug)      
+        return _except_subtree(node, code, debug)
 
 def walk_the_tree(node, code="", debug=False):
-    
     '''Walk the AST and return a string, which is a Python program'''
     # Default case (should not be hit)
     if node is None:
@@ -155,18 +198,20 @@ def walk_the_tree(node, code="", debug=False):
     if node.children:
         # Certain statements require substatements to be indented
         if node.type in indent_them:
-            code += _indent_subtree(node, code, debug)
+            code += _do_indent_subtree(node, code, debug)
         # Assignments needs their right side synthesized
         elif node.type == "assign":
             rhs = walk_the_tree(node.children[0], code, debug)
             assmnt = node.value + " = " + rhs + "\n"
             code += assmnt
         elif node.type == "arglist":
-            code += _indent_subtree(node, code, debug)
+            code += _arglist_subtree(node, code, debug)
         elif node.type == "format_print_statement":
             code += _format_subtree(node, code, debug)
         elif node.type == "format_statement":
             code += _print_subtree(node, code, debug)
+        elif node.type == 'return':
+            code += _return_subtree(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )
@@ -180,11 +225,11 @@ def walk_the_tree(node, code="", debug=False):
         else:
             for child in node.children:
                 code = walk_the_tree(child, code, debug)
-    # Otherwise is a leaf node (must have a value)
+    # Otherwise, the node is a leaf node (must have a value)
     else:
         if node.type == "format_statement":
             code = "\"" + node.value + "\""
-        else:    
+        else:
             code = node.value
     # Return statement for the function. Builds target code in order
     return code

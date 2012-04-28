@@ -1,0 +1,18 @@
+a = true;
+b = false;
+if a {
+    print("a is true");
+    if b
+        print("made it here");
+    else
+        print("made it there");
+} elif c {
+    if true
+        print("of course");
+    elif false
+        print("impossible");
+} elif d {
+    print("bar");
+} else {
+    print("a is false");
+}
