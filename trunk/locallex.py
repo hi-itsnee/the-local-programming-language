@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 12:11:44 plt>
+# Time-stamp:              <2012-04-28 12:57:30 plt>
 
 import ply.lex as lex
 import re
@@ -143,7 +143,8 @@ def t_comment(t):
 
 # Lexical errors
 def t_error(t):
-    print("Illegal character %s" % repr(t.value[0]))
+    print("Illegal character %s at line %d" %
+          (repr(t.value[0]), t.lexer.lineno))
     t.lexer.skip(1)
 
 lexer = lex.lex(debug=DEBUG)
