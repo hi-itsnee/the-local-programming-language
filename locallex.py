@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 15:58:56 plt>
+# Time-stamp:              <2012-04-28 12:11:44 plt>
 
 import ply.lex as lex
 import re
@@ -11,19 +11,19 @@ import re
 DEBUG = False
 
 reserved = (
-    'PRINT', 'OPEN', 'CLOSE', 'IF', 'ELSE', 'AND', 'OR', 'NOT', 'WHILE',
-    'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
+    'PRINT', 'OPEN', 'CLOSE', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT',
+    'WHILE', 'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
     'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 'DIST', 'CONVERTDIST',
     'LEN', 'STRIP', 'SPLIT', 'STR',
-    # 'ELIF','READ',
+    # 'READ',
     )
 
 tokens = reserved + (
     # Operators and assignment
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER', 'MODULO',
     'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
-    'ANDEQUAL', 'OREQUAL', 'PLUSPLUS', 'MINUSMINUS', 
-    'LT', 'LE', 'GT', 'GE', 'EQ', 'NE', 
+    'ANDEQUAL', 'OREQUAL', 'PLUSPLUS', 'MINUSMINUS',
+    'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
 
     # Delimeters
     'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
