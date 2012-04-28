@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-24 15:59:53 plt>
+# Time-stamp:            <2012-04-28 12:09:51 plt>
 
 from localast import Node
 
@@ -69,16 +69,16 @@ def p_expr(p):
     elif len(p) == 5:
         p[0] = Node("array", [p[1], p[3]], None, "%s([%s])")
 
-    # NOT
+    # NOT, UMINUS, and post-increment/decrement
     elif len(p) == 3:
         if p[1] == "not":
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
         elif p[1] == '++':
-            p[0] == Node("plusplus", p[2]], None, "%s + 1")
+            p[0] == Node("plusplus", [p[2]], None, "%s + 1")
         elif p[1] == '--':
-            p[0] == Node("minusminus", p[2]], None, "%s - 1")
+            p[0] == Node("minusminus", [p[2]], None, "%s - 1")
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])
