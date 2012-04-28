@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 15:58:03 plt>
+# Time-stamp:              <2012-04-28 12:55:56 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -75,16 +75,13 @@ def p_stmt(p):
             | except_stmt'''
     p[0] = Node("statement", [p[1]])
 
-# Error handler. Return nothing.
-def p_program_error(p):
-    '''program : error'''
-    p[0] = None
-    p.parser.error = 1
-
-# Catastrophic error handler
+# Error handler
 def p_error(p):
     if not p:
-        print("SYNTAX ERROR AT EOF")
+        print("Catastrophic error in your code. I cannot help you.")
+    else:
+        print "Syntax error at line %s near %s" % (p.lineno, p.value)
+        yacc.restart()
 
 # The PLY parser (internally runs the lexer)
 lparser = yacc.yacc()
