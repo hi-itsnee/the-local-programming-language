@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 15:34:14 plt>
+# Time-stamp:              <2012-04-29 19:40:31 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -107,12 +107,24 @@ def _do_def_subtree(node, code, debug):
     def_stmt_i = ""
     for line in def_stmt:
         def_stmt_i += " "*INDENT + line + "\n"
-    return "def %s (%s):\n%s\n" % (node.value, def_arg, def_stmt_i)
+    return "def %s(%s):\n%s\n" % (node.value, def_arg, def_stmt_i)
 
-def _arglist_subtree(node, code, debug):
-    if node.children:
-        arg_child = "%s,%s" % (walk_the_tree(node.children[0], code, debug), node.value)
-        return "%s" % arg_child
+def _do_arglist_subtree(node, code, debug, arglist=[ ]):
+    '''For building a list of arguments'''
+    # A list of arguments
+    if len(node.children) == 2:
+        # Recursively follow the list
+        _do_arglist_subtree(node.children[0], code, debug, arglist)
+        # Evaluate the atom and append it
+        arg = walk_the_tree(node.children[1], code, debug)
+        arglist.append(arg)
+        # Make a nice, comma-and-space delimited string to return
+        argstring = ", ".join(arglist)
+        return argstring
+    elif len(node.children) == 1:
+        # The first element in the argument list (reached last)
+        arg = walk_the_tree(node.children[0], code, debug)
+        return arglist.append(arg)
 
 def _for_subtree(node, code, debug):
     '''For indenting For block'''
@@ -205,7 +217,7 @@ def walk_the_tree(node, code="", debug=False):
             assmnt = node.value + " = " + rhs + "\n"
             code += assmnt
         elif node.type == "arglist":
-            code += _arglist_subtree(node, code, debug)
+            code += _do_arglist_subtree(node, code, debug)
         elif node.type == "format_print_statement":
             code += _format_subtree(node, code, debug)
         elif node.type == "format_statement":
