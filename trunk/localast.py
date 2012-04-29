@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 19:40:31 plt>
+# Time-stamp:              <2012-04-29 19:45:25 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -102,7 +102,7 @@ def _do_else_subtree(node, code, debug):
 
 def _do_def_subtree(node, code, debug):
     '''For indenting DEF code blocks'''
-    def_arg = walk_the_tree(node.children[0], code, debug)
+    def_arg = _do_arglist_subtree(node.children[0], code, debug)
     def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     def_stmt_i = ""
     for line in def_stmt:
@@ -216,8 +216,6 @@ def walk_the_tree(node, code="", debug=False):
             rhs = walk_the_tree(node.children[0], code, debug)
             assmnt = node.value + " = " + rhs + "\n"
             code += assmnt
-        elif node.type == "arglist":
-            code += _do_arglist_subtree(node, code, debug)
         elif node.type == "format_print_statement":
             code += _format_subtree(node, code, debug)
         elif node.type == "format_statement":
