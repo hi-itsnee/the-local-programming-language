@@ -1,33 +1,73 @@
 ##### Expected output .py files for comparison
 
 ### LEXING/PARSING TESTS:
-# cond_stmt.py python outputs:
-if_test = '''if a:
-    print "a is true"'''
 
-ifelse_test = '''if a:
+# assign_stmt.py python outputs:
+assign_test = '''a = 10
+b = (0 + 1)'''
+#c *= a
+#d /= a
+#e %= 2
+#f += 4
+#g -= 5
+#h and= a
+#i or= b
+
+# cond_stmt.py python outputs:
+if_test = '''a = 5
+if a > 3:
+    print "a > 3"'''
+
+ifelse_test = '''a = True
+if a:
     print "a is true"
 else:
     print "a is false"'''
 
 nesting_test = '''if a:
     print "a is true"
-    if b:
+    if b == a:
         print "made it here"
-    else:
+    elif b < a:
         print "made it there"
+    else:
+        print "made it everywhere"
 else:
     print "a is false"'''
 
-# math_expr.py python outputs:
-math_test1 = '''a = isd + dsa * 12 + (7 / 5)'''
-
-# assign_stmt.py python outputs:
-assign_test = '''a = 10
-b = 0'''
-
 # exit
 exit_test = '''exit(1)'''
+
+# expr.py python outputs:
+binop_test = '''a = 1 + 1
+b = 2 - 2
+c = 3 * 3
+d = 4 / 4
+e = 5 % 2
+f = 6 ** 2
+r = a or b
+s = c and d
+t = e < f
+u = a <= b
+v = c > d
+w = e >= f
+x = a == b
+y = c != d
+z = (e)'''
+
+indices_test = '''b = a([c])'''
+
+unary_test = '''a = True
+b = not a
+c = -5
+d = c + 1
+e = c - 1'''
+
+# io_stmt.py python outputs:
+io_test = '''open('sandbox/array.local', 'w')'''
+
+# math_expr.py python outputs:
+math_test1 = '''a = isd + dsa * 12 + (7 / 5)'''
 
 
 ### PROGRAM TESTS:
