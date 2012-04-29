@@ -1,4 +1,4 @@
-local compiler
+The local compiler
 
 To run,
 
@@ -21,12 +21,22 @@ You can then run hello.py with Python.
 
   python hello.py
 
-------------------------------------------
-### Developer Instructions For Dummies ###
-------------------------------------------
+local.py also supports the following options:
+
+-d : Enables debugging of the parsing and AST walk (lex debugging must be
+     enabled in the code manually)
+
+-p : Forces the compiler to quit immediately after parsing without walking
+     the AST. This is useful for testing production rules with no associated
+     actions.
+
+------------------------------
+### Developer Instructions ###
+------------------------------
 To compile a working copy of our code for testing, do the following steps:
 1. Create your new file, e.g. assign_statement.py
-2. Create a local program to test your statement, e.g. sandbox/checkassign.local
+2. Create a local program to test your statement, e.g.
+   sandbox/checkassign.local
 3. Test the program compilation with the following (adjust for your statement):
     python local.py sandbox/checkassign.local
 4. Redirect the program output with the following (adjust for your statement):
@@ -34,4 +44,5 @@ To compile a working copy of our code for testing, do the following steps:
 5. Run the test output:
     python sandbox/checkassign.py
 
-** 'Testing' folder is for automated testing as per our test plan. 'Test' folder is for stim testing by individual team members.
+** 'testing' folder is for automated testing as per our test plan.
+   'sandbox' folder is for stim testing by individual team members.
