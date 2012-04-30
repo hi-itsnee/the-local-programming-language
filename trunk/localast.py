@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 20:13:25 plt>
+# Time-stamp:              <2012-04-29 21:43:45 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -159,11 +159,17 @@ def _except_subtree(node, code, debug):
     print except_catch_child
     return "try:\n%s\nexcept %s:\n%s" % (except_trychild_indented, node.value, except_catchchild_indented)
 
-def _do_format_print_subtree(node, code, debug):
+def _do_print_subtree(node, code, debug):
     '''For building a format print statement'''
-    print_str = walk_the_tree(node.children[0], code, debug)
-    print_arglist = _do_arglist_subtree(node.children[1], code, debug)
-    return "print %s %% (%s)\n" % (print_str, print_arglist)
+    # Simple print
+    if len(node.children) == 1:
+        print_str = walk_the_tree(node.children[0], code, debug)
+        return "print %s\n" % (print_str)
+    # Format print
+    elif len(node.children) == 2:
+        print_str = walk_the_tree(node.children[0], code, debug)
+        print_arglist = _do_arglist_subtree(node.children[1], code, debug)
+        return "print %s %% (%s)\n" % (print_str, print_arglist)
 
 def _do_indent_subtree(node, code, debug):
     '''For indenting statements within blocks'''
@@ -210,8 +216,8 @@ def walk_the_tree(node, code="", debug=False):
             rhs = walk_the_tree(node.children[0], code, debug)
             assmnt = node.value + " = " + rhs + "\n"
             code += assmnt
-        elif node.type == "format_print":
-            code += _do_format_print_subtree(node, code, debug)
+        elif node.type == "print":
+            code += _do_print_subtree(node, code, debug)
         elif node.type == 'return':
             code += _return_subtree(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
