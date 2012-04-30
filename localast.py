@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 19:45:25 plt>
+# Time-stamp:              <2012-04-29 20:13:25 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -10,9 +10,6 @@ INDENT = 4
 # Indent your children if you are one of these statements
 indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
                'except')
-
-# For variable declaration (this only works for global)
-var_names = {}
 
 class Node:
     '''Node class for the AST'''
@@ -162,14 +159,11 @@ def _except_subtree(node, code, debug):
     print except_catch_child
     return "try:\n%s\nexcept %s:\n%s" % (except_trychild_indented, node.value, except_catchchild_indented)
 
-def _format_subtree(node, code, debug):
-    format_print_statement_child = walk_the_tree(node.children[0], code, debug)
-    return "%s %% (%s)" % (node.value, format_print_statement_child)
-
-def _print_subtree(node, code, debug):
-    if node.children:
-        print_child = "%s,\"%s\"" % (walk_the_tree(node.children[0], code, debug), node.value)
-    return "%s" % print_child
+def _do_format_print_subtree(node, code, debug):
+    '''For building a format print statement'''
+    print_str = walk_the_tree(node.children[0], code, debug)
+    print_arglist = _do_arglist_subtree(node.children[1], code, debug)
+    return "print %s %% (%s)\n" % (print_str, print_arglist)
 
 def _do_indent_subtree(node, code, debug):
     '''For indenting statements within blocks'''
@@ -216,10 +210,8 @@ def walk_the_tree(node, code="", debug=False):
             rhs = walk_the_tree(node.children[0], code, debug)
             assmnt = node.value + " = " + rhs + "\n"
             code += assmnt
-        elif node.type == "format_print_statement":
-            code += _format_subtree(node, code, debug)
-        elif node.type == "format_statement":
-            code += _print_subtree(node, code, debug)
+        elif node.type == "format_print":
+            code += _do_format_print_subtree(node, code, debug)
         elif node.type == 'return':
             code += _return_subtree(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
@@ -237,9 +229,6 @@ def walk_the_tree(node, code="", debug=False):
                 code = walk_the_tree(child, code, debug)
     # Otherwise, the node is a leaf node (must have a value)
     else:
-        if node.type == "format_statement":
-            code = "\"" + node.value + "\""
-        else:
-            code = node.value
+        code = node.value
     # Return statement for the function. Builds target code in order
     return code
