@@ -1,14 +1,12 @@
 # Filename:                haversine.py
 # Author:                  Team 13
-# Description:             local language parser list functions
+# Description:             local language Haversine module
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 10:53:41 plt>
+# Time-stamp:              <2012-04-29 23:26:43 plt>
 
 import math
-import sys
-# Node(type, children=None, value=None, line=None)
 
-def fish(a,b):
+def dist(a, b):
     alat = math.radians(a[0])
     alon = math.radians(a[1])
     blat = math.radians(b[0])
