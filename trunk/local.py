@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language compiler
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 23:22:45 plt>
+# Time-stamp:              <2012-04-29 23:45:40 plt>
 
 import argparse
 from localparse import parse
@@ -24,11 +24,11 @@ def main(filename, debug, parse_only):
     # Walk the AST to produce target (Python) code
     code = walk_the_tree(ast, debug=debug)
     # Determine if we need to import anything
-    if code.find("convertdist(") != -1:
+    if "convertdist(" in code:
         import_convertdist = True
-    if code.find(" dist(") != -1:
+    if " dist(" in code:
         import_dist = True
-    if code.find("argv[") != -1:
+    if "argv[" in code:
         import_sys = True
     # Split on newlines, then we'll remove emtpy lines
     code = code.split("\n")
