@@ -6,6 +6,7 @@
 
 # Number of spaces a tab equals
 INDENT = 4
+COUNT = 0
 
 # Indent your children if you are one of these statements
 indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
@@ -109,8 +110,12 @@ def _do_def_subtree(node, code, debug):
 def _do_arglist_subtree(node, code, debug, arglist=[ ]):
     '''For building a list of arguments'''
     # A list of arguments
+    global COUNT
+    if COUNT ==0:
+        arglist = []
     if len(node.children) == 2:
         # Recursively follow the list
+        COUNT = COUNT + 1
         _do_arglist_subtree(node.children[0], code, debug, arglist)
         # Evaluate the atom and append it
         arg = walk_the_tree(node.children[1], code, debug)
@@ -120,9 +125,14 @@ def _do_arglist_subtree(node, code, debug, arglist=[ ]):
         return argstring
     elif len(node.children) == 1:
         # The first element in the argument list (reached last)
-        arg = walk_the_tree(node.children[0], code, debug)
-        return arglist.append(arg)
-
+        if COUNT > 0:
+            arg = walk_the_tree(node.children[0], code, debug)
+            print code + str(COUNT)
+            return arglist.append(arg)
+        else:
+            arg = walk_the_tree(node.children[0], code, debug)
+            return arg
+ 
 def _for_subtree(node, code, debug):
     '''For indenting For block'''
     for_atomchild = walk_the_tree(node.children[0], code, debug)
