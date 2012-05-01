@@ -9,7 +9,8 @@ from localast import Node
 
 def p_io_stmt(p):
     '''io_stmt : open_stmt
-               | print_stmt'''
+               | print_stmt
+               | read_stmt'''
     p[0] = Node("io_stmt", [p[1]])
 
 def p_open_stmt(p):
@@ -23,3 +24,8 @@ def p_open_stmt(p):
         mode = p[5]
     value = "open(\"%s\", \"%s\")" % (filename, mode)
     p[0] = Node("open", None, value)
+
+def p_read_stmt(p):
+    '''read_stmt : READ LPAREN RPAREN SEMI'''
+
+    p[0] = Node("read_stmt", None, "raw_input()")
