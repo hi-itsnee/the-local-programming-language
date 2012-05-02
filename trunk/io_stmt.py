@@ -36,5 +36,9 @@ def p_close_stmt(p):
     p[0] = Node("close", [p[3]], None, "%s.close()")
 
 def p_read_stmt(p):
-    '''read_stmt : READ LPAREN atom RPAREN'''
-    p[0] = Node("read_stmt", [p[3]], None,"raw_input(%s)")
+    '''read_stmt : READ LPAREN atom RPAREN
+                 | READ LPAREN RPAREN'''
+    if len(p) == 5:
+        p[0] = Node("read_stmt", [p[3]], None,"raw_input(%s)")
+    elif len(p) == 4:
+        p[0] = Node("read_stmt", None, "raw_input()", "raw_input()")
