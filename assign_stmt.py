@@ -2,16 +2,16 @@
 # Author:                Team 13
 # Description:           local parser assignment statements
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-24 15:20:41 plt>
+# Time-stamp:            <2012-05-02 17:32:17 plt>
 
 from localast import Node
 
 def p_assign_stmt(p):
-    '''assign_stmt : id_list EQUALS expr SEMI
-                   | math_assmnt SEMI'''
-    if len(p) == 5:
+    '''assign_stmt : id_list EQUALS expr
+                   | math_assmnt'''
+    if len(p) == 4:
         p[0] = Node("equals", [p[1],p[3]], None, "%s = %s")
-    else:
+    elif len(p) == 2:
         p[0] = Node("assign", [p[1]])
 #    p[0] = Node("assign", [p[1], p[2], p[3]], None, "%s %s %s")
 

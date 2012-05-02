@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-28 12:09:51 plt>
+# Time-stamp:            <2012-05-02 17:04:11 plt>
 
 from localast import Node
 
@@ -23,8 +23,6 @@ def p_expr(p):
             | expr NE expr
             | expr atom
             | LPAREN expr RPAREN
-            | atom MINUSMINUS
-            | expr PLUSPLUS
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
