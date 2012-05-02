@@ -12,7 +12,7 @@ def p_assign_stmt(p):
     if len(p) == 4:
         p[0] = Node("equals", [p[1],p[3]], None, "%s = %s")
     elif len(p) == 2:
-        p[0] = Node("assign", [p[1]])
+        p[0] = Node("math_assmnt", [p[1]])
 #    p[0] = Node("assign", [p[1], p[2], p[3]], None, "%s %s %s")
 
 def p_id_list(p):
@@ -30,14 +30,20 @@ def p_math_assmnt(p):
                    | id_list DIVEQUAL atom
                    | id_list MODEQUAL atom
                    | id_list PLUSEQUAL atom
-                   | id_list MINUSEQUAL atom
-                   | id_list ANDEQUAL atom
-                   | id_list OREQUAL atom'''
-#    if p[0] = r'\*(\s)?=':
-#        string = 
-#    elif p[0] = r'/(\s)?='
-#    if p[0] = r'%(\s)?='
-#    if p[0] = r'\+(\s)?='
-#    if p[0] = r'-(\s)?='
+                   | id_list MINUSEQUAL atom'''
+#                   | id_list ANDEQUAL atom
+#                   | id_list OREQUAL atom'''
+    if p[2] == "*=":
+        p[0] = Node("timesequal", [p[1],p[3]], None, "%s *= %s") 
+    elif [2] == "/=":
+        p[0] = Node("divequal", [p[1],p[3]], None, "%s /= %s") 
+    elif p[2] == "%-":
+        p[0] = Node("modequal", [p[1],p[3]], None, "%s %= %s") 
+    elif p[2] == "+=":
+        p[0] = Node("plusequal", [p[1],p[3]], None, "%s += %s") 
+    elif p[2] == "-=":
+        p[0] = Node("minusequal", [p[1],p[3]], None, "%s -= %s") 
 #    if p[0] = r'and(\s)?='
+#        p[0] = Node("andequal", [p[1],p[3]], None, "%s and= %s") 
 #    if p[0] = r'or(\s)?='
+#        p[0] = Node("orequal", [p[1],p[3]], None, "%s or= %s") 
