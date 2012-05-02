@@ -13,10 +13,10 @@ def p_print_stmt(p):
     p[0] = Node("print_stmt", [p[1]])
 
 def p_simple_print_stmt(p):
-    '''simple_print_stmt : PRINT LPAREN atom RPAREN SEMI'''
+    '''simple_print_stmt : PRINT LPAREN atom RPAREN'''
     p[0] = Node("print", [p[3]])
 
 def p_format_print_stmt(p):
-    '''format_print_stmt : PRINT LPAREN atom COMMA arglist RPAREN SEMI'''
+    '''format_print_stmt : PRINT LPAREN atom COMMA arglist RPAREN'''
     # Note: arglist defined in def_stmt.py
     p[0] = Node("print", [p[3], p[5]])
