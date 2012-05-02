@@ -114,6 +114,15 @@ class TestIO(unittest.TestCase):
         actual_result = local.tester(gt_testin.io_test)
 	self.assertEqual(target_result, actual_result)
  
+class TestIter(unittest.TestCase):
+    def setUp(self):
+        print "Begin Iteration Testing"
+
+    def test_iter(self):
+    # Test a file write expression
+        target_result = gt_testout.iter_test
+        actual_result = local.tester(gt_testin.iter_test)
+
 class TestMath(unittest.TestCase):
     def setUp(self):
         print "Begin Math Testing"
