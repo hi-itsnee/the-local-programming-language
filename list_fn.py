@@ -33,8 +33,7 @@ def p_remove_expr(p):
 
 # POP - Removes (and returns) item from specified position in list
 def p_pop_generic(p):
-    '''pop_generic : pop
-                   | pop SEMI'''
+    '''pop_generic : pop SEMI'''
     p[0] = Node("pop_generic", [p[1]])
 
 def p_pop(p):
