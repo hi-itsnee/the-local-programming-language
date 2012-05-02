@@ -74,7 +74,7 @@ def p_stmt(p):
             | jump_stmt
             | list_fn
             | except_stmt'''
-    p[0] = Node("statement", [p[1]])
+    p[0] = Node("statement", [p[1]], None, "%s")
 
 # Error handler
 def p_error(p):
