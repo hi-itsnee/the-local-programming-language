@@ -7,7 +7,7 @@
 from localast import Node
 
 def p_assign_stmt(p):
-    '''assign_stmt : id_list EQUALS atom SEMI
+    '''assign_stmt : id_list EQUALS expr SEMI
                    | math_assmnt SEMI'''
     if len(p) == 5:
         p[0] = Node("equals", [p[1],p[3]], None, "%s = %s")
