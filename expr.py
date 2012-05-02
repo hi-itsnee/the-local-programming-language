@@ -21,7 +21,7 @@ def p_expr(p):
             | expr GE expr
             | expr EQ expr
             | expr NE expr
-            | expr LBRACKET atom RBRACKET
+            | expr atom
             | LPAREN expr RPAREN
             | atom MINUSMINUS
             | atom PLUSPLUS
@@ -30,7 +30,9 @@ def p_expr(p):
             | atom
             | coord_fn
             | list_fn
+            | io_fn
             | str_fn'''
+#            | io_expr
     # BINOP or parenthesis
     if len(p) == 4:
         if p[2] == '+':
@@ -66,8 +68,8 @@ def p_expr(p):
             p[0] = Node("parens", [p[2]], None, "(%s)")
 
     # Indices [#]
-    elif len(p) == 5:
-        p[0] = Node("array", [p[1], p[3]], None, "%s([%s])")
+#    elif len(p) == 5:
+#        p[0] = Node("array", [p[1], p[3]], None, "%s\[%s\]")
 
     # NOT, UMINUS, and post-increment/decrement
     elif len(p) == 3:
@@ -79,6 +81,8 @@ def p_expr(p):
             p[0] == Node("plusplus", [p[2]], None, "%s + 1")
         elif p[1] == '--':
             p[0] == Node("minusminus", [p[2]], None, "%s - 1")
+        else:
+            p[0] = Node("array", [p[1], p[2]], None, "%s%s")
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])
