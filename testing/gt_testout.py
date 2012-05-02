@@ -91,7 +91,13 @@ e = c - 1'''
 io_test = '''a = open("hello.local", "w")'''
 
 # iter_stmt.py python outputs:
-iter_test = '''a = open("hello.local", "w")'''
+iter_test = '''a = 0
+while a < 0:
+    a = a + 1
+
+b = [66.25, 333, 333, 1, 1234.5]
+for i in b:
+    print "i = " + i + "; "'''
 
 # jump_stmt.py python outputs:
 jump_test = '''a = open("hello.local", "w")'''

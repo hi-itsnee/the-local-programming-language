@@ -94,7 +94,11 @@ e = c--;'''
 io_test = '''a = open("hello.local", "w");'''
 
 # iter_stmt.py local test inputs:
-iter_test = '''a = open("hello.local", "w");'''
+iter_test = '''a = 0;
+while (a < 10) a = a + 1;
+
+b = {66.25, 333, 333, 1, 1234.5};
+for i in b print("i = %s; ", i);'''
 
 # jump_stmt.py local test inputs:
 jump_test = '''a = open("hello.local", "w");'''
