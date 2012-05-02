@@ -2,27 +2,18 @@
 # Author:                  Team 13
 # Description:             The local programming language compiler
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 23:45:40 plt>
+# Time-stamp:              <2012-05-02 16:33:12 plt>
 
 import argparse
 from localparse import parse
 from localast import walk_the_tree
 
-def main(filename, debug, parse_only):
+def _output_code(code):
+    '''Return string, which is target Python program'''
     # Initialize variables
     import_convertdist = False
     import_dist = False
     import_sys = False
-    # Read the source file and build the AST
-    sourcecode = filename.read()
-    ast = parse(sourcecode, debug)
-    if parse_only:
-        exit(0)
-    if not ast:
-        print "Error compiling"
-        exit(1)
-    # Walk the AST to produce target (Python) code
-    code = walk_the_tree(ast, debug=debug)
     # Determine if we need to import anything
     if "convertdist(" in code:
         import_convertdist = True
@@ -48,18 +39,27 @@ def main(filename, debug, parse_only):
         else:
             clean_code.append(line)
     # Print file sans empty lines
-    print "\n".join(clean_code)
+    return "\n".join(clean_code)
+
+def main(filename, debug, parse_only):
+    '''Main function of local compliler'''
+    # Read the source file and build the AST
+    sourcecode = filename.read()
+    ast = parse(sourcecode, debug)
+    if parse_only:
+        exit(0)
+    if not ast:
+        print "Error compiling"
+        exit(1)
+    # Walk the AST to produce target (Python) code
+    target_code = walk_the_tree(ast, debug=debug)
+    print _output_code(target_code)
 
 def tester(testinput):
+    '''Driver function to be used by test suite'''
     ast_test = parse(testinput)
-    code = walk_the_tree(ast_test).split("\n")
-    clean_code = [ ]
-    for line in code:
-        if not line.strip():
-            continue
-        else:
-            clean_code.append(line)
-    return "\n".join(clean_code)
+    code = walk_the_tree(ast_test)
+    return _output_code(code)
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(description='The local compiler.')
