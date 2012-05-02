@@ -59,24 +59,24 @@ def p_program(p):
         p[0] = Node("program", [p[1]])
 
 def p_stmt_list(p):
-    '''stmt_list : stmt_list stmt
-                 | stmt'''
-    if len(p) == 3:
+    '''stmt_list : stmt_list stmt SEMI
+                 | stmt SEMI'''
+    if len(p) == 4:
         p[0] = Node("stmt_list", [p[1], p[2]], None, "%s\n%s")
-    elif len(p) == 2:
+    elif len(p) == 3:
         p[0] = Node("stmt_list", [p[1]], None, "%s")
 
 def p_stmt(p):
-    '''stmt : io_stmt SEMI
-            | assign_stmt SEMI
-            | cond_stmt SEMI
-            | exit_stmt SEMI
-            | def_stmt SEMI
-            | iter_stmt SEMI
-            | jump_stmt SEMI
-            | list_fn SEMI
-            | except_stmt SEMI
-            | double_stmt SEMI'''
+    '''stmt : io_stmt
+            | assign_stmt
+            | cond_stmt
+            | exit_stmt
+            | def_stmt
+            | iter_stmt
+            | jump_stmt
+            | list_fn
+            | except_stmt
+            | double_stmt'''
     p[0] = Node("statement", [p[1]], None, "%s")
 
 # Error handler
