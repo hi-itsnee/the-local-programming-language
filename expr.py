@@ -31,7 +31,8 @@ def p_expr(p):
             | coord_fn
             | list_fn
             | io_fn
-            | str_fn'''
+            | str_fn
+            | argv_fn'''
 #            | io_expr
     # BINOP or parenthesis
     if len(p) == 4:
