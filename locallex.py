@@ -14,7 +14,7 @@ reserved = (
     'PRINT', 'OPEN', 'CLOSE', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT',
     'WHILE', 'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
     'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 'DIST', 'CONVERTDIST',
-    'LEN', 'STRIP', 'SPLIT', 'STR', 'READ',
+    'LEN', 'STRIP', 'SPLIT', 'STR', 'READ', 'ARGV'
     )
 
 tokens = reserved + (
