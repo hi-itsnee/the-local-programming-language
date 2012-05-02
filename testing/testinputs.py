@@ -16,25 +16,25 @@ b = (0 + 1);'''
 # cond_stmt.py local test inputs:
 if_test = '''a = 5;
 if a > 3
-    print(a > 3);'''
+    print("a > 3");'''
 
 ifelse_test = '''a = True;
 if a
-    print(a is true);
+    print("a is true");
 else
-    print(a is false);'''
+    print("a is false");'''
 
 nesting_test = '''if a {
-    print(a is true);
+    print("a is true");
     if b == a
-        print(made it here);
+        print("made it here");
     elif b < a
-        print(made it there);
+        print("made it there");
     else
-        print(made it everywhere);
+        print("made it everywhere");
 }
 else
-    print(a is false);'''
+    print("a is false");'''
 
 # exit
 exit_test = '''exit(1);'''
@@ -56,16 +56,17 @@ x = a == b;
 y = c != d;
 z = (e);'''
 
-indices_test = '''b = a[1];'''
+indices_test = '''b = a[c];'''
 
-unary_test = '''a = True;
+unary_test = '''a = 3++;
+a = True;
 b = not a;
 c = -5;
 d = c++;
 e = c--;'''
 
 # io_stmt.py local test inputs:
-io_test = '''open("../sandbox/array.local")'''
+io_test = '''a = open("hello.local", "w");'''
 
 # math_expr.py local test inputs:
 math_test1 = '''a = isd + dsa * 12 + (7/5);'''
@@ -73,7 +74,7 @@ math_test1 = '''a = isd + dsa * 12 + (7/5);'''
 
 ### PROGRAM TESTS:
 # Hello World:
-helloworld_test = '''print(Hello, world!);'''
+helloworld_test = '''print("Hello, world!");'''
 
 # example1.py local test inputs:
 example1_test = '''x = 1;

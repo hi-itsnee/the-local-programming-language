@@ -26,7 +26,7 @@ def p_open_stmt(p):
         mode = "r"
     elif len(p) == 7:
         mode = p[5]
-    value = "open(%s, \"%s\")" % (filename, mode)
+    value = "open(%s, %s)" % (filename, mode)
     p[0] = Node("open", None, value, value)
 
 # PRINT grammar in print_stmt.py
