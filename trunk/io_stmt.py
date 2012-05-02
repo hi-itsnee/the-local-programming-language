@@ -32,7 +32,7 @@ def p_open_stmt(p):
 # PRINT grammar in print_stmt.py
 
 def p_close_stmt(p):
-    '''close_stmt : CLOSE LPAREN atom RPAREN SEMI'''
+    '''close_stmt : CLOSE LPAREN atom RPAREN'''
     p[0] = Node("close", [p[3]], None, "%s.close()")
 
 def p_read_stmt(p):

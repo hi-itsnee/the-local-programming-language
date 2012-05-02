@@ -14,24 +14,24 @@ def p_jump_stmt(p):
     p[0] = Node("jump", [p[1]])
 
 def p_cont_jump_stmt(p):
-    '''cont_jump_stmt : CONTINUE SEMI'''
+    '''cont_jump_stmt : CONTINUE'''
     value = "continue"
     p[0] = Node("continue", None, value, value)
 
 def p_break_jump_stmt(p):
-    '''break_jump_stmt : BREAK SEMI'''
+    '''break_jump_stmt : BREAK'''
     value = "break"
     p[0] = Node("break", None, value, value)
 
 def p_pass_jump_stmt(p):
-    '''pass_jump_stmt : PASS SEMI'''
+    '''pass_jump_stmt : PASS'''
     value = "pass"
     p[0] = Node("pass", None, value, value)
 
 def p_return_jump_stmt(p):
-    '''return_jump_stmt : RETURN expr SEMI
-                        | RETURN SEMI'''
-    if len(p) == 4:
+    '''return_jump_stmt : RETURN expr
+                        | RETURN'''
+    if len(p) == 3:
         p[0] = Node("return", [p[2]], None, "return %s")
-    else:
-       p[0] = Node("return", None, None, "return")
+    elif len(p) == 2:
+       p[0] = Node("return", None, "return")
