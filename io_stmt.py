@@ -23,7 +23,7 @@ def p_open_stmt(p):
     filename = p[3]
     if len(p) == 5:
         # Default is read (r)
-        mode = "r"
+        mode = "\"r\""
     elif len(p) == 7:
         mode = p[5]
     value = "open(%s, %s)" % (filename, mode)
