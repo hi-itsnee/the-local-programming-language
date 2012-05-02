@@ -132,7 +132,7 @@ def _do_arglist_subtree(node, code, debug, arglist=[ ]):
         else:
             arg = walk_the_tree(node.children[0], code, debug)
             return arg
- 
+
 def _for_subtree(node, code, debug):
     '''For indenting For block'''
     for_atomchild = walk_the_tree(node.children[0], code, debug)
@@ -141,24 +141,6 @@ def _for_subtree(node, code, debug):
     for line in for_stmtchild:
         for_stmt_indented += " "*INDENT + line + "\n"
     return "for %s in %s:\n%s" % (node.value, for_atomchild, for_stmt_indented)
-
-def _append_subtree(node, code, debug):
-    append_firstchild = walk_the_tree(node.children[0], code, debug)
-    append_secondchild = walk_the_tree(node.children[1], code, debug)
-    return "%s.append(%s)" % (append_firstchild, append_secondchild)
-
-def _remove_subtree(node, code, debug):
-    remove_firstchild = walk_the_tree(node.children[0], code, debug)
-    remove_secondchild = walk_the_tree(node.children[1], code, debug)
-    return "%s.remove(%s)" % (remove_firstchild, remove_secondchild)
-
-def _pop_subtree(node, code, debug):
-    pop_firstchild = walk_the_tree(node.children[0], code, debug)
-    if len(node.children) == 2:
-        pop_secondchild = walk_the_tree(node.children[1], code,debug)
-        return "%s.pop(%s)" % (pop_firstchild, pop_secondchild)
-    else:
-        return "%s.pop()" % (pop_firstchild)
 
 def _while_subtree(node, code, debug):
     '''For indenting While loop block'''
@@ -251,12 +233,6 @@ def walk_the_tree(node, code="", debug=False):
             code += _do_print_subtree(node, code, debug)
         elif node.type == 'return':
             code += _return_subtree(node, code, debug)
-        elif node.type == 'append':
-            code += _append_subtree(node, code, debug)
-        elif node.type == 'remove':
-            code += _remove_subtree(node, code, debug)
-        elif node.type == 'pop':
-            code += _pop_subtree(node, code, debug)  
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )
