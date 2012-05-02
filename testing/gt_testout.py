@@ -4,7 +4,8 @@
 
 # assign_stmt.py python outputs:
 assign_test = '''a = 10
-b = (0 + 1)'''
+b = (0 + 1)
+c = a + b'''
 #c *= a
 #d /= a
 #e %= 2
@@ -34,6 +35,15 @@ nesting_test = '''if a:
         print "made it everywhere"
 else:
     print "a is false"'''
+
+# coord_fn.py python outputs:
+coord_test = '''   '''
+
+# def_stmt.py python outputs:
+defstmt_test = '''   '''
+
+# except_stmt.py python outputs:
+exceptstmt_test = '''   '''
 
 # exit
 exit_test = '''exit(1)'''
@@ -67,18 +77,20 @@ e = c - 1'''
 # io_stmt.py python outputs:
 io_test = '''a = open("hello.local", "w")'''
 
+# iter_stmt.py python outputs:
+iter_test = '''a = open("hello.local", "w")'''
+
+# jump_stmt.py python outputs:
+jump_test = '''a = open("hello.local", "w")'''
+
+# list_stmt.py python outputs:
+list_test = '''a = open("hello.local", "w")'''
+
 # math_expr.py python outputs:
-math_test1 = '''a = isd + dsa * 12 + (7 / 5)'''
+math_test = '''a = isd + dsa * 12 + (7 / 5)'''
 
+# print_stmt.py python outputs:
+print_test = '''a = open("hello.local", "w")'''
 
-### PROGRAM TESTS:
-# Hello World:
-helloworld_test = '''print "Hello, world!"'''
-
-# example1.py python outputs:
-example1_test = '''x = 1
-y = 2
-z = 1.1
-w1 = x + y
-w2 = x - y
-w3 = x + z'''
+# str_fn.py python outputs:
+strfn_test = '''   '''

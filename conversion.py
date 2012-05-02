@@ -1,4 +1,4 @@
-# Filename:                haversine.py
+# Filename:                conversion.py
 # Author:                  Team 13
 # Description:             local language conversion module
 # Supported Lanauge(s):    Python 2.x
