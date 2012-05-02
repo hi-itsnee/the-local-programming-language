@@ -241,8 +241,11 @@ def walk_the_tree(node, code="", debug=False):
             code += _do_indent_subtree(node, code, debug)
         # Assignments needs their right side synthesized
         elif node.type == "assign":
-            rhs = walk_the_tree(node.children[0], code, debug)
-            assmnt = node.value + " = " + rhs + "\n"
+            #code += _indent_subtree(node, code, debug)
+            rhs = walk_the_tree(node.children[2], code, debug)
+            lhs = walk_the_tree(node.children[0], code, debug)
+            ms = walk_the_tree(node.children[1], code, debug)
+            assmnt = lhs + ms + rhs + "\n"
             code += assmnt
         elif node.type == "print":
             code += _do_print_subtree(node, code, debug)

@@ -96,13 +96,13 @@ t_NE               = r'!='
 
 # Assignment operators
 t_EQUALS           = r'='
-t_TIMESEQUAL       = r'\*='
-t_DIVEQUAL         = r'/='
-t_MODEQUAL         = r'%='
-t_PLUSEQUAL        = r'\+='
-t_MINUSEQUAL       = r'-='
-t_ANDEQUAL         = r'and='
-t_OREQUAL          = r'or='
+t_TIMESEQUAL       = r'\*(\s)?='
+t_DIVEQUAL         = r'/(\s)?='
+t_MODEQUAL         = r'%(\s)?='
+t_PLUSEQUAL        = r'\+(\s)?='
+t_MINUSEQUAL       = r'-(\s)?='
+t_ANDEQUAL         = r'and(\s)?='
+t_OREQUAL          = r'or(\s)?='
 
 # Increment/decrement
 t_PLUSPLUS         = r'\+\+'
