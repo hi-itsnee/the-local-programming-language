@@ -55,6 +55,24 @@ class TestCond(unittest.TestCase):
         actual_result = local.tester(gt_testin.coord_test)
 	self.assertEqual(target_result, actual_result)   
 
+#class TestDefs(unittest.TestCase):
+    def setUp(self):
+        print "Begin Definition Testing"
+
+    def test_def(self):
+        target_result = gt_testout.def_test
+        actual_result = local.tester(gt_testin.def_test)
+	self.assertEqual(target_result, actual_result)   
+
+#class TestExcept(unittest.TestCase):
+    def setUp(self):
+        print "Begin Exception Testing"
+
+    def test_except(self):
+        target_result = gt_testout.except_test
+        actual_result = local.tester(gt_testin.except_test)
+	self.assertEqual(target_result, actual_result)   
+
 #class TestExit(unittest.TestCase):
     def setUp(self):
         print "Begin Exit Testing"
@@ -102,8 +120,8 @@ class TestMath(unittest.TestCase):
 
     def test1_math(self):
     # Test a math expression
-        target_result = gt_testout.math_test1
-        actual_result = local.tester(gt_testin.math_test1)
+        target_result = gt_testout.math_test
+        actual_result = local.tester(gt_testin.math_test)
 	self.assertEqual(target_result, actual_result)
 
 if __name__ == '__main__':

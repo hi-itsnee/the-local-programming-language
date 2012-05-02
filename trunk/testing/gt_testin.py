@@ -5,7 +5,10 @@
 # assign_stmt.py local test inputs:
 assign_test = '''a = 10;
 b = (0 + 1);
-c = a + b;'''
+c = a + b;
+x = 1;
+distance = 1000.0;
+name = "New York";'''
 #c *= a;
 #d /= a;
 #e %= 2;
@@ -42,12 +45,23 @@ coord_test = '''a = (4.0, -5.9);
 b = (3.996, -6.445);'''
 
 # def_stmt.py local test inputs:
-defstmt_test = '''   '''
+def_test = '''def newfunction(argin) {
+a = argin;
+b = "rats";
+}'''
 
 # except_stmt.py local test inputs:
-exceptstmt_test = '''   '''
+except_test = '''try {
+    a = (10.0, 5.25);
+} except Exception {
+    print("oops!");
+} try {
+    a = 5;
+} except Exception {
+    print("sigh");
+}'''
 
-# exit
+# exit_stmt.py local test input:
 exit_test = '''exit(1);'''
 
 # expr.py test inputs:
