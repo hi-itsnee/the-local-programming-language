@@ -24,7 +24,7 @@ def p_expr(p):
             | expr atom
             | LPAREN expr RPAREN
             | atom MINUSMINUS
-            | atom PLUSPLUS
+            | expr PLUSPLUS
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
@@ -67,20 +67,17 @@ def p_expr(p):
         else:
             p[0] = Node("parens", [p[2]], None, "(%s)")
 
-    # Indices [#]
-#    elif len(p) == 5:
-#        p[0] = Node("array", [p[1], p[3]], None, "%s\[%s\]")
-
     # NOT, UMINUS, and post-increment/decrement
     elif len(p) == 3:
         if p[1] == "not":
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
-        elif p[1] == '++':
-            p[0] == Node("plusplus", [p[2]], None, "%s + 1")
-        elif p[1] == '--':
-            p[0] == Node("minusminus", [p[2]], None, "%s - 1")
+        elif p[2] == '++':
+            line = "%s + 1" % (p[1])
+            p[0] == Node("plusplus", [p[1]], line, line)
+        elif p[2] == '--':
+            p[0] == Node("minusminus", [p[1]], None, "%s - 1")
         else:
             p[0] = Node("array", [p[1], p[2]], None, "%s%s")
     # ATOM

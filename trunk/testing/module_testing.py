@@ -23,37 +23,37 @@ class TestAssign(unittest.TestCase):
         actual_result = local.tester(testinputs.assign_test)
 	self.assertEqual(target_result, actual_result)   
 
-#class TestCond(unittest.TestCase):
-#    def setUp(self):
-#	print "Begin Conditional Testing"
-#
-#    def test_if(self):
-#    # Test a single 'if' statement
-#        target_result = testoutputs.if_test
-#	actual_result = local.tester(testinputs.if_test)
-#	self.assertEqual(target_result, actual_result)
-#        # verify that this is the correct python result by looking
-#
-#    def test_ifelse(self):
-#    # Test an if statement that includes an else
-#        target_result = testoutputs.ifelse_test
-#	actual_result = local.tester(testinputs.ifelse_test)
-#	self.assertEqual(target_result, actual_result)
-#
-#    def test_nesting(self):
-#    # Test a nested if-else within an if-else
-#        target_result = testoutputs.nesting_test
-#	actual_result = local.tester(testinputs.nesting_test)
-#	self.assertEqual(target_result, actual_result)    
+class TestCond(unittest.TestCase):
+    def setUp(self):
+	print "Begin Conditional Testing"
+
+    def test_if(self):
+    # Test a single 'if' statement
+        target_result = testoutputs.if_test
+	actual_result = local.tester(testinputs.if_test)
+	self.assertEqual(target_result, actual_result)
+        # verify that this is the correct python result by looking
+
+    def test_ifelse(self):
+    # Test an if statement that includes an else
+        target_result = testoutputs.ifelse_test
+	actual_result = local.tester(testinputs.ifelse_test)
+	self.assertEqual(target_result, actual_result)
+
+    def test_nesting(self):
+    # Test a nested if-else within an if-else
+        target_result = testoutputs.nesting_test
+	actual_result = local.tester(testinputs.nesting_test)
+	self.assertEqual(target_result, actual_result)    
 
 #class TestExit(unittest.TestCase):
-#    def setUp(self):
-#        print "Begin Exit Testing"
-#
-#    def test_exit(self):
-#        target_result = testoutputs.exit_test
-#        actual_result = local.tester(testinputs.exit_test)
-#	self.assertEqual(target_result, actual_result)   
+    def setUp(self):
+        print "Begin Exit Testing"
+
+    def test_exit(self):
+        target_result = testoutputs.exit_test
+        actual_result = local.tester(testinputs.exit_test)
+	self.assertEqual(target_result, actual_result)   
 
 class TestExpr(unittest.TestCase):
     def setUp(self):
@@ -65,28 +65,28 @@ class TestExpr(unittest.TestCase):
         actual_result = local.tester(testinputs.binop_test)
         self.assertEqual(target_result, actual_result)  
     
-#    def test_indices(self):
-#        # Test the array statement
-#        target_result = testoutputs.indices_test
-#        actual_result = local.tester(testinputs.indices_test)
-#        self.assertEqual(target_result, actual_result)  
-#
-#    def test_unary(self):
-#        # Test all the unary statements
-#        target_result = testoutputs.unary_test
-#        actual_result = local.tester(testinputs.unary_test)
-#        self.assertEqual(target_result, actual_result)  
+    def test_indices(self):
+        # Test the array statement
+        target_result = testoutputs.indices_test
+        actual_result = local.tester(testinputs.indices_test)
+        self.assertEqual(target_result, actual_result)  
+
+    def test_unary(self):
+        # Test all the unary statements
+        target_result = testoutputs.unary_test
+        actual_result = local.tester(testinputs.unary_test)
+        self.assertEqual(target_result, actual_result)  
        
-#class TestIO(unittest.TestCase):
-#    def setUp(self):
-#        print "Begin I/O Testing"
-#
-#    def test_io(self):
-#    # Test a file write expression
-#        target_result = testoutputs.io_test
-#        actual_result = local.tester(testinputs.io_test)
-#	self.assertEqual(target_result, actual_result)
-# 
+class TestIO(unittest.TestCase):
+    def setUp(self):
+        print "Begin I/O Testing"
+
+    def test_io(self):
+    # Test a file write expression
+        target_result = testoutputs.io_test
+        actual_result = local.tester(testinputs.io_test)
+	self.assertEqual(target_result, actual_result)
+ 
 class TestMath(unittest.TestCase):
     def setUp(self):
         print "Begin Math Testing"
@@ -97,14 +97,14 @@ class TestMath(unittest.TestCase):
         actual_result = local.tester(testinputs.math_test1)
 	self.assertEqual(target_result, actual_result)
      
-#class TestHelloWorld(unittest.TestCase):
-#    def setUp(self):
-#        print "Begin Hello World Test"
-#
-#    def test_hw(self):
-#        target_result = testoutputs.helloworld_test
-#        actual_result = local.tester(testinputs.helloworld_test)
-#	self.assertEqual(target_result, actual_result)  
+class TestHelloWorld(unittest.TestCase):
+    def setUp(self):
+        print "Begin Hello World Test"
+
+    def test_hw(self):
+        target_result = testoutputs.helloworld_test
+        actual_result = local.tester(testinputs.helloworld_test)
+	self.assertEqual(target_result, actual_result)  
 
 class Example1(unittest.TestCase):
     def setUp(self):

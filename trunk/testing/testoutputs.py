@@ -55,16 +55,17 @@ x = a == b
 y = c != d
 z = (e)'''
 
-indices_test = '''b = a([c])'''
+indices_test = '''b = a[c]'''
 
-unary_test = '''a = True
+unary_test = '''a = 3 + 1
+a = True
 b = not a
 c = -5
 d = c + 1
 e = c - 1'''
 
 # io_stmt.py python outputs:
-io_test = '''open('sandbox/array.local', 'w')'''
+io_test = '''a = open("hello.local", "w")'''
 
 # math_expr.py python outputs:
 math_test1 = '''a = isd + dsa * 12 + (7 / 5)'''
