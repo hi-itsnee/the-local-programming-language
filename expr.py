@@ -21,8 +21,9 @@ def p_expr(p):
             | expr GE expr
             | expr EQ expr
             | expr NE expr
-            | expr atom
             | LPAREN expr RPAREN
+            | expr PLUSPLUS
+            | expr MINUSMINUS
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
@@ -72,10 +73,11 @@ def p_expr(p):
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
-        elif p[2] == '++':
-            line = "%s + 1" % (p[1])
-            p[0] == Node("plusplus", [p[1]], line, line)
-        elif p[2] == '--':
+        elif p[2] == "++":
+#            line = "%s + 1" % (p[1])
+#            p[0] == Node("plusplus", [p[1]], line, line)
+            p[0] == Node("plusplus", [p[1]], None, "%s + 1")
+        elif p[2] == "--":
             p[0] == Node("minusminus", [p[1]], None, "%s - 1")
         else:
             p[0] = Node("array", [p[1], p[2]], None, "%s%s")
