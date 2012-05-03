@@ -22,8 +22,6 @@ def p_expr(p):
             | expr EQ expr
             | expr NE expr
             | LPAREN expr RPAREN
-            | expr PLUSPLUS
-            | expr MINUSMINUS
             | NOT expr %prec NOT
             | MINUS expr %prec UMINUS
             | atom
@@ -31,6 +29,7 @@ def p_expr(p):
             | list_fn
             | io_fn
             | str_fn
+            | double_stmt
             | argv_fn'''
 #            | io_expr
     # BINOP or parenthesis
@@ -73,14 +72,6 @@ def p_expr(p):
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
-        elif p[2] == "++":
-#            line = "%s + 1" % (p[1])
-#            p[0] == Node("plusplus", [p[1]], line, line)
-            p[0] == Node("plusplus", [p[1]], None, "%s + 1")
-        elif p[2] == "--":
-            p[0] == Node("minusminus", [p[1]], None, "%s - 1")
-        else:
-            p[0] = Node("array", [p[1], p[2]], None, "%s%s")
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])

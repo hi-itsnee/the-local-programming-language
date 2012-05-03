@@ -8,10 +8,11 @@ from localast import Node
 
 def p_double_stmt(p):
     ''' double_stmt : ID MINUSMINUS %prec MINUSMINUS
-                    | ID PLUSPLUS %prec PLUSPLUS'''
-    print p[2]
+                    | NUMBER MINUSMINUS %prec MINUSMINUS
+                    | ID PLUSPLUS %prec PLUSPLUS
+                    | NUMBER PLUSPLUS %prec PLUSPLUS'''
     if p[2] == "++":
-        value = "%s += 1" % (p[1])
+        value = "(%s += 1)" % (p[1])
     elif p[2] == "--":
-        value = "%s -= 1" % (p[1])
+        value = "(%s -= 1)" % (p[1])
     p[0] = Node("double", None, value)
