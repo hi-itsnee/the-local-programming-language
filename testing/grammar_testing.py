@@ -13,16 +13,16 @@ import gt_testout
 # Comment in MacVim: 'v' --> :'<,'>s/^/#/g
 # Uncomment in MacVim: 'v' --> :'<,'>s/^#//g
 
-
-class TestAssign(unittest.TestCase):
-    def setUp(self):
-        print "Begin Assignment Testing"
-
-    def test_assign(self):
-        target_result = gt_testout.assign_test
-        actual_result = local.tester(gt_testin.assign_test)
-	self.assertEqual(target_result, actual_result)   
-
+#
+#class TestAssign(unittest.TestCase):
+#    def setUp(self):
+#        print "Begin Assignment Testing"
+#
+#    def test_assign(self):
+#        target_result = gt_testout.assign_test
+#        actual_result = local.tester(gt_testin.assign_test)
+#	self.assertEqual(target_result, actual_result)   
+#
 #class TestCond(unittest.TestCase):
 #    def setUp(self):
 #	print "Begin Conditional Testing"
@@ -46,15 +46,15 @@ class TestAssign(unittest.TestCase):
 #	actual_result = local.tester(gt_testin.nesting_test)
 #	self.assertEqual(target_result, actual_result)    
 #
-class TestCoord(unittest.TestCase):
-    def setUp(self):
-        print "Begin Coordinate Testing"
-
-    def test_coord(self):
-        target_result = gt_testout.coord_test
-        actual_result = local.tester(gt_testin.coord_test)
-	self.assertEqual(target_result, actual_result)   
-
+#class TestCoord(unittest.TestCase):
+#    def setUp(self):
+#        print "Begin Coordinate Testing"
+#
+#    def test_coord(self):
+#        target_result = gt_testout.coord_test
+#        actual_result = local.tester(gt_testin.coord_test)
+#	self.assertEqual(target_result, actual_result)   
+#
 #class TestDefs(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Definition Testing"
@@ -98,12 +98,12 @@ class TestExpr(unittest.TestCase):
         actual_result = local.tester(gt_testin.indices_test)
         self.assertEqual(target_result, actual_result)  
 
-#    def test_unary(self):
-#        # Test all the unary statements
-#        target_result = gt_testout.unary_test
-#        actual_result = local.tester(gt_testin.unary_test)
-#        self.assertEqual(target_result, actual_result)  
-#       
+    def test_unary(self):
+        # Test all the unary statements
+        target_result = gt_testout.unary_test
+        actual_result = local.tester(gt_testin.unary_test)
+        self.assertEqual(target_result, actual_result)  
+       
 class TestIO(unittest.TestCase):
     def setUp(self):
         print "Begin I/O Testing"
@@ -159,15 +159,15 @@ class TestMath(unittest.TestCase):
 #        target_result = gt_testout.print_test
 #        actual_result = local.tester(gt_testin.print_test)
 #	self.assertEqual(target_result, actual_result)
-
-class TestString(unittest.TestCase):
-    def setUp(self):
-        print "Begin String Testing"
-
-    def test_string(self):
-        target_result = gt_testout.string_test
-        actual_result = local.tester(gt_testin.string_test)
-	self.assertEqual(target_result, actual_result)
-
+#
+#class TestString(unittest.TestCase):
+#    def setUp(self):
+#        print "Begin String Testing"
+#
+#    def test_string(self):
+#        target_result = gt_testout.string_test
+#        actual_result = local.tester(gt_testin.string_test)
+#	self.assertEqual(target_result, actual_result)
+#
 if __name__ == '__main__':
     unittest.main()
