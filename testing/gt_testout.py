@@ -100,16 +100,35 @@ for i in b:
     print "i = " + i + "; "'''
 
 # jump_stmt.py python outputs:
-jump_test = '''a = open("hello.local", "w")'''
+jump_test = '''a = 0
+while a < 10:
+    b = a - 1
+    continue
+    break
+    a = a + 1
 
-# list_stmt.py python outputs:
-list_test = '''a = open("hello.local", "w")'''
+b = [66.25, 333, 333, 1, 1234.5]
+for i in b:
+    pass
+
+return
+
+return a'''
+
+# list_fn.py python outputs:
+list_test = '''b = [66.25, 333, 333, 1, 1234.5]'''
 
 # math_expr.py python outputs:
 math_test = '''a = isd + dsa * 12 + (7 / 5)'''
 
 # print_stmt.py python outputs:
-print_test = '''a = open("hello.local", "w")'''
+print_test = '''i = 42.5
+print "i = " + i + "; "'''
 
 # str_fn.py python outputs:
-strfn_test = '''   '''
+string_test = '''a = "   A test string."
+b = 24.5
+c = len(a)
+first, second = a.split("st")
+s = first.strip()
+t = str(b)'''

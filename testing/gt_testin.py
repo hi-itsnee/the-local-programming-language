@@ -97,20 +97,39 @@ io_test = '''a = open("hello.local", "w");'''
 iter_test = '''a = 0;
 while (a < 10) a = a + 1;
 
-b = {66.25, 333, 333, 1, 1234.5};
+b = (66.25, 333, 333, 1, 1234.5);
 for i in b print("i = %s; ", i);'''
 
 # jump_stmt.py local test inputs:
-jump_test = '''a = open("hello.local", "w");'''
+jump_test = '''a = 0;
+while (a < 10) {
+    b = a - 1;
+    continue;
+    break;
+    a = a + 1;
+}
+
+b = (66.25, 333, 333, 1, 1234.5);
+for i in b pass;
+
+return;
+
+return a;'''
 
 # list_fn.py local test inputs:
-listfn_test = '''a = open("hello.local", "w");'''
+list_test = '''b = (66.25, 333, 333, 1, 1234.5);'''
 
 # math_expr.py local test inputs:
 math_test = '''a = isd + dsa * 12 + (7/5);'''
 
 # print_stmt.py local test inputs:
-print_test = '''a = open("hello.local", "w");'''
+print_test = '''i = 42.5;
+print("i = %s; ", i);'''
 
 # str_fn.py local test inputs:
-strfn_test = '''   '''
+string_test = '''a = "   A test string.";
+b = 24.5;
+c = len(a);
+first, second = split(a, "st");
+s = strip(first);
+t = str(b);'''
