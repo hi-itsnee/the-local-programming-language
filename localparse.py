@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 22:34:56 plt>
+# Time-stamp:              <2012-05-03 19:08:08 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -62,9 +62,9 @@ def p_stmt_list(p):
     '''stmt_list : stmt_list stmt
                  | stmt'''
     if len(p) == 3:
-        p[0] = Node("stmt_list", [p[1], p[2]], None, "%s")
+        p[0] = Node("stmt_list", [p[1], p[2]])
     elif len(p) == 2:
-        p[0] = Node("stmt_list", [p[1]], None, "%s\n")
+        p[0] = Node("stmt_list", [p[1]])
 
 def p_stmt(p):
     '''stmt : io_stmt SEMI
@@ -77,12 +77,12 @@ def p_stmt(p):
             | list_fn SEMI
             | except_stmt
             | double_stmt SEMI'''
-    p[0] = Node("statement", [p[1]], None, "%s")
+    p[0] = Node("stmt", [p[1]])
 
 # Error handler
 def p_error(p):
     if not p:
-        print("Catastrophic error in your code. I cannot help you.")
+        print "There is a catastrophic error in your code. I cannot help you."
     else:
         print "Syntax error at line %s near %s" % (p.lineno, p.value)
         yacc.restart()
