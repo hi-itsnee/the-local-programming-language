@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parser jump statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 12:56:01 plt>
+# Time-stamp:              <2012-05-02 22:10:20 plt>
 
 from localast import Node
 
@@ -16,17 +16,17 @@ def p_jump_stmt(p):
 def p_cont_jump_stmt(p):
     '''cont_jump_stmt : CONTINUE'''
     value = "continue"
-    p[0] = Node("continue", None, value, value)
+    p[0] = Node("continue", None, value)
 
 def p_break_jump_stmt(p):
     '''break_jump_stmt : BREAK'''
     value = "break"
-    p[0] = Node("break", None, value, value)
+    p[0] = Node("break", None, value)
 
 def p_pass_jump_stmt(p):
     '''pass_jump_stmt : PASS'''
     value = "pass"
-    p[0] = Node("pass", None, value, value)
+    p[0] = Node("pass", None, value)
 
 def p_return_jump_stmt(p):
     '''return_jump_stmt : RETURN expr
