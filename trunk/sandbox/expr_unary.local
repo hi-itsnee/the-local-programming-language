@@ -1,1 +1,3 @@
-a = 3++;
+testnot = not True;
+testpp = (4.2)++;
+testmm = (3)--;

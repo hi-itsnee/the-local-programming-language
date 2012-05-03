@@ -1,0 +1,11 @@
+try {
+    a = (10.0, 5.25);
+} except Exception {
+    print("oops!");
+} 
+
+try {
+    a = 5;
+} except Exception {
+    print("sigh");
+}
