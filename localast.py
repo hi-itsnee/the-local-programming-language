@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-29 21:43:45 plt>
+# Time-stamp:              <2012-05-02 22:51:34 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -100,12 +100,19 @@ def _do_else_subtree(node, code, debug):
 
 def _do_def_subtree(node, code, debug):
     '''For indenting DEF code blocks'''
-    def_arg = _do_arglist_subtree(node.children[0], code, debug)
-    def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
+    if len(node.children) == 2:
+        def_arg = _do_arglist_subtree(node.children[0], code, debug)
+        def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
+    elif len(node.children) == 1:
+        def_stmt = walk_the_tree(node.children[0], code, debug).split("\n")
     def_stmt_i = ""
     for line in def_stmt:
         def_stmt_i += " "*INDENT + line + "\n"
-    return "def %s(%s):\n%s\n" % (node.value, def_arg, def_stmt_i)
+    if len(node.children) == 2:
+        return "def %s(%s):\n%s\n" % (node.value, def_arg, def_stmt_i)
+    elif len(node.children) == 1:
+        return "def %s():\n%s\n" % (node.value, def_stmt_i)
+
 
 def _do_arglist_subtree(node, code, debug, arglist=[ ]):
     '''For building a list of arguments'''
