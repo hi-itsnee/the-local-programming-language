@@ -13,5 +13,9 @@ def p_atom(p):
             | NULL
             | COORD
             | STRING
-            | LIST'''
-    p[0] = Node("atom", None, p[1])
+            | LIST
+            | atom atom'''
+    if len(p) == 2:
+        p[0] = Node("atom", None, p[1])
+    elif len(p) == 3:
+        p[0] = Node("array", [p[1], p[2]], None, "%s%s")
