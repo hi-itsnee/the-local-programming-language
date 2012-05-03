@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 22:51:34 plt>
+# Time-stamp:              <2012-05-03 19:18:55 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -215,6 +215,15 @@ def _do_indent_subtree(node, code, debug):
     if node.type == 'except':
         return _except_subtree(node, code, debug)
 
+def _do_stmt_list_subtree(node, code, debug):
+    if len(node.children) == 2:
+        stmt_list = _do_stmt_list_subtree(node.children[0], code, debug)
+        stmt = walk_the_tree(node.children[1], code, debug)
+        return stmt_list + "\n" + stmt
+    elif len(node.children) == 1:
+        stmt = walk_the_tree(node.children[0], code, debug)
+        return stmt
+
 def walk_the_tree(node, code="", debug=False):
     '''Walk the AST and return a string, which is a Python program'''
     # Default case (should not be hit)
@@ -225,8 +234,10 @@ def walk_the_tree(node, code="", debug=False):
         print "#type: %s, value: %s" % (node.type, node.value)
     # For nodes with children
     if node.children:
+        if node.type == "stmt_list":
+            code += _do_stmt_list_subtree(node, code, debug)
         # Certain statements require substatements to be indented
-        if node.type in indent_them:
+        elif node.type in indent_them:
             code += _do_indent_subtree(node, code, debug)
         # Assignments needs their right side synthesized
         elif node.type == "assign":
@@ -246,6 +257,8 @@ def walk_the_tree(node, code="", debug=False):
             # Visit the children
             for child in node.children:
                 values += (walk_the_tree(child, code, debug),)
+            #print "LINE: ", node.line
+            #print "VALUES: ", str(values)
             line = (node.line % values)
             # We're building a line here, not appending to target code
             code = line
