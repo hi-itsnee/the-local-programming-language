@@ -80,12 +80,11 @@ z = (e)'''
 
 indices_test = '''b = a[c]'''
 
-unary_test = '''a = 3 + 1
-a = True
+unary_test = '''a = True
 b = not a
 c = -5
-d = c + 1
-e = c - 1'''
+d += 1
+e -= 1'''
 
 # io_stmt.py python outputs:
 io_test = '''a = open("hello.local", "w")'''

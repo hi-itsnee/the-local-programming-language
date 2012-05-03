@@ -83,12 +83,11 @@ z = (e);'''
 
 indices_test = '''b = a[c];'''
 
-unary_test = '''a = 3++;
-a = True;
+unary_test = '''a = true;
 b = not a;
 c = -5;
-d = c++;
-e = c--;'''
+d++;
+e--;'''
 
 # io_stmt.py local test inputs:
 io_test = '''a = open("hello.local", "w");'''
