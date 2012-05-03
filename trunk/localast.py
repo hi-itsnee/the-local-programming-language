@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-03 19:18:55 plt>
+# Time-stamp:              <2012-05-03 19:47:37 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -114,31 +114,21 @@ def _do_def_subtree(node, code, debug):
         return "def %s():\n%s\n" % (node.value, def_stmt_i)
 
 
-def _do_arglist_subtree(node, code, debug, arglist=[ ]):
+def _do_arglist_subtree(node, code, debug):
     '''For building a list of arguments'''
     # A list of arguments
-    global COUNT
-    if COUNT ==0:
-        arglist = []
     if len(node.children) == 2:
         # Recursively follow the list
-        COUNT = COUNT + 1
-        _do_arglist_subtree(node.children[0], code, debug, arglist)
+        arglist = _do_arglist_subtree(node.children[0], code, debug)
         # Evaluate the atom and append it
         arg = walk_the_tree(node.children[1], code, debug)
-        arglist.append(arg)
+        arglist += arg
         # Make a nice, comma-and-space delimited string to return
         argstring = ", ".join(arglist)
         return argstring
     elif len(node.children) == 1:
-        # The first element in the argument list (reached last)
-        if COUNT > 0:
-            arg = walk_the_tree(node.children[0], code, debug)
-            print code + str(COUNT)
-            return arglist.append(arg)
-        else:
-            arg = walk_the_tree(node.children[0], code, debug)
-            return arg
+        arg = walk_the_tree(node.children[0], code, debug)
+        return arg
 
 def _for_subtree(node, code, debug):
     '''For indenting For block'''
