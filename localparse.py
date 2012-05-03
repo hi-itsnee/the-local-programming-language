@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 17:27:33 plt>
+# Time-stamp:              <2012-05-02 22:34:56 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -59,24 +59,24 @@ def p_program(p):
         p[0] = Node("program", [p[1]])
 
 def p_stmt_list(p):
-    '''stmt_list : stmt_list stmt SEMI
-                 | stmt SEMI'''
-    if len(p) == 4:
-        p[0] = Node("stmt_list", [p[1], p[2]], None, "%s\n%s")
-    elif len(p) == 3:
-        p[0] = Node("stmt_list", [p[1]], None, "%s")
+    '''stmt_list : stmt_list stmt
+                 | stmt'''
+    if len(p) == 3:
+        p[0] = Node("stmt_list", [p[1], p[2]], None, "%s")
+    elif len(p) == 2:
+        p[0] = Node("stmt_list", [p[1]], None, "%s\n")
 
 def p_stmt(p):
-    '''stmt : io_stmt
-            | assign_stmt
+    '''stmt : io_stmt SEMI
+            | assign_stmt SEMI
             | cond_stmt
-            | exit_stmt
+            | exit_stmt SEMI
             | def_stmt
             | iter_stmt
-            | jump_stmt
-            | list_fn
+            | jump_stmt SEMI
+            | list_fn SEMI
             | except_stmt
-            | double_stmt'''
+            | double_stmt SEMI'''
     p[0] = Node("statement", [p[1]], None, "%s")
 
 # Error handler
