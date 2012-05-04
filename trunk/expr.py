@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-05-02 17:04:11 plt>
+# Time-stamp:            <2012-05-04 16:56:18 plt>
 
 from localast import Node
 
@@ -30,8 +30,8 @@ def p_expr(p):
             | io_fn
             | str_fn
             | double_stmt
-            | argv_fn'''
-#            | io_expr
+            | argv_fn
+            | atom QUESTION atom'''
     # BINOP or parenthesis
     if len(p) == 4:
         if p[2] == '+':
@@ -62,6 +62,8 @@ def p_expr(p):
             p[0] = Node("eq", [p[1], p[3]], None, "%s == %s")
         elif p[2] == '!=':
             p[0] = Node("ne", [p[1], p[3]], None, "%s != %s")
+        elif p[2] == '?':
+            p[0] = Node("index", [p[1], p[3]], None, "%s[%s]")
         # Parenthesis
         else:
             p[0] = Node("parens", [p[2]], None, "(%s)")
@@ -72,6 +74,7 @@ def p_expr(p):
             p[0] = Node("not", [p[2]], None, "not %s")
         elif p[1] == "-":
             p[0] = Node("uminus", [p[2]], None, "-%s")
+
     # ATOM
     elif len(p) == 2:
         p[0] = Node("molecule", [p[1]])
