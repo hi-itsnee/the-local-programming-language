@@ -16,7 +16,10 @@ def p_atom(p):
             | LIST
             | ID LT NUMBER GT
             | COORD LT NUMBER GT
-            | LIST LT NUMBER GT'''
+            | LIST LT NUMBER GT
+            | ID LT ID GT
+            | COORD LT ID GT
+            | LIST LT ID GT'''
     if len(p) == 2:
         p[0] = Node("atom", None, p[1])
     elif len(p) == 5:
