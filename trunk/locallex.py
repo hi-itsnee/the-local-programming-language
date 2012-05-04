@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 12:57:30 plt>
+# Time-stamp:              <2012-05-04 16:19:45 plt>
 
 import ply.lex as lex
 import re
@@ -51,13 +51,10 @@ def t_COORD(t):
     return t
 
 def t_LIST(t):
-    r'\[\s*\]|\[\s*\w+\s*(,\s*\w+\s*)*\]'
-    t.value = t.value.strip('[]')
-    t.value = t.value.split(',')
-    tmp = [ ]
-    for v in t.value:
-        tmp.append(v.strip())
-    t.value = str(tmp)
+    r'\[\s*\]|\[\s*[a-zA-Z0-9_\"\(\)\[\]]+\s*(,\s*[a-zA-Z0-9_\"\(\)\[\]]+\s*)*\]'
+    liststr = t.value[1:-1]
+    listlist = liststr.split(",")
+    t.value = "[" + ", ".join(map(lambda x: x.strip(), listlist)) + "]"
     return t
 
 def t_NUMBER(t):
@@ -101,8 +98,6 @@ t_DIVEQUAL         = r'/='
 t_MODEQUAL         = r'%='
 t_PLUSEQUAL        = r'\+='
 t_MINUSEQUAL       = r'-='
-#t_ANDEQUAL         = r'and='
-#t_OREQUAL          = r'or='
 
 # Increment/decrement
 t_PLUSPLUS         = r'\+\+'
