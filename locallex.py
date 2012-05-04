@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-04 16:19:45 plt>
+# Time-stamp:              <2012-05-04 16:59:03 plt>
 
 import ply.lex as lex
 import re
@@ -21,12 +21,10 @@ tokens = reserved + (
     # Operators and assignment
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'POWER', 'MODULO',
     'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
-    'ANDEQUAL', 'OREQUAL', 'PLUSPLUS', 'MINUSMINUS',
-    'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
+    'PLUSPLUS', 'MINUSMINUS', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
 
     # Delimeters
-    'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE',
-    'LBRACKET', 'RBRACKET',
+    'SEMI', 'LPAREN', 'RPAREN', 'COMMA', 'LBRACE', 'RBRACE', 'QUESTION',
 
     # Literals
     'ID', 'COORD', 'STRING', 'NUMBER', 'BOOL', 'NULL', 'LIST',
@@ -106,12 +104,11 @@ t_MINUSMINUS       = r'--'
 # Delimeters
 t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
-t_LBRACKET         = r'\['
-t_RBRACKET         = r'\]'
 t_LBRACE           = r'\{'
 t_RBRACE           = r'\}'
 t_COMMA            = r','
 t_SEMI             = r';'
+t_QUESTION         = r'\?'
 
 # Identifiers and reserved words
 reserved_map = { }
