@@ -52,10 +52,6 @@ def _do_stmt_list_subtree(node, code, debug):
         stmt = walk_the_tree(node.children[0], code, debug)
         return stmt
 
-def _return_subtree(node, code, debug):
-    return_expr_child = walk_the_tree(node.children[0], code, debug)
-    return "return %s" % (return_expr_child)
-
 # Print subtree
 def _do_print_subtree(node, code, debug):
     '''For building a format print statement'''
