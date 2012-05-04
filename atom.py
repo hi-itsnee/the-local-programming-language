@@ -1,8 +1,8 @@
 # Filename:              atom.py
 # Author:                Team 13
-# Description:           local parser exressions
+# Description:           local parser atoms
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-04-20 18:35:43 plt>
+# Time-stamp:            <2012-05-04 15:25:50 plt>
 
 from localast import Node
 
@@ -13,9 +13,5 @@ def p_atom(p):
             | NULL
             | COORD
             | STRING
-            | LIST
-            | atom atom'''
-    if len(p) == 2:
-        p[0] = Node("atom", None, p[1])
-    elif len(p) == 3:
-        p[0] = Node("array", [p[1], p[2]], None, "%s%s")
+            | LIST'''
+    p[0] = Node("atom", None, p[1])
