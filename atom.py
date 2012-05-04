@@ -13,5 +13,12 @@ def p_atom(p):
             | NULL
             | COORD
             | STRING
-            | LIST'''
-    p[0] = Node("atom", None, p[1])
+            | LIST
+            | ID LT NUMBER GT
+            | COORD LT NUMBER GT
+            | LIST LT NUMBER GT'''
+    if len(p) == 2:
+        p[0] = Node("atom", None, p[1])
+    elif len(p) == 5:
+        value = "%s[%s]" % (p[1],p[3])
+        p[0] = Node("index", None, value)
