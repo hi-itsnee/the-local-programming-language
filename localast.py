@@ -241,8 +241,6 @@ def walk_the_tree(node, code="", debug=False):
             code += assmnt
         elif node.type == "print":
             code += _do_print_subtree(node, code, debug)
-        elif node.type == 'return':
-            code += _return_subtree(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )
