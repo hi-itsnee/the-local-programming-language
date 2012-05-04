@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-03 19:47:37 plt>
+# Time-stamp:              <2012-05-04 15:24:59 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -122,10 +122,8 @@ def _do_arglist_subtree(node, code, debug):
         arglist = _do_arglist_subtree(node.children[0], code, debug)
         # Evaluate the atom and append it
         arg = walk_the_tree(node.children[1], code, debug)
-        arglist += arg
-        # Make a nice, comma-and-space delimited string to return
-        argstring = ", ".join(arglist)
-        return argstring
+        arglist += ", " + arg
+        return arglist
     elif len(node.children) == 1:
         arg = walk_the_tree(node.children[0], code, debug)
         return arg
