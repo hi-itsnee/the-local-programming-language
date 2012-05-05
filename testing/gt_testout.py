@@ -111,8 +111,7 @@ return
 return a'''
 
 # list_fn.py python outputs:
-list_test = '''current = [1, 2]
-coord_list = [(1, 3), (22, 5.1), (8, 2)]'''
+list_test = '''example = [1.03, 2.02, var, "not happy"]'''
 
 # math_expr.py python outputs:
 math_test = '''a = isd + dsa * 12 + (7 / 5)'''
