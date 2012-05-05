@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 16:21:07 plt>
+# Time-stamp:              <2012-05-05 16:47:39 plt>
 
 import ply.lex as lex
 import re
@@ -42,10 +42,23 @@ def t_COORD(t):
     r'\(\s*[+-]?\d+(\.\d*)?\s*,\s*[+-]?\d+(\.\d*)?\s*\)'
     #split the string into two parts - lat and long - and make that a tuple
     m = str(t.value)
-    mo = re.search('(?P<lat>[+-]?\d+(\.\d*)?)\s*,\s*(?P<longi>[+-]?\d+(\.\d*)?)', m)
+    pattern = '(?P<lat>[+-]?\d+(\.\d*)?)\s*,\s*(?P<longi>[+-]?\d+(\.\d*)?)'
+    mo = re.search(pattern, m)
+    lat = mo.group('lat')
+    longi = mo.group('longi')
+    # COORD can be a coordinte, or a two-number arg_list.  Make sure to
+    # preserve programmer intentions
+    if '.' in lat:
+        lat = float(lat)
+    else:
+        lat = int(lat)
+    if '.' in longi:
+        longi = float(longi)
+    else:
+        longi = int(longi)
     mw = ( )
-    mw += (float(mo.group('lat')),)
-    mw += (float(mo.group('longi')),)
+    mw += (lat,)
+    mw += (longi,)
     t.value = str(mw)
     return t
 
