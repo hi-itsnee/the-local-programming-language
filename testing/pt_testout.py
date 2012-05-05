@@ -11,8 +11,7 @@ z = 1.1
 w1 = x + y
 w2 = x - y
 w3 = x + z'''
-    # I'm not following the output of this at all...
-
+ 
 # Tutorial2 test:
 tutorial2_test = '''from haversine import dist
 c1 = (40.730836, -73.99749)
@@ -30,8 +29,6 @@ for coord in coords:
     if ((d < shortest) or (shortest == 0)):
         shortest = d
         closest = coord'''
-    # Why does it get rid of the me = (1, 2) line?
-    # What is the syntax error at line 9 near , ? 
 
 # Tutorial4 test:
 tutorial4_test = '''from haversine import dist
@@ -53,6 +50,35 @@ for place in places:
         print "%s is near me." % (name)'''
 
 # Tutorial5 test:
-tutorial5_test = '''print "You don't have enough time."'''
-    # Syntax errors but it passes?
-
+tutorial5_test = '''from conversion import convertdist
+from haversine import dist
+walk_speed = 3.0
+def can_you_get_there(d, t):
+    d_mi = convertdist(d, mi)
+    trip_time = d_mi / (walk_speed * 60)
+    if trip_time > t:
+        return False
+    else:
+        return True
+print "Where are you starting? "
+start = raw_input()
+print "Where are you going? "
+stop = raw_input()
+print "How long do you have? "
+time = raw_input()
+try:
+    d = dist(start, stop)
+except Exception:
+    print "Coordinate is not valid"
+    exit(1)
+try:
+    if time < 0:
+        print "Time is not valid."
+        exit(1)
+except Exception:
+    print "Time is not valid."
+    exit(1)
+if can_you_get_there(d, time):
+    print "You can make it."
+else:
+    print "You don't have enough time."'''
