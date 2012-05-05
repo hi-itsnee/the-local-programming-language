@@ -3,11 +3,12 @@ walk_speed = 3.0; // in miles per hour
 ''' tot_t is the total time you have,
     make_t is the time it takes the baristas to
     fix you a drink.'''
+
 def can_you_get_coffee(d, tot_t, make_t){
-    d_meters = convertdist(d, mi, m);
+    d_meters = convertdist(d, "mi", "m");
     transit_time = d_meters / (walk_speed * 60);
     compare_time = transit_time + make_t;
-     
+
     if compare_time > tot_t
         return false;
     else
@@ -42,3 +43,4 @@ for place in places {
     } except Exception {
         print ("Could not calculate time for %s", name);
     }
+}
