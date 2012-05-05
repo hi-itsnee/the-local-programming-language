@@ -22,7 +22,8 @@ print "The distance between %s and %s is %s meters" % (c1, c2, d)'''
 
 # Tutorial3 test:
 tutorial3_test = '''from haversine import dist
-coords = [(3, 4), (5, 6), (7, 8)]
+me = (1.0, 2.0)
+coords = [(3.0, 4.0), (5.0, 6.0), (7.0, 8.0)]
 shortest = 0
 for coord in coords:
     d = dist(me, coord)
@@ -33,18 +34,23 @@ for coord in coords:
     # What is the syntax error at line 9 near , ? 
 
 # Tutorial4 test:
-tutorial4_test = '''me = (40.752662, -73.977073)
+tutorial4_test = '''from haversine import dist
+me = (40.752662, -73.977073)
 radius = 500
-places = open("database.csv")
+try:
+    places = open("database.csv", "r")
+except Exception:
+    print "Cannot open file"
+    exit(1)
 for place in places:
-    coord, name, type = place.split(",")
+    coord, name, type = place.split(";")
     type = type.strip()
     if type != "pizza":
         continue
     d = dist(me, coord)
     if d <= radius:
         name = name.strip()
-        print "%s is near me" % (name)'''
+        print "%s is near me." % (name)'''
 
 # Tutorial5 test:
 tutorial5_test = '''print "You don't have enough time."'''
