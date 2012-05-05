@@ -32,15 +32,6 @@ class Example1(unittest.TestCase):
         actual_result = local.tester(pt_testin.example1_test)
 	self.assertEqual(target_result, actual_result)    
 
-class TestLogic(unittest.TestCase):
-    def setUp(self):
-        print "Begin Logic Test"
-
-    def test_example1(self):
-        target_result = pt_testout.example1_test
-        actual_result = local.tester(open('./local_files/logic-test.local').read().strip())
-	self.assertEqual(target_result, actual_result)    
-
 class Tutorial2(unittest.TestCase):
     def setUp(self):
         print "Begin Tutorial Test #2: Variables & Arithmetic Expressions"

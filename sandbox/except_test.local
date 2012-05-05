@@ -6,6 +6,7 @@ try {
 
 try {
     a = 5;
+    print("Let's see this...!");
 } except Exception {
     print("sigh");
 }

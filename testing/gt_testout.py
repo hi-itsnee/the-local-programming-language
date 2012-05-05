@@ -91,22 +91,20 @@ io_test = '''a = open("hello.local", "w")'''
 
 # iter_stmt.py python outputs:
 iter_test = '''a = 0
-while a < 10:
+while (a < 10):
     a = a + 1
-
-b = [66.25, 333]
+b = [5, 2, 1]
 for i in b:
     print "i = %s" % (i)'''
 
 # jump_stmt.py python outputs:
 jump_test = '''a = 0
-while a < 10:
+while (a < 10):
     b = a - 1
     continue
     break
     a = a + 1
-
-b = [66.25, 333]
+b = (66.25, 333.0)
 for i in b:
     pass
 return

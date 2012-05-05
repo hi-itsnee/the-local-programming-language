@@ -3,18 +3,11 @@
 ### LEXING/PARSING TESTS:
 
 # assign_stmt.py local test inputs:
-assign_test = '''a = 10;
-b = (0 + 1);'''
-#c *= a;
-#d /= a;
-#e %= 2;
-#f += 4;
-#g -= 5;
-#h and= a;
-#i or= b;
+assign_test = '''//Test variable assignment prior to initialization
+a = b;'''
 
 # cond_stmt.py local test inputs:
-if_test = '''a = 5;
+if_test = '''a = 3;
 if a > 3
     print("a > 3");'''
 

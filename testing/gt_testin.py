@@ -94,9 +94,10 @@ io_test = '''a = open("hello.local", "w");'''
 
 # iter_stmt.py local test inputs:
 iter_test = '''a = 0;
-while (a < 10) a = a + 1;
-
-b = [(66.25, 333), a, 251];
+while (a < 10) {
+    a = a + 1;
+}
+b = [5, 2, 1];
 for i in b print("i = %s", i);'''
 
 # jump_stmt.py local test inputs:
@@ -114,8 +115,10 @@ return;
 return a;'''
 
 # list_fn.py local test inputs:
-list_test = '''example = [1, 2, a];
-coord_list = [(1, 3), (22, 5.1), (8, 2)];'''
+list_test = '''example = [1.03, 2.02, var, "not happy"];'''
+#coord_list = [(1.3, 3.5), (22.2, 5.1), (8.5, 2.2)];'''
+
+# total = [example, coord_list];'''
 
 # math_expr.py local test inputs:
 math_test = '''a = isd + dsa * 12 + (7/5);'''

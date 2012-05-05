@@ -42,13 +42,13 @@ try {
 }
 
 for place in places {
-    coord, name, type = place.split(",");
-    type = type.strip();
+    coord, name, type = split(place,";");
+    type = strip(type);
     if type != "pizza"
         continue;
     d = dist(me, coord);
     if d <= radius {
-        name = name.strip();
+        name = strip(name);
         print("%s is near me.", name);
     }
 }'''
@@ -56,9 +56,9 @@ for place in places {
 # Tutorial5 test:
 tutorial5_test = '''walk_speed = 3.0;
 def can_you_get_there(d, t) {
-    /* Is the time necessary to cover the distance 
-       faster than you can walk?  If yes, return false.
-       If not, return true */
+//Is the time necessary to cover the distance 
+//faster than you can walk?  If yes, return false.
+//If not, return true
 
     d_mi = convertdist(d, mi);
     trip_time = d_mi / (walk_speed * 60);
@@ -69,7 +69,7 @@ def can_you_get_there(d, t) {
         return true;
 }
 
-/* Begin user prompts */
+// Begin user prompts
 print("Where are you starting? ");
 start = read();
 print("Where are you going? ");
@@ -94,7 +94,7 @@ try {
     exit(1);
 }
 
-if can_i_get_there(d, time)
+if can_you_get_there(d, time)
     print("You can make it.");
 else
     print("You don't have enough time.");'''
