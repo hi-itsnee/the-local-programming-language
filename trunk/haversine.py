@@ -21,4 +21,5 @@ def dist(c1, c2):
     foo = foo + hlat
     radius = 6371
     d = 2 * radius * math.asin(math.sqrt(foo))
+    d *= 1000
     return d
