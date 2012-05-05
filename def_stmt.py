@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parse def statement
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 21:58:06 plt>
+# Time-stamp:              <2012-05-05 15:08:00 plt>
 
 from localast import Node
 
@@ -14,7 +14,7 @@ def p_def(p):
     elif len(p) == 9:
         p[0] = Node("def", [p[4], p[7]], p[2])
 
-# Note: arglist also used in print_stmt.py
+# Note: arglist also used in print_stmt.py and assign_stmt.py
 def p_arglist(p):
     '''arglist : arglist COMMA atom
                | atom'''
