@@ -1,80 +1,5 @@
 ##### Input .local files for testing
 
-### LEXING/PARSING TESTS:
-
-# assign_stmt.py local test inputs:
-assign_test = '''a = 10;
-b = (0 + 1);'''
-#c *= a;
-#d /= a;
-#e %= 2;
-#f += 4;
-#g -= 5;
-#h and= a;
-#i or= b;
-
-# cond_stmt.py local test inputs:
-if_test = '''a = 5;
-if a > 3
-    print("a > 3");'''
-
-ifelse_test = '''a = True;
-if a
-    print("a is true");
-else
-    print("a is false");'''
-
-nesting_test = '''if a {
-    print("a is true");
-    if b == a
-        print("made it here");
-    elif b < a
-        print("made it there");
-    else
-        print("made it everywhere");
-}
-else
-    print("a is false");'''
-
-# exit
-exit_test = '''exit(1);'''
-
-# expr.py python outputs:
-binop_test = '''a = 1 + 1;
-b = 2 - 2;
-c = 3 * 3;
-d = 4 / 4;
-e = 5 % 2;
-f = 6 ^ 2;
-r = a or b;
-s = c and d;
-t = e < f;
-u = a <= b;
-v = c > d;
-w = e >= f;
-x = a == b;
-y = c != d;
-z = (e);'''
-
-indices_test = '''b = a[c];'''
-
-unary_test = '''a = 3++;
-a = True;
-b = not a;
-c = -5;
-d = c++;
-e = c--;'''
-
-# io_stmt.py local test inputs:
-io_test = '''a = open("hello.local", "w");'''
-
-# math_expr.py local test inputs:
-math_test1 = '''a = isd + dsa * 12 + (7/5);'''
-
-# str_fn.py local test inputs:
-strfn_test = '''   '''
-
-
 ### PROGRAM TESTS:
 # Hello World:
 helloworld_test = '''print("Hello, world!");'''
@@ -86,3 +11,90 @@ z = 1.1;
 w1 = x + y;
 w2 = x - y;
 w3 = x + z;'''
+
+# Tutorial2 test:
+tutorial2_test = '''c1 = (40.730836, -73.99749);
+c2 = (40.808596, -73.961527);
+d = dist(c1, c2);
+print("The distance between %s and %s is %s meters", c1, c2, d);'''
+
+# Tutorial3 test:
+tutorial3_test = '''me = (1, 2);
+coords = [(3, 4), (5, 6), (7, 8)];
+shortest = 0;
+for coord in coords {
+    d = dist(me, coord);
+    if ((d < shortest) or (shortest == 0)) {
+        shortest = d;
+        closest = coord;
+    }
+}'''
+
+# Tutorial4 test:
+tutorial4_test = '''me = (40.752662, -73.977073);
+radius = 500;
+
+try {
+    places = open("database.csv");
+} except Exception {
+    print ("Cannot open file");
+    exit(1);
+}
+
+for place in places {
+    coord, name, type = place.split(",");
+    type = type.strip();
+    if type != "pizza"
+        continue;
+    d = dist(me, coord);
+    if d <= radius {
+        name = name.strip();
+        print("%s is near me.", name);
+    }
+}'''
+
+# Tutorial5 test:
+tutorial5_test = '''walk_speed = 3.0;
+def can_you_get_there(d, t) {
+    /* Is the time necessary to cover the distance 
+       faster than you can walk?  If yes, return false.
+       If not, return true */
+
+    d_mi = convertdist(d, mi);
+    trip_time = d_mi / (walk_speed * 60);
+
+    if trip_time > t
+        return false;
+    else
+        return true;
+}
+
+/* Begin user prompts */
+print("Where are you starting? ");
+start = read();
+print("Where are you going? ");
+stop = read();
+print("How long do you have? ");
+time = read();
+
+try {
+    d = dist(start, stop);
+} except Exception {
+    print ("Coordinate is not valid");
+    exit(1);
+}
+
+try {
+    if time < 0 {
+        print("Time is not valid.");
+        exit(1);
+    }
+} except Exception {
+    print("Time is not valid.");
+    exit(1);
+}
+
+if can_i_get_there(d, time)
+    print("You can make it.");
+else
+    print("You don't have enough time.");'''
