@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parse def statement
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 16:16:08 plt>
+# Time-stamp:              <2012-05-05 16:29:35 plt>
 
 from localast import Node
 
@@ -16,14 +16,12 @@ def p_def_fn(p):
               | ID COORD'''
     if len(p) == 4:
         value = (p[1],)
-        print "VALUE: ", value
         p[0] = Node("def_fn", None, value)
     elif len(p) == 5:
         p[0] = Node("def_fn", [p[3]], p[1])
     elif len(p) == 3:
         # COORD hack
         value = (p[1], p[2])
-        print "VALUE: ", value
         p[0] = Node("def_fn", None, value)
 
 # Note: arglist also used in print_stmt.py and assign_stmt.py
