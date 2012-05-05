@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parser jump statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 22:10:20 plt>
+# Time-stamp:              <2012-05-05 18:23:41 plt>
 
 from localast import Node
 
@@ -34,4 +34,4 @@ def p_return_jump_stmt(p):
     if len(p) == 3:
         p[0] = Node("return", [p[2]], None, "return %s")
     elif len(p) == 2:
-       p[0] = Node("return", None, "return")
+        p[0] = Node("return", None, "return")

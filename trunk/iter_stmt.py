@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parser iteration statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 12:54:41 plt>
+# Time-stamp:              <2012-05-05 18:22:28 plt>
 
 from localast import Node
 
@@ -17,7 +17,7 @@ def p_while_stmt(p):
                   | WHILE expr LBRACE stmt_list RBRACE'''
     if len(p) == 4:
         p[0] = Node("while", [p[2], p[3]])
-    else:
+    elif len(p) == 6:
         p[0] = Node("while", [p[2], p[4]])
 
 def p_for_stmt(p):
@@ -25,5 +25,5 @@ def p_for_stmt(p):
                 | FOR ID IN atom LBRACE stmt_list RBRACE'''
     if len(p) == 6:
         p[0] = Node("for", [p[4], p[5]], p[2])
-    else:
+    elif len(p) == 8:
         p[0] = Node("for", [p[4], p[6]], p[2])
