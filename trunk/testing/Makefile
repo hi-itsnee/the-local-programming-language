@@ -1,7 +1,10 @@
-all: basic tutorial
+all: basic tutorial demo
 
 basic:
-	./test
-
+	python -m unittest grammar_testing
+	
 tutorial: basic
-	./testp
+	python -m unittest program_testing
+
+demo: basic tutorial
+	python -m unittest demo_testing
