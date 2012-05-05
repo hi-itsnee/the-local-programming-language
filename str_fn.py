@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parser string functions
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-24 15:14:48 plt>
+# Time-stamp:              <2012-05-05 19:00:13 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -22,7 +22,7 @@ def p_len(p):
 #SPLIT
 def p_split(p):
     '''split : SPLIT LPAREN atom COMMA atom RPAREN'''
-    p[0] = Node("split", [p[3],p[5]], None, "%s.split(%s)")
+    p[0] = Node("split", [p[3], p[5]], None, "%s.split(%s)")
 
 #STRIP
 def p_strip(p):
