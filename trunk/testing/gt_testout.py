@@ -104,7 +104,7 @@ while (a < 10):
     continue
     break
     a = a + 1
-b = (66.25, 333.0)
+b = (66.25, 333)
 for i in b:
     pass
 return
