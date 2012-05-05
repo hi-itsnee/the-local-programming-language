@@ -91,12 +91,12 @@ io_test = '''a = open("hello.local", "w")'''
 
 # iter_stmt.py python outputs:
 iter_test = '''a = 0
-while a < 0:
+while a < 10:
     a = a + 1
 
-b = [66.25, 333, 333, 1, 1234.5]
+b = [66.25, 333]
 for i in b:
-    print "i = " + i + "; "'''
+    print "i = %s" % (i)'''
 
 # jump_stmt.py python outputs:
 jump_test = '''a = 0
@@ -106,28 +106,27 @@ while a < 10:
     break
     a = a + 1
 
-b = [66.25, 333, 333, 1, 1234.5]
+b = [66.25, 333]
 for i in b:
     pass
-
 return
-
 return a'''
 
 # list_fn.py python outputs:
-list_test = '''b = [66.25, 333, 333, 1, 1234.5]'''
+list_test = '''current = [1, 2]
+coord_list = [(1, 3), (22, 5.1), (8, 2)]'''
 
 # math_expr.py python outputs:
 math_test = '''a = isd + dsa * 12 + (7 / 5)'''
 
 # print_stmt.py python outputs:
 print_test = '''i = 42.5
-print "i = " + i + "; "'''
+print "i = %s" % (i)'''
 
 # str_fn.py python outputs:
 string_test = '''a = "   A test string."
 b = 24.5
 c = len(a)
-first, second = a.split("st")
+first,second = a.split("st")
 s = first.strip()
 t = str(b)'''
