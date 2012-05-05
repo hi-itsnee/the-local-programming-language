@@ -124,6 +124,6 @@ print "i = %s" % (i)'''
 string_test = '''a = "   A test string."
 b = 24.5
 c = len(a)
-first,second = a.split("st")
+first, second = a.split("st")
 s = first.strip()
 t = str(b)'''
