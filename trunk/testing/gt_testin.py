@@ -81,7 +81,7 @@ x = a == b;
 y = c != d;
 z = (e);'''
 
-indices_test = '''b = a?c;'''
+indices_test = '''b = a[c];'''
 
 unary_test = '''a = true;
 b = not a;
