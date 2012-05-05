@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 13:33:56 plt>
+# Time-stamp:              <2012-05-05 14:49:37 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -58,12 +58,12 @@ def _do_print_subtree(node, code, debug):
     # Simple print
     if len(node.children) == 1:
         print_str = walk_the_tree(node.children[0], code, debug)
-        return "print %s\n" % (print_str)
+        return "print %s" % (print_str)
     # Format print
     elif len(node.children) == 2:
         print_str = walk_the_tree(node.children[0], code, debug)
         print_arglist = _do_arglist_subtree(node.children[1], code, debug)
-        return "print %s %% (%s)\n" % (print_str, print_arglist)
+        return "print %s %% (%s)" % (print_str, print_arglist)
 
 # List and list body
 def _do_list(node, code, debug):
@@ -153,11 +153,11 @@ def _do_def_subtree(node, code, debug):
     for line in def_stmt:
         def_stmt_i += " "*INDENT + line + "\n"
     if len(node.children) == 2:
-        return "def %s(%s):\n%s\n" % (node.value, def_arg, def_stmt_i)
+        return "def %s(%s):\n%s" % (node.value, def_arg, def_stmt_i)
     elif len(node.children) == 1:
-        return "def %s():\n%s\n" % (node.value, def_stmt_i)
+        return "def %s():\n%s" % (node.value, def_stmt_i)
 
-def _for_subtree(node, code, debug):
+def _do_for_subtree(node, code, debug):
     '''For indenting For block'''
     for_atomchild = walk_the_tree(node.children[0], code, debug)
     for_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
@@ -166,7 +166,7 @@ def _for_subtree(node, code, debug):
         for_stmt_indented += " "*INDENT + line + "\n"
     return "for %s in %s:\n%s" % (node.value, for_atomchild, for_stmt_indented)
 
-def _while_subtree(node, code, debug):
+def _do_while_subtree(node, code, debug):
     '''For indenting While loop block'''
     while_exprchild = walk_the_tree(node.children[0], code, debug)
     while_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
@@ -175,19 +175,18 @@ def _while_subtree(node, code, debug):
         while_stmt_indented += " "*INDENT + line + "\n"
     return "while %s:\n%s" % (while_exprchild, while_stmt_indented)
 
-def _except_subtree(node, code, debug):
+def _do_except_subtree(node, code, debug):
     except_try_child = walk_the_tree(node.children[0], code, debug).split("\n")
-    print node.children[1]
-    except_catch_child = walk_the_tree(node.children[1], code, debug).split("\n")
+    except_catch_child = \
+        walk_the_tree(node.children[1], code, debug).split("\n")
     except_trychild_indented = ""
     except_catchchild_indented = ""
-
     for line in except_try_child:
         except_trychild_indented += " "*INDENT + line + "\n"
     for line in except_catch_child:
         except_catchchild_indented += " "*INDENT + line + "\n"
-    print except_catch_child
-    return "try:\n%s\nexcept %s:\n%s" % (except_trychild_indented, node.value, except_catchchild_indented)
+    return "try:\n%s\nexcept %s:\n%s" \
+        % (except_trychild_indented, node.value, except_catchchild_indented)
 
 def _do_indent_subtree(node, code, debug):
     '''For indenting statements within blocks'''
@@ -208,13 +207,13 @@ def _do_indent_subtree(node, code, debug):
         return _do_def_subtree(node, code, debug)
     # FOR
     if node.type == 'for':
-        return _for_subtree(node, code, debug)
+        return _do_for_subtree(node, code, debug)
     # WHILE
     if node.type == 'while':
-        return _while_subtree(node, code, debug)
+        return _do_while_subtree(node, code, debug)
     # EXCEPT
     if node.type == 'except':
-        return _except_subtree(node, code, debug)
+        return _do_except_subtree(node, code, debug)
 
 # Main tree-walking function
 def walk_the_tree(node, code="", debug=False):
@@ -249,8 +248,6 @@ def walk_the_tree(node, code="", debug=False):
             # Visit the children
             for child in node.children:
                 values += (walk_the_tree(child, code, debug),)
-            #print "LINE: ", node.line
-            #print "VALUES: ", str(values)
             line = (node.line % values)
             # We're building a line here, not appending to target code
             code = line
