@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 13:51:54 plt>
+# Time-stamp:              <2012-05-05 16:21:07 plt>
 
 import ply.lex as lex
 import re
@@ -48,13 +48,6 @@ def t_COORD(t):
     mw += (float(mo.group('longi')),)
     t.value = str(mw)
     return t
-
-# def t_LIST(t):
-#     r'\[\s*\]|\[\s*[a-zA-Z0-9_\"\(\)\[\]\.\,]+\s*(,\s*[a-zA-Z0-9_\"\(\)\[\]\.\,]+\s*)*\]'
-#     liststr = t.value[1:-1]
-#     listlist = liststr.split(",")
-#     t.value = "[" + ", ".join(map(lambda x: x.strip(), listlist)) + "]"
-#     return t
 
 def t_NUMBER(t):
     r'(\d+(\.\d*)?|\.\d+)([eE][-+]? \d+)?'
