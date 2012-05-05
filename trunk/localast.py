@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 16:24:57 plt>
+# Time-stamp:              <2012-05-05 19:12:24 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -227,7 +227,7 @@ def _do_indent_subtree(node, code, debug):
         return _do_while_subtree(node, code, debug)
     # EXCEPT
     if node.type == 'except':
-        return _do_except_subtree(node, code, debug)
+        return _do_except_subtree(node.children[0], code, debug)
 
 # Main tree-walking function
 def walk_the_tree(node, code="", debug=False):
