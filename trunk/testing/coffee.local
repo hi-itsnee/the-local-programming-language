@@ -36,9 +36,9 @@ for place in places {
     time_at_shop = wait_t + make_t;
     try {
         if can_you_get_coffee(d, time, time_at_shop)
-            print("You have time to go to %s", (name));
+            print("You have time to go to %s", name);
         else
-            print("You do not have time to go to %s", (name));
+            print("You do not have time to go to %s", name);
     } except Exception {
-        print ("Could not calculate time for %s", (name);
+        print ("Could not calculate time for %s", name);
     }
