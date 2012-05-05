@@ -96,7 +96,7 @@ io_test = '''a = open("hello.local", "w");'''
 iter_test = '''a = 0;
 while (a < 10) a = a + 1;
 
-b = (66.25, 333);
+b = [(66.25, 333), a, 251];
 for i in b print("i = %s", i);'''
 
 # jump_stmt.py local test inputs:
@@ -114,7 +114,7 @@ return;
 return a;'''
 
 # list_fn.py local test inputs:
-list_test = '''current = (1, 2);
+list_test = '''example = [1, 2, a];
 coord_list = [(1, 3), (22, 5.1), (8, 2)];'''
 
 # math_expr.py local test inputs:
