@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 15:07:05 plt>
+# Time-stamp:              <2012-05-05 16:24:57 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -150,20 +150,26 @@ def _do_else_subtree(node, code, debug):
         else_stmt_i += " "*INDENT + line + "\n"
     return "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
 
+def _do_def_fn(node, code, debug):
+    '''Build the head of a def statement'''
+    if not node.children:
+        if len(node.value) == 1:
+            return "def %s():" % node.value
+        elif len(node.value) == 2:
+            # Function parameter body is a COORD (an ugly hack)
+            return "%s%s" % (node.value)
+    else:
+        def_arg = _do_arglist_subtree(node.children[0], code, debug)
+        return "%s(%s)" % (node.value, def_arg)
+
 def _do_def_subtree(node, code, debug):
     '''For indenting DEF code blocks'''
-    if len(node.children) == 2:
-        def_arg = _do_arglist_subtree(node.children[0], code, debug)
-        def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
-    elif len(node.children) == 1:
-        def_stmt = walk_the_tree(node.children[0], code, debug).split("\n")
+    def_head = _do_def_fn(node.children[0], code, debug)
+    def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     def_stmt_i = ""
     for line in def_stmt:
         def_stmt_i += " "*INDENT + line + "\n"
-    if len(node.children) == 2:
-        return "def %s(%s):\n%s" % (node.value, def_arg, def_stmt_i)
-    elif len(node.children) == 1:
-        return "def %s():\n%s" % (node.value, def_stmt_i)
+    return "def %s:\n%s" % (def_head, def_stmt_i)
 
 def _do_for_subtree(node, code, debug):
     '''For indenting For block'''
@@ -246,6 +252,8 @@ def walk_the_tree(node, code="", debug=False):
             code += _do_print_subtree(node, code, debug)
         elif node.type == "list":
             code = _do_list(node, code, debug)
+        elif node.type == "def_fn":
+            code = _do_def_fn(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )

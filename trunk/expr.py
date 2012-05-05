@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-05-05 13:51:00 plt>
+# Time-stamp:            <2012-05-05 15:20:50 plt>
 
 from localast import Node
 
@@ -31,6 +31,7 @@ def p_expr(p):
             | io_fn
             | str_fn
             | argv_fn
+            | def_fn
             | double_stmt
             | atom list'''
     # BINOP or parenthesis
