@@ -1,4 +1,4 @@
-import unittest 
+import unittest
 import sys
 import os.path
 sys.path.append(
@@ -11,7 +11,7 @@ import demo_testout
 
 # Comment in MacVim: 'v' --> :'<,'>s/^/#/g
 # Uncomment in MacVim: 'v' --> :'<,'>s/^#//g
-     
+
 
 class TestCoffee(unittest.TestCase):
     def setUp(self):
@@ -19,8 +19,13 @@ class TestCoffee(unittest.TestCase):
 
     def test_coffeetime(self):
         target_result = demo_testout.coffee_test
-        actual_result = local.tester(open('coffee.local').read().strip())
-	self.assertEqual(target_result, actual_result)   
+        actual_result = local.tester(open('coffee.local').read())
+        try:
+            self.assertEqual(target_result, actual_result)
+        except Exception:
+            print "TARGET:\n", target_result
+            print "="*79
+            print "ACTUAL:\n", actual_result
 
 if __name__ == '__main__':
     unittest.main()
