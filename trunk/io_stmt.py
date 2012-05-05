@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local parser I/O statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-02 16:44:00 plt>
+# Time-stamp:              <2012-05-05 18:18:09 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -18,16 +18,15 @@ def p_io_fn(p):
     p[0] = Node("io_fn", [p[1]])
 
 def p_open_stmt(p):
-    '''open_stmt : OPEN LPAREN STRING RPAREN
-                 | OPEN LPAREN STRING COMMA STRING RPAREN'''
-    filename = p[3]
+    '''open_stmt : OPEN LPAREN atom RPAREN
+                 | OPEN LPAREN atom COMMA STRING RPAREN'''
     if len(p) == 5:
         # Default is read (r)
         mode = "\"r\""
     elif len(p) == 7:
         mode = p[5]
-    value = "open(%s, %s)" % (filename, mode)
-    p[0] = Node("open", None, value, value)
+    line = "open(%%s, %s)" % (mode)
+    p[0] = Node("open", [p[3]], None, line)
 
 # PRINT grammar in print_stmt.py
 
