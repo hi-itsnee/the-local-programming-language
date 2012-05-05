@@ -1,25 +1,26 @@
 ##### Expected output .py files for comparison
 
 ### DEMO TESTS:
-coffee_test = '''walk_speed = 3.0
+coffee_test = '''from conversion import convertdist
+from haversine import dist
+walk_speed = 3.0
 def can_you_get_coffee(d, tot_t, make_t):
-    d_meters = convertdist(d, mi, m)
+    d_meters = convertdist(d, "mi", "m")
     transit_time = d_meters / (walk_speed * 60)
     compare_time = transit_time + make_t
     if compare_time > tot_t:
-        return false
+        return False
     else:
-        return true
+        return True
 try:
-    places = open("coffee.csv")
+    places = open("coffee.csv", "r")
 except Exception:
-    print ("Cannot open file")
+    print "Cannot open file"
     exit(1)
 print "Where are you starting? "
 start = raw_input()
 print "How long do you have until your next event? "
 time = raw_input()
-
 for place in places:
     name, coord, wait_t, make_t, URL = place.split(";")
     d = dist(start, coord)
