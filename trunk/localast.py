@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 14:49:37 plt>
+# Time-stamp:              <2012-05-05 15:07:05 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -64,6 +64,14 @@ def _do_print_subtree(node, code, debug):
         print_str = walk_the_tree(node.children[0], code, debug)
         print_arglist = _do_arglist_subtree(node.children[1], code, debug)
         return "print %s %% (%s)" % (print_str, print_arglist)
+
+# Assignment statement subtree
+def _do_assignment_subtree(node, code, debug):
+    '''For building assignment statements'''
+    lhs = _do_arglist_subtree(node.children[0], code, debug)
+    rhs = walk_the_tree(node.children[1], code, debug)
+    assmnt = lhs + " " + node.value + " " + rhs
+    return assmnt
 
 # List and list body
 def _do_list(node, code, debug):
@@ -231,13 +239,9 @@ def walk_the_tree(node, code="", debug=False):
         # Certain statements require substatements to be indented
         elif node.type in indent_them:
             code += _do_indent_subtree(node, code, debug)
-        # Assignments needs their right side synthesized
-        elif node.type == "assign":
-            rhs = walk_the_tree(node.children[2], code, debug)
-            lhs = walk_the_tree(node.children[0], code, debug)
-            ms = walk_the_tree(node.children[1], code, debug)
-            assmnt = lhs + ms + rhs + "\n"
-            code += assmnt
+        # Assignments needs their lefthand and righthand sides synthesized
+        elif node.type == "assign_stmt":
+            code = _do_assignment_subtree(node, code, debug)
         elif node.type == "print":
             code += _do_print_subtree(node, code, debug)
         elif node.type == "list":
