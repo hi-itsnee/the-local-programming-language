@@ -2,7 +2,7 @@
 # Author:                Team 13
 # Description:           local parser exressions
 # Supported Language(s): Python 2.x
-# Time-stamp:            <2012-05-05 15:20:50 plt>
+# Time-stamp:            <2012-05-05 17:57:51 plt>
 
 from localast import Node
 
@@ -30,6 +30,7 @@ def p_expr(p):
             | list_fn
             | io_fn
             | str_fn
+            | num_fn
             | argv_fn
             | def_fn
             | double_stmt
