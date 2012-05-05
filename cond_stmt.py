@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language parser conditional statements
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-04-28 15:39:59 plt>
+# Time-stamp:              <2012-05-05 14:43:37 plt>
 
 from localast import Node
 # Node(type, children=None, value=None, line=None)
@@ -21,7 +21,7 @@ def p_if_stmt(p):
     p[0] = Node("if_stmt", [p[1]])
 
 def p_if_simple(p):
-    '''if_simple : IF expr stmt_list'''
+    '''if_simple : IF expr stmt'''
     p[0] = Node("if", [p[2], p[3]])
 
 def p_if_brace(p):
@@ -35,7 +35,7 @@ def p_elif_stmt(p):
     p[0] = Node("elif_stmt", [p[1]])
 
 def p_elif_simple(p):
-    '''elif_simple : IF expr stmt_list elif_block'''
+    '''elif_simple : IF expr stmt elif_block'''
     p[0] = Node("elif", [p[2], p[3], p[4]])
 
 def p_elif_brace(p):
@@ -45,8 +45,8 @@ def p_elif_brace(p):
 def p_elif_block(p):
     '''elif_block : elif_block ELIF expr LBRACE stmt_list RBRACE
                   | ELIF expr LBRACE stmt_list RBRACE
-                  | elif_block ELIF expr stmt_list
-                  | ELIF expr stmt_list'''
+                  | elif_block ELIF expr stmt
+                  | ELIF expr stmt'''
     if len(p) == 7:
         p[0] = Node("elif_block_brace", [p[1], p[3], p[5]])
     if len(p) == 6:
@@ -65,15 +65,15 @@ def p_elif_else_stmt(p):
     p[0] = Node("elif_else_stmt", [p[1]])
 
 def p_elif_else_simple(p):
-    '''elif_else_simple : IF expr stmt_list elif_block ELSE stmt_list'''
+    '''elif_else_simple : IF expr stmt elif_block ELSE stmt'''
     p[0] = Node("elif_else", [p[2], p[3], p[4], p[6]])
 
 def p_elif_brace_else(p):
-    '''elif_brace_else : IF expr LBRACE stmt_list RBRACE elif_block ELSE stmt_list'''
+    '''elif_brace_else : IF expr LBRACE stmt_list RBRACE elif_block ELSE stmt'''
     p[0] = Node("elif_else", [p[2], p[4], p[6], p[8]])
 
 def p_elif_else_brace(p):
-    '''elif_else_brace : IF expr stmt_list elif_block ELSE LBRACE stmt_list RBRACE'''
+    '''elif_else_brace : IF expr stmt elif_block ELSE LBRACE stmt_list RBRACE'''
     p[0] = Node("elif_else", [p[2], p[3], p[4], p[7]])
 
 def p_elifelse_braces(p):
@@ -89,15 +89,15 @@ def p_if_else_stmt(p):
     p[0] = Node("if_else_stmt", [p[1]])
 
 def p_if_else_simple(p):
-    '''if_else_simple : IF expr stmt_list ELSE stmt_list'''
+    '''if_else_simple : IF expr stmt ELSE stmt'''
     p[0] = Node("else", [p[2], p[3], p[5]])
 
 def p_if_brace_else(p):
-    '''if_brace_else : IF expr LBRACE stmt_list RBRACE ELSE stmt_list'''
+    '''if_brace_else : IF expr LBRACE stmt_list RBRACE ELSE stmt'''
     p[0] = Node("else", [p[2], p[4], p[7]])
 
 def p_if_else_brace(p):
-    '''if_else_brace : IF expr stmt_list ELSE LBRACE stmt_list RBRACE'''
+    '''if_else_brace : IF expr stmt ELSE LBRACE stmt_list RBRACE'''
     p[0] = Node("else", [p[2], p[3], p[6]])
 
 def p_ifelse_braces(p):
