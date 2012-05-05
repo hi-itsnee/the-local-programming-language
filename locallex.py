@@ -38,10 +38,10 @@ def t_NEWLINE(t):
     t.lexer.lineno += t.value.count("\n")
 
 def t_COORD(t):
-    r'\(\s*[+-]?\d+\.\d+\s*,\s*[+-]?\d+\.\d+\s*\)'
+    r'\(\s*[+-]?\d+(\.\d*)?\s*,\s*[+-]?\d+(\.\d*)?\s*\)'
     #split the string into two parts - lat and long - and make that a tuple
     m = str(t.value)
-    mo = re.search('(?P<lat>[+-]?\d+\.\d+)\s*,\s*(?P<longi>[+-]?\d+\.\d+)', m)
+    mo = re.search('(?P<lat>[+-]?\d+(\.\d*)?)\s*,\s*(?P<longi>[+-]?\d+(\.\d*)?)', m)
     mw = ( )
     mw += (float(mo.group('lat')),)
     mw += (float(mo.group('longi')),)
