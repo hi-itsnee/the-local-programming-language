@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-04 17:03:57 plt>
+# Time-stamp:              <2012-05-05 13:46:02 plt>
 
 import ply.yacc as yacc
 import locallex
@@ -16,6 +16,7 @@ from exit_stmt import *
 from iter_stmt import *
 from expr import *
 from jump_stmt import *
+from list_type import *
 from list_fn import *
 from coord_fn import *
 from str_fn import *

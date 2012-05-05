@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             local language AST utilities
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-04 15:38:22 plt>
+# Time-stamp:              <2012-05-05 13:33:56 plt>
 
 # Number of spaces a tab equals
 INDENT = 4
@@ -64,6 +64,11 @@ def _do_print_subtree(node, code, debug):
         print_str = walk_the_tree(node.children[0], code, debug)
         print_arglist = _do_arglist_subtree(node.children[1], code, debug)
         return "print %s %% (%s)\n" % (print_str, print_arglist)
+
+# List and list body
+def _do_list(node, code, debug):
+    '''For building a list'''
+    return "[" + _do_arglist_subtree(node.children[0], code, debug) + "]"
 
 # Indented blocks
 def _do_if_subtree(node, code, debug):
@@ -229,7 +234,6 @@ def walk_the_tree(node, code="", debug=False):
             code += _do_indent_subtree(node, code, debug)
         # Assignments needs their right side synthesized
         elif node.type == "assign":
-            #code += _indent_subtree(node, code, debug)
             rhs = walk_the_tree(node.children[2], code, debug)
             lhs = walk_the_tree(node.children[0], code, debug)
             ms = walk_the_tree(node.children[1], code, debug)
@@ -237,6 +241,8 @@ def walk_the_tree(node, code="", debug=False):
             code += assmnt
         elif node.type == "print":
             code += _do_print_subtree(node, code, debug)
+        elif node.type == "list":
+            code = _do_list(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
             values = ( )
