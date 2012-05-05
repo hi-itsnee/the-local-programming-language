@@ -21,8 +21,8 @@ print "The distance between %s and %s is %s meters" % (c1, c2, d)'''
 
 # Tutorial3 test:
 tutorial3_test = '''from haversine import dist
-me = (1.0, 2.0)
-coords = [(3.0, 4.0), (5.0, 6.0), (7.0, 8.0)]
+me = (1, 2)
+coords = [(3, 4), (5, 6), (7, 8)]
 shortest = 0
 for coord in coords:
     d = dist(me, coord)
