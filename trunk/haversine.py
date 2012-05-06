@@ -2,11 +2,13 @@
 # Author:                  Team 13
 # Description:             local language Haversine module
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 17:44:24 plt>
+# Time-stamp:              <2012-05-05 23:57:29 plt>
 
 import math
 
 def dist(c1, c2):
+    c1 = str(c1)
+    c2 = str(c2)
     lat1, lon1 = map(lambda x: float(x), c1.strip()[1:-1].split(","))
     lat2, lon2 = map(lambda x: float(x), c2.strip()[1:-1].split(","))
     alat = math.radians(lat1)
