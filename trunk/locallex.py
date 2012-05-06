@@ -2,7 +2,7 @@
 # Author:                  Team 13
 # Description:             The local programming language lexer
 # Supported Lanauge(s):    Python 2.x
-# Time-stamp:              <2012-05-05 17:51:03 plt>
+# Time-stamp:              <2012-05-05 20:20:34 plt>
 
 import ply.lex as lex
 import re
@@ -14,7 +14,7 @@ reserved = (
     'PRINT', 'OPEN', 'CLOSE', 'IF', 'ELIF', 'ELSE', 'AND', 'OR', 'NOT',
     'WHILE', 'EXIT', 'APPEND', 'REMOVE', 'POP', 'DEF', 'PASS', 'FOR', 'IN',
     'CONTINUE', 'BREAK', 'RETURN', 'TRY', 'EXCEPT', 'DIST', 'CONVERTDIST',
-    'LEN', 'STRIP', 'SPLIT', 'STR', 'READ', 'ARGV', 'NUM'
+    'LEN', 'STRIP', 'SPLIT', 'STR', 'READ', 'ARGV', 'NUM', 'JOIN'
     )
 
 tokens = reserved + (
