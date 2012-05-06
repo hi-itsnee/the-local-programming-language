@@ -1,4 +1,4 @@
-walk_speed = 3.0; // in miles per hour
+walk_speed = 3.0;
 
 ''' tot_t is the total time you have,
     make_t is the time it takes the baristas to
