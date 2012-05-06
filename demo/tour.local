@@ -66,7 +66,7 @@ while true {
     nearest_name = nearest[0];
     print("Walk to %s", nearest_name);
     append(path, nearest_coord);
-    current = nearest_coord;
+    current_coord = nearest_coord;
     remove(places, nearest);
 }
 
