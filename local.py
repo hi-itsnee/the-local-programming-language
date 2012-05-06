@@ -57,9 +57,9 @@ def main(filename, debug, parse_only):
     
     testfile_oldpath = str(sys.argv[1])
     
-    a = testfile_oldpath.index(".")
+    position_of_extention = testfile_oldpath.index(".")
     
-    testfile_newpath = testfile_oldpath[0:a+1] + "py"
+    testfile_newpath = testfile_oldpath[0:position_of_extention+1] + "py"
     
     try:
         writetofile = open(testfile_newpath, "w")
