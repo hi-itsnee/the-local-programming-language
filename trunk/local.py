@@ -4,6 +4,7 @@
 # Supported Lanauge(s):    Python 2.x
 # Time-stamp:              <2012-05-02 16:33:12 plt>
 
+import sys
 import argparse
 from localparse import parse
 from localast import walk_the_tree
@@ -53,7 +54,22 @@ def main(filename, debug, parse_only):
         exit(1)
     # Walk the AST to produce target (Python) code
     target_code = walk_the_tree(ast, debug=debug)
-    print _output_code(target_code)
+    
+    testfile_oldpath = str(sys.argv[1])
+    
+    a = testfile_oldpath.index(".")
+    
+    testfile_newpath = testfile_oldpath[0:a+1] + "py"
+    
+    try:
+        writetofile = open(testfile_newpath, "w")
+        output_code = _output_code(target_code) + "\n"
+        writetofile.write(output_code)
+    
+        writetofile.close()
+    except Exception:
+        print "Cannot generate code or write to file"
+        exit(1)
 
 def tester(testinput):
     '''Driver function to be used by test suite'''
