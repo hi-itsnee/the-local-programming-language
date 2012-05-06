@@ -1,3 +1,0 @@
-#!/bin/bash
-
-python local.py $1

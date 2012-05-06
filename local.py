@@ -67,6 +67,7 @@ def main(filename, debug, parse_only):
         writetofile.write(output_code)
     
         writetofile.close()
+        print "File written successfully to " + testfile_newpath
     except Exception:
         print "Cannot generate code or write to file"
         exit(1)
