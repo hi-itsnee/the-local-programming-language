@@ -34,7 +34,8 @@ local.py also supports the following options:
 ------------------------------
 ####### Testing Notes #######
 ------------------------------
-To run the suite of tests, go to the testing folder and type the following:
+To run the suite of tests, go to the testing folder and type the following to 
+link your folder to the base files:
 $ ln -s /home/plt/the-local-programming-language/trunk/haversine.py .
 $ ln -s /home/plt/the-local-programming-language/trunk/conversion.py .
 
