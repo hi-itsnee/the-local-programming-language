@@ -1,0 +1,82 @@
+'''A little program to build a route of places to see near Columbia's campus.
+   Nearest neighbor algorithm'''
+
+speed = 3.0;                     // walk speed in mph
+total_time = 120;                // total time to spend touring
+enjoy_time = 5;                  // how much time to spend in each place
+start = (40.809051, -73.960036); // Start in CSB conference room
+places = [];                     // initialize our list of places
+path = [];                       // initialize our path
+url = "http://maps.googleapis.com/maps/api/staticmap?sensor=false&zoom=15&size=800x800&path=color:0x0000ff|weight:p5|%s";
+
+def do_time_to_next(c1, c2) {
+    d = dist(c1, c2);
+    d_mi = convertdist(d, "mi");
+    time = d_mi / (speed / 60);
+    return time;
+}
+
+def find_nearest(coord, places) {
+    shortest_dist = 0;
+    nearest_place = "";
+    for place in places {
+        c = place[1];
+        d = dist(coord, c);
+        if (d < shortest_dist or shortest_dist == 0) {
+           shortest_dist = d;
+           nearest_place = place;
+        }
+    }
+    return nearest_place;
+}
+
+'''Read file'''
+try
+    f = open("aho.csv");
+except Exception {
+    print("Could not open file");
+    exit(1);
+}
+
+'''Convert file to list'''
+for line in f {
+    place = [];
+    name, location = split(line, ";");
+    append(place, name);
+    append(place, location);
+    append(places, place);
+}
+
+'''Remember to close file'''
+close(f);
+
+current_coord = start;
+start = str(start);
+append(path, start);
+
+while true {
+    if not places
+       break;
+    nearest = find_nearest(current_coord, places);
+    nearest_coord = nearest[1];
+    t = do_time_to_next(current_coord, nearest_coord);
+    total_time -= t + enjoy_time;
+    if total_time <= 0
+       break;
+    nearest_name = nearest[0];
+    print("Walk to %s", nearest_name);
+    append(path, nearest_coord);
+    current = nearest_coord;
+    remove(places, nearest);
+}
+
+pretty_path = [];
+for p in path {
+    p = strip(p);
+    p = strip(p, "(");
+    p = strip(p, ")");
+    append(pretty_path, p);
+}
+
+url_path = join(pretty_path, "|");
+print(url, url_path);
