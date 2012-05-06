@@ -126,4 +126,5 @@ b = 24.5
 c = len(a)
 first, second = a.split("st")
 s = first.strip()
-t = str(b)'''
+t = str(b)
+j = " ,".join(foo)'''

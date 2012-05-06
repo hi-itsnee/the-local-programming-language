@@ -133,4 +133,5 @@ b = 24.5;
 c = len(a);
 first, second = split(a, "st");
 s = strip(first);
-t = str(b);'''
+t = str(b);
+j = join(foo, " ,");'''
