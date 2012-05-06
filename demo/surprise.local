@@ -1,14 +1,14 @@
-coords = [(8, 4), (1, 6), (7, 3)];
+coords1 = [(8, 4), (1, 6), (7, 3)];
 coords2 = [(3, 2), (2, 9), (5, 7), (6, 4)];
 shortest = 0;
-for coord in coords {
+for c1 in coords1 {
     for c2 in coords2 {
-        d = dist(coord, c2);
+        d = dist(c1, c2);
         if ((d < shortest) or (shortest == 0)) {
             shortest = d;
-            closest = coord;
+            closest1 = c1;
             closest2 = c2;
             }
         }
 }
-print("%s and %s are the closest pair.", closest, closest2);
+print("%s and %s are the closest pair.", closest1, closest2);
