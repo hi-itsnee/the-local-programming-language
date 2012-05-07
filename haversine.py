@@ -21,7 +21,7 @@ def dist(c1, c2):
     hlon = (1 - math.cos(hlon)) / 2
     foo = math.cos(alat) * math.cos(blat) * hlon
     foo = foo + hlat
-    radius = 6371
+    radius = 6371.0 #Volumetric mean radius - nssdc.gsfc.nasa.gov
     d = 2 * radius * math.asin(math.sqrt(foo))
     d *= 1000
     return d
