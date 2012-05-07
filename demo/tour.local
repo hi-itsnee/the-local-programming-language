@@ -4,8 +4,8 @@
 speed = 3.0;                     // walk speed in mph
 total_time = 120;                // total time to spend touring
 enjoy_time = 5;                  // how much time to spend in each place
-//start = (40.809051, -73.960036); // Start in CSB conference room
-start = read("Enter start location:\n"); //Or Enter start location
+start = (40.809051, -73.960036); // Start in CSB conference room
+//start = read("Enter start location:\n"); //Or Enter start location
 places = [];                     // initialize our list of places
 path = [];                       // initialize our path
 url = "http://maps.googleapis.com/maps/api/staticmap?sensor=false&zoom=15&size=800x800&path=color:0x0000ff|weight:p5|%s";
@@ -54,6 +54,7 @@ close(f);
 current_coord = start;
 start = str(start);
 append(path, start);
+print("");
 
 while true {
     if not places
@@ -78,6 +79,6 @@ for p in path {
     p = strip(p, ")");
     append(pretty_path, p);
 }
-
+print("");
 url_path = join(pretty_path, "|");
 print(url, url_path);
