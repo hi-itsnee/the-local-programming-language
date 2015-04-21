@@ -4,10 +4,14 @@
 # Supported Lanauge(s):    Python 2.x
 # Time-stamp:              <2012-05-02 16:33:12 plt>
 
-import sys
+import sys,os
 import argparse
 from localparse import parse
 from localast import walk_the_tree
+basepath = os.getcwd()+os.path.sep
+sys.path.append(basepath+'libs')
+sys.path.append(basepath+'statements')
+sys.path.append(basepath+'functions')
 
 def _output_code(code):
     '''Return string, which is target Python program'''
@@ -27,12 +31,15 @@ def _output_code(code):
     # One can go insane making newlines/empty lines perfect throughout the
     # compiler, or they can be stripped out here
     clean_code = [ ]
+    clean_code.append("import sys,os")
+    clean_code.append("basepath=os.getcwd()+os.path.sep")
+    clean_code.append(r"sys.path.append(basepath+'libs')")
+    clean_code.append(r"sys.path.append(basepath+'functions')")
+    clean_code.append(r"sys.path.append(basepath+'statements')")
     if import_convertdist:
         clean_code.append("from conversion import convertdist")
     if import_dist:
         clean_code.append("from haversine import dist")
-    if import_sys:
-        clean_code.append("import sys")
     for line in code:
         if not line.strip():
             # Blank line

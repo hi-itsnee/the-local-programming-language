@@ -3,6 +3,11 @@
 # Description:             The local programming language parser
 # Supported Lanauge(s):    Python 2.x
 # Time-stamp:              <2012-05-05 17:58:33 plt>
+import sys,os
+basepath = os.getcwd()+os.path.sep
+sys.path.append(basepath+'libs')
+sys.path.append(basepath+'functions')
+sys.path.append(basepath+'statements')
 
 import ply.yacc as yacc
 import locallex
