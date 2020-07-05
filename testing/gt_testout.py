@@ -9,13 +9,13 @@ c = a + b
 x = 1
 distance = 1000.0
 name = "New York"'''
-#c *= a
-#d /= a
-#e %= 2
-#f += 4
-#g -= 5
-#h and= a
-#i or= b
+# c *= a
+# d /= a
+# e %= 2
+# f += 4
+# g -= 5
+# h and= a
+# i or= b
 
 # cond_stmt.py python outputs:
 if_test = '''a = 5

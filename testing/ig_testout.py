@@ -4,7 +4,7 @@
 
 # assign_stmt.py python outputs:
 assign_test = '''a = b'''
-    # We didn't get to semantic analysis, so this passes
+# We didn't get to semantic analysis, so this passes
 
 # cond_stmt.py python outputs:
 if_test = '''a = 3
@@ -65,7 +65,6 @@ math_test1 = '''a = isd + dsa * 12 + (7 / 5)'''
 
 # str_fn.py python outputs:
 strfn_test = '''   '''
-
 
 ### PROGRAM TESTS:
 # Hello World:

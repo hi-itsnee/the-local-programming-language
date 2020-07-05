@@ -11,7 +11,7 @@ z = 1.1
 w1 = x + y
 w2 = x - y
 w3 = x + z'''
- 
+
 # Tutorial2 test:
 tutorial2_test = '''from haversine import dist
 c1 = (40.730836, -73.99749)

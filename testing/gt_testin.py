@@ -9,13 +9,13 @@ c = a + b;
 x = 1;
 distance = 1000.0;
 name = "New York";'''
-#c *= a;
-#d /= a;
-#e %= 2;
-#f += 4;
-#g -= 5;
-#h and= a;
-#i or= b;
+# c *= a;
+# d /= a;
+# e %= 2;
+# f += 4;
+# g -= 5;
+# h and= a;
+# i or= b;
 
 # cond_stmt.py local test inputs:
 if_test = '''a = 5;
@@ -116,7 +116,7 @@ return a;'''
 
 # list_fn.py local test inputs:
 list_test = '''example = [1.03, 2.02, var, "not happy"];'''
-#coord_list = [(1.3, 3.5), (22.2, 5.1), (8.5, 2.2)];'''
+# coord_list = [(1.3, 3.5), (22.2, 5.1), (8.5, 2.2)];'''
 
 # total = [example, coord_list];'''
 

@@ -1,38 +1,42 @@
-import unittest 
-import sys
 import os.path
+import sys
+import unittest
+
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 import local
 import ig_testin
 import ig_testout
 
+
 # RUN: python -m unittest incorrect_grammar_testing.TestCond.test_if
 # RUN: python -m unittest incorrect_grammar_testing
 
 # Comment in MacVim: 'v' --> :'<,'>s/^/#/g
 # Uncomment in MacVim: 'v' --> :'<,'>s/^#//g
-     
+
 
 class TestAssign(unittest.TestCase):
     def setUp(self):
-        print "Begin Incorrect Assignment Testing"
+        print("Begin Incorrect Assignment Testing")
 
     def test_assign(self):
         target_result = ig_testout.assign_test
         actual_result = local.tester(ig_testin.assign_test)
-	self.assertEqual(target_result, actual_result)   
+        self.assertEqual(target_result, actual_result)
+
 
 class TestCond(unittest.TestCase):
     def setUp(self):
-	print "Begin Incorrect Conditional Testing"
+        print("Begin Incorrect Conditional Testing")
 
     def test_if(self):
-    # Test a single 'if' statement
+        # Test a single 'if' statement
         target_result = ig_testout.if_test
-	actual_result = local.tester(ig_testin.if_test)
-	self.assertEqual(target_result, actual_result)
+        actual_result = local.tester(ig_testin.if_test)
+        self.assertEqual(target_result, actual_result)
         # verify that this is the correct python result by looking
+
 
 #    def test_ifelse(self):
 #    # Test an if statement that includes an else
@@ -46,7 +50,7 @@ class TestCond(unittest.TestCase):
 #	actual_result = local.tester(ig_testin.nesting_test)
 #	self.assertEqual(target_result, actual_result)    
 #
-#class TestCoord(unittest.TestCase):
+# class TestCoord(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Coordinate Testing"
 #
@@ -55,7 +59,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.coord_test)
 #	self.assertEqual(target_result, actual_result)   
 #
-#class TestDefs(unittest.TestCase):
+# class TestDefs(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Definition Testing"
 #
@@ -64,7 +68,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.def_test)
 #	self.assertEqual(target_result, actual_result)   
 #
-#class TestExcept(unittest.TestCase):
+# class TestExcept(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Exception Testing"
 #
@@ -73,7 +77,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.except_test)
 #	self.assertEqual(target_result, actual_result)   
 #
-#class TestExit(unittest.TestCase):
+# class TestExit(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Exit Testing"
 #
@@ -82,7 +86,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.exit_test)
 #	self.assertEqual(target_result, actual_result)   
 #
-#class TestExpr(unittest.TestCase):
+# class TestExpr(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Expression Testing"
 #    
@@ -104,7 +108,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.unary_test)
 #        self.assertEqual(target_result, actual_result)  
 #       
-#class TestIO(unittest.TestCase):
+# class TestIO(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin I/O Testing"
 #
@@ -114,7 +118,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.io_test)
 #	self.assertEqual(target_result, actual_result)
 # 
-#class TestIter(unittest.TestCase):
+# class TestIter(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Iteration Testing"
 #
@@ -123,7 +127,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.iter_test)
 #	self.assertEqual(target_result, actual_result)
 #
-#class TestJump(unittest.TestCase):
+# class TestJump(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Jump Testing"
 #
@@ -132,7 +136,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.jump_test)
 #	self.assertEqual(target_result, actual_result)
 #
-#class TestList(unittest.TestCase):
+# class TestList(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin List Testing"
 #
@@ -141,7 +145,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.list_test)
 #	self.assertEqual(target_result, actual_result)
 #
-#class TestMath(unittest.TestCase):
+# class TestMath(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Math Testing"
 #
@@ -151,7 +155,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.math_test)
 #	self.assertEqual(target_result, actual_result)
 #
-#class TestPrint(unittest.TestCase):
+# class TestPrint(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin Print Testing"
 #
@@ -160,7 +164,7 @@ class TestCond(unittest.TestCase):
 #        actual_result = local.tester(ig_testin.print_test)
 #	self.assertEqual(target_result, actual_result)
 #
-#class TestString(unittest.TestCase):
+# class TestString(unittest.TestCase):
 #    def setUp(self):
 #        print "Begin String Testing"
 #
