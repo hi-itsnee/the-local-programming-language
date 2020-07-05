@@ -7,53 +7,11 @@
 """The local language compiler."""
 
 import argparse
-import os
 import sys
 
+import local
 from local.localast import walk_the_tree
 from local.localparse import parse
-
-basepath = os.getcwd() + os.path.sep
-sys.path.append(basepath + 'libs')
-sys.path.append(basepath + 'statements')
-sys.path.append(basepath + 'functions')
-
-
-def _output_code(code):
-    """Return string, which is target Python program"""
-    # Initialize variables
-    import_convertdist = False
-    import_dist = False
-    # import_sys = False
-    # Determine if we need to import anything
-    if "convertdist(" in code:
-        import_convertdist = True
-    if " dist(" in code:
-        import_dist = True
-    # if "argv[" in code:
-    #     import_sys = True
-    # Split on newlines, then we'll remove emtpy lines
-    code = code.split("\n")
-    # One can go insane making newlines/empty lines perfect throughout the
-    # compiler, or they can be stripped out here
-    clean_code = ["import os",
-                  "import sys",
-                  "basepath=os.getcwd()+os.path.sep",
-                  r"sys.path.append(basepath+'libs')",
-                  r"sys.path.append(basepath+'functions')",
-                  r"sys.path.append(basepath+'statements')"]
-    if import_convertdist:
-        clean_code.append("from local.libs.conversion import convertdist")
-    if import_dist:
-        clean_code.append("from local.libs.haversine import dist")
-    for line in code:
-        if not line.strip():
-            # Blank line
-            continue
-        else:
-            clean_code.append(line)
-    # Print file sans empty lines
-    return "\n".join(clean_code)
 
 
 def main(filename, debug, parse_only):
@@ -77,7 +35,7 @@ def main(filename, debug, parse_only):
 
     try:
         writetofile = open(testfile_newpath, "w")
-        output_code = _output_code(target_code) + "\n"
+        output_code = local.output_code(target_code) + "\n"
         writetofile.write(output_code)
 
         writetofile.close()
@@ -85,13 +43,6 @@ def main(filename, debug, parse_only):
     except Exception:  # noqa
         print("Cannot generate code or write to file")
         exit(1)
-
-
-def tester(testinput):
-    """Driver function to be used by test suite"""
-    ast_test = parse(testinput)
-    code = walk_the_tree(ast_test)
-    return _output_code(code)
 
 
 if __name__ == "__main__":

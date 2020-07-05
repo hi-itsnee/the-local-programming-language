@@ -40,6 +40,6 @@ def p_read_stmt(p):
     """read_stmt : READ LPAREN atom RPAREN
                  | READ LPAREN RPAREN"""
     if len(p) == 5:
-        p[0] = Node("read_stmt", [p[3]], None, "raw_input(%s)")
+        p[0] = Node("read_stmt", [p[3]], None, "input(%s)")
     elif len(p) == 4:
-        p[0] = Node("read_stmt", None, "raw_input()")
+        p[0] = Node("read_stmt", None, "input()")

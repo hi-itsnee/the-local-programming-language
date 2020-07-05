@@ -20,24 +20,24 @@ name = "New York"'''
 # cond_stmt.py python outputs:
 if_test = '''a = 5
 if a > 3:
-    print "a > 3"'''
+    print("a > 3")'''
 
 ifelse_test = '''a = True
 if a:
-    print "a is true"
+    print("a is true")
 else:
-    print "a is false"'''
+    print("a is false")'''
 
 nesting_test = '''if a:
-    print "a is true"
+    print("a is true")
     if b == a:
-        print "made it here"
+        print("made it here")
     elif b < a:
-        print "made it there"
+        print("made it there")
     else:
-        print "made it everywhere"
+        print("made it everywhere")
 else:
-    print "a is false"'''
+    print("a is false")'''
 
 # coord_fn.py python outputs:
 coord_test = '''a = (4.0, -5.9)
@@ -52,11 +52,11 @@ def_test = '''def newfunction(argin):
 except_test = '''try:
     a = (10.0, 5.25)
 except Exception:
-    print "oops!"
+    print("oops!")
 try:
     a = 5
 except Exception:
-    print "sigh"'''
+    print("sigh")'''
 
 # exit_stmt.py python output:
 exit_test = '''exit(1)'''
@@ -95,7 +95,7 @@ while (a < 10):
     a = a + 1
 b = [5, 2, 1]
 for i in b:
-    print "i = %s" % (i)'''
+    print("i = %s" % (i))'''
 
 # jump_stmt.py python outputs:
 jump_test = '''a = 0
@@ -118,7 +118,7 @@ math_test = '''a = isd + dsa * 12 + (7 / 5)'''
 
 # print_stmt.py python outputs:
 print_test = '''i = 42.5
-print "i = %s" % (i)'''
+print("i = %s" % (i))'''
 
 # str_fn.py python outputs:
 string_test = '''a = "   A test string."
