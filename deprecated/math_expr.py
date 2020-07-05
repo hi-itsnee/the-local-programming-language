@@ -5,7 +5,6 @@
 # Time-stamp:            <2012-04-19 23:43:49 plt>
 
 from localast import Node
-from localast import var_names
 
 
 def p_math_expr(p):

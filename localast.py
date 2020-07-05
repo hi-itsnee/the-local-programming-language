@@ -14,7 +14,7 @@ indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
 
 
 class Node:
-    '''Node class for the AST'''
+    """Node class for the AST"""
 
     def __init__(self,
                  type,  # type of node
@@ -32,7 +32,7 @@ class Node:
 
 # Utility walker function
 def _do_arglist_subtree(node, code, debug):
-    '''For building a list of arguments'''
+    """For building a list of arguments"""
     # A list of arguments
     if len(node.children) == 2:
         # Recursively follow the list
@@ -59,21 +59,21 @@ def _do_stmt_list_subtree(node, code, debug):
 
 # Print subtree
 def _do_print_subtree(node, code, debug):
-    '''For building a format print statement'''
+    """For building a format print statement"""
     # Simple print
     if len(node.children) == 1:
         print_str = walk_the_tree(node.children[0], code, debug)
-        return "print %s" % (print_str)
+        return "print(%s)" % print_str
     # Format print
     elif len(node.children) == 2:
         print_str = walk_the_tree(node.children[0], code, debug)
         print_arglist = _do_arglist_subtree(node.children[1], code, debug)
-        return "print %s %% (%s)" % (print_str, print_arglist)
+        return "print(%s %% (%s))" % (print_str, print_arglist)
 
 
 # Assignment statement subtree
 def _do_assignment_subtree(node, code, debug):
-    '''For building assignment statements'''
+    """For building assignment statements"""
     lhs = _do_arglist_subtree(node.children[0], code, debug)
     rhs = walk_the_tree(node.children[1], code, debug)
     assmnt = lhs + " " + node.value + " " + rhs
@@ -82,13 +82,13 @@ def _do_assignment_subtree(node, code, debug):
 
 # List and list body
 def _do_list(node, code, debug):
-    '''For building a list'''
+    """For building a list"""
     return "[" + _do_arglist_subtree(node.children[0], code, debug) + "]"
 
 
 # Indented blocks
 def _do_if_subtree(node, code, debug):
-    '''For indenting IF code blocks'''
+    """For indenting IF code blocks"""
     # Walk tree to build expression
     expr = walk_the_tree(node.children[0], code, debug)
     # Walk tree to build statement and split statement on newlines
@@ -102,7 +102,7 @@ def _do_if_subtree(node, code, debug):
 
 
 def _do_elif_block(node, code, debug):
-    '''For building an arbitrary number of ELIF blocks'''
+    """For building an arbitrary number of ELIF blocks"""
     # A block of blocks
     if len(node.children) == 3:
         block = _do_elif_block(node.children[0], code, debug)
@@ -123,7 +123,7 @@ def _do_elif_block(node, code, debug):
 
 
 def _do_elif_subtree(node, code, debug):
-    '''For indenting IF-ELIF code blocks'''
+    """For indenting IF-ELIF code blocks"""
     expr = walk_the_tree(node.children[0], code, debug)
     if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     elif_block = _do_elif_block(node.children[2], code, debug)
@@ -134,7 +134,7 @@ def _do_elif_subtree(node, code, debug):
 
 
 def _do_elif_else_subtree(node, code, debug):
-    '''For indenting IF-ELIF-ELSE code blocks'''
+    """For indenting IF-ELIF-ELSE code blocks"""
     expr = walk_the_tree(node.children[0], code, debug)
     if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     elif_block = _do_elif_block(node.children[2], code, debug)
@@ -150,7 +150,7 @@ def _do_elif_else_subtree(node, code, debug):
 
 
 def _do_else_subtree(node, code, debug):
-    '''For indenting IF-ELSE code blocks'''
+    """For indenting IF-ELSE code blocks"""
     expr = walk_the_tree(node.children[0], code, debug)
     if_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     else_stmt = walk_the_tree(node.children[2], code, debug).split("\n")
@@ -164,20 +164,20 @@ def _do_else_subtree(node, code, debug):
 
 
 def _do_def_fn(node, code, debug):
-    '''Build the head of a def statement'''
+    """Build the head of a def statement"""
     if not node.children:
         if len(node.value) == 1:
             return "def %s():" % node.value
         elif len(node.value) == 2:
             # Function parameter body is a COORD (an ugly hack)
-            return "%s%s" % (node.value)
+            return "%s%s" % node.value
     else:
         def_arg = _do_arglist_subtree(node.children[0], code, debug)
         return "%s(%s)" % (node.value, def_arg)
 
 
 def _do_def_subtree(node, code, debug):
-    '''For indenting DEF code blocks'''
+    """For indenting DEF code blocks"""
     def_head = _do_def_fn(node.children[0], code, debug)
     def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     def_stmt_i = ""
@@ -187,7 +187,7 @@ def _do_def_subtree(node, code, debug):
 
 
 def _do_for_subtree(node, code, debug):
-    '''For indenting For block'''
+    """For indenting For block"""
     for_atomchild = walk_the_tree(node.children[0], code, debug)
     for_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
     for_stmt_indented = ""
@@ -197,7 +197,7 @@ def _do_for_subtree(node, code, debug):
 
 
 def _do_while_subtree(node, code, debug):
-    '''For indenting While loop block'''
+    """For indenting While loop block"""
     while_exprchild = walk_the_tree(node.children[0], code, debug)
     while_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
     while_stmt_indented = ""
@@ -221,7 +221,7 @@ def _do_except_subtree(node, code, debug):
 
 
 def _do_indent_subtree(node, code, debug):
-    '''For indenting statements within blocks'''
+    """For indenting statements within blocks"""
     # IF
     if node.type == 'if':
         return _do_if_subtree(node, code, debug)
@@ -250,14 +250,13 @@ def _do_indent_subtree(node, code, debug):
 
 # Main tree-walking function
 def walk_the_tree(node, code="", debug=False):
-    '''Walk the AST and return a string, which is a Python program'''
+    """Walk the AST and return a string, which is a Python program"""
     # Default case (should not be hit)
     if node is None:
         return
     # Debugging to watch tree traversal
     if debug:
-        print
-        "#type: %s, value: %s" % (node.type, node.value)
+        print("#type: %s, value: %s" % (node.type, node.value))
     # For nodes with children
     if node.children:
         if node.type == "stmt_list":
@@ -276,7 +275,7 @@ def walk_the_tree(node, code="", debug=False):
             code = _do_def_fn(node, code, debug)
         # If we need to synthesize a string, build a tuple from the subtree
         elif node.line:
-            values = ( )
+            values = ()
             # Visit the children
             for child in node.children:
                 values += (walk_the_tree(child, code, debug),)

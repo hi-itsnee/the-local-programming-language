@@ -26,18 +26,17 @@ def _output_code(code):
         import_convertdist = True
     if " dist(" in code:
         import_dist = True
-    if "argv[" in code:
-        import_sys = True
+    # if "argv[" in code:
+    #     import_sys = True
     # Split on newlines, then we'll remove emtpy lines
     code = code.split("\n")
     # One can go insane making newlines/empty lines perfect throughout the
     # compiler, or they can be stripped out here
-    clean_code = []
-    clean_code.append("import sys,os")
-    clean_code.append("basepath=os.getcwd()+os.path.sep")
-    clean_code.append(r"sys.path.append(basepath+'libs')")
-    clean_code.append(r"sys.path.append(basepath+'functions')")
-    clean_code.append(r"sys.path.append(basepath+'statements')")
+    clean_code = ["import sys,os",
+                  "basepath=os.getcwd()+os.path.sep",
+                  r"sys.path.append(basepath+'libs')",
+                  r"sys.path.append(basepath+'functions')",
+                  r"sys.path.append(basepath+'statements')"]
     if import_convertdist:
         clean_code.append("from conversion import convertdist")
     if import_dist:
@@ -53,7 +52,7 @@ def _output_code(code):
 
 
 def main(filename, debug, parse_only):
-    '''Main function of local compliler'''
+    """Main function of local compiler"""
     # Read the source file and build the AST
     sourcecode = filename.read()
     ast = parse(sourcecode, debug)
@@ -84,7 +83,7 @@ def main(filename, debug, parse_only):
 
 
 def tester(testinput):
-    '''Driver function to be used by test suite'''
+    """Driver function to be used by test suite"""
     ast_test = parse(testinput)
     code = walk_the_tree(ast_test)
     return _output_code(code)

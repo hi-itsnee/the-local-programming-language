@@ -4,7 +4,7 @@
 # Supported Language(s): Python 3.x
 
 from localast import Node
-from localast import var_names
+# from localast import var_names
 
 
 def p_logic_expr(p):
@@ -41,8 +41,7 @@ def p_logic_factor(p):
             value = 'False'
         else:
             if not var_names.has_key(p[1]):
-                print
-                "Undefined variable", p[1], "in line", p.lineno(1)
+                print("Undefined variable", p[1], "in line", p.lineno(1))
                 p[0] = None
                 p.parser.error = 1
             else:
