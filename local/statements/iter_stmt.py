@@ -10,7 +10,6 @@ from local.localast import Node  # Node(type, children=None, value=None, line=No
 def p_iter_stmt(p):
     """iter_stmt : while_stmt
                  | for_stmt"""
-
     p[0] = Node("iter", [p[1]])
 
 

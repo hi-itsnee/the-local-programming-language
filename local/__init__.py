@@ -1,6 +1,8 @@
 from local.localparse import parse
 from local.localast import walk_the_tree
 
+"""Local package."""
+
 
 def output_code(code):
     """Return string, which is target Python program."""

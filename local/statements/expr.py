@@ -7,7 +7,7 @@
 from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
 
-def p_expr(p):
+def p_expr(p):  # noqa:C901
     """expr : expr PLUS expr
             | expr MINUS expr
             | expr TIMES expr
