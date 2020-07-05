@@ -57,8 +57,11 @@ on Columbia's Morningside Campus, coordinates are (40.809343, -73.959811)
 Give yourself a reasonable amount of time, such as 30-45 minutes until your
 next event.  Those coffee lines are long!
 
+Make sure to run demos from the demo directory.
+
 # Developing
 To compile a working copy of our code for testing, do the following steps:
 1. Create your new file in local statements or functions (e.g., statements/assign_stmt.py).
 2. Create a test script and testing input and output in tests.
-3. Run pytest tests/test_assign_stmt.py.
+3. Run `pytest tests/test_assign_stmt.py`.
+4. To make code available for use in demo, run `python setup.py build && python setup.py install`
