@@ -9,24 +9,24 @@ assign_test = '''a = b'''
 # cond_stmt.py python outputs:
 if_test = '''a = 3
 if a > 3:
-    print "a > 3"'''
+    print("a > 3")'''
 
 ifelse_test = '''a = True
 if a:
-    print "a is true"
+    print("a is true")
 else:
-    print "a is false"'''
+    print("a is false")'''
 
 nesting_test = '''if a:
-    print "a is true"
+    print("a is true")
     if b == a:
-        print "made it here"
+        print("made it here")
     elif b < a:
-        print "made it there"
+        print("made it there")
     else:
-        print "made it everywhere"
+        print("made it everywhere")
 else:
-    print "a is false"'''
+    print("a is false")'''
 
 # exit
 exit_test = '''exit(1)'''
