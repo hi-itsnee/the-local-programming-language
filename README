@@ -2,7 +2,7 @@ The local compiler
 
 To run,
 
-  python local.py PROGRAME
+  python local.py PROGNAME
 
 where PROGNAME is the name of the program you wish to compile
 

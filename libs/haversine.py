@@ -1,10 +1,11 @@
 # Filename:                haversine.py
 # Author:                  Team 13
 # Description:             local language Haversine module
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 23:57:29 plt>
 
 import math
+
 
 def dist(c1, c2):
     c1 = str(c1)
@@ -21,7 +22,7 @@ def dist(c1, c2):
     hlon = (1 - math.cos(hlon)) / 2
     foo = math.cos(alat) * math.cos(blat) * hlon
     foo = foo + hlat
-    radius = 6371.0 #Volumetric mean radius - nssdc.gsfc.nasa.gov
+    radius = 6371.0  # Volumetric mean radius - nssdc.gsfc.nasa.gov
     d = 2 * radius * math.asin(math.sqrt(foo))
     d *= 1000
     return d

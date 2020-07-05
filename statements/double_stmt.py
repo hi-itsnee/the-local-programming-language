@@ -1,10 +1,11 @@
 # Filename:                double_stmt.py
 # Author:                  Team 13
 # Description:             local parser double statments
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-03 19:25:30 plt>
 
 from localast import Node
+
 
 def p_double_stmt(p):
     ''' double_stmt : ID MINUSMINUS %prec MINUSMINUS

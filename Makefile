@@ -1,7 +1,7 @@
 # Filename:                Makefile
 # Author:                  Team 13
 # Description:             Makefile for setting up environment
-# Supported Lanauge(s):    GNUMake
+# Supported Language(s):   GNUMake
 # Time-stamp:              <2012-05-07 12:12:14 plt>
 
 default: clean

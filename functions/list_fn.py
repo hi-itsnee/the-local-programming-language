@@ -1,10 +1,12 @@
 # Filename:                list_fn.py
 # Author:                  Team 13
 # Description:             local language parser list functions
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-04-24 10:44:43 plt>
 
 from localast import Node
+
+
 # Node(type, children=None, value=None, line=None)
 
 def p_list_fn(p):
@@ -13,15 +15,18 @@ def p_list_fn(p):
                | pop'''
     p[0] = Node("list_fn", [p[1]])
 
+
 # APPEND - Appends item to end of list
 def p_append(p):
     '''append : APPEND LPAREN atom COMMA atom RPAREN'''
     p[0] = Node("append", [p[3], p[5]], None, "%s.append(%s)")
 
+
 # REMOVE - Removes (and returns) specified item from list
 def p_remove(p):
     '''remove : REMOVE LPAREN atom COMMA atom RPAREN'''
-    p[0] = Node("remove", [p[3],p[5]], None, "%s.remove(%s)")
+    p[0] = Node("remove", [p[3], p[5]], None, "%s.remove(%s)")
+
 
 # POP - Removes (and returns) item from specified position in list
 def p_pop(p):

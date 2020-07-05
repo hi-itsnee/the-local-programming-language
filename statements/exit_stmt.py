@@ -1,10 +1,11 @@
 # Filename:                exit_stmt.py
 # Author:                  Team 13
 # Description:             local parser exit statement
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-04-24 12:52:48 plt>
 
 from localast import Node
+
 
 def p_exit_stmt(p):
     '''exit_stmt : EXIT LPAREN NUMBER RPAREN'''

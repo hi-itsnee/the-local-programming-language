@@ -1,10 +1,11 @@
 # Filename:                argv_fn.py
 # Author:                  Team 13
 # Description:             local parser argv function
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 13:44:51 plt>
 
 from localast import Node
+
 
 def p_argv_fn(p):
     '''argv_fn : ARGV list'''

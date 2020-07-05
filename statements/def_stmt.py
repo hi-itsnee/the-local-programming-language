@@ -1,14 +1,16 @@
 # Filename:                def_stmt.py
 # Author:                  Team 13
 # Description:             local parse def statement
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 16:29:35 plt>
 
 from localast import Node
 
+
 def p_def_stmt(p):
     '''def_stmt : DEF def_fn LBRACE stmt_list RBRACE'''
     p[0] = Node("def", [p[2], p[4]])
+
 
 def p_def_fn(p):
     '''def_fn : ID LPAREN RPAREN
@@ -23,6 +25,7 @@ def p_def_fn(p):
         # COORD hack
         value = (p[1], p[2])
         p[0] = Node("def_fn", None, value)
+
 
 # Note: arglist also used in print_stmt.py and assign_stmt.py
 def p_arglist(p):

@@ -1,7 +1,7 @@
 # Filename:                localast.py
 # Author:                  Team 13
 # Description:             local language AST utilities
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 19:12:24 plt>
 
 # Number of spaces a tab equals
@@ -12,20 +12,23 @@ COUNT = 0
 indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
                'except')
 
+
 class Node:
     '''Node class for the AST'''
+
     def __init__(self,
-                 type,          # type of node
-                 children=None, # children of the node
-                 value=None,    # stored value of the node (a string)
-                 line=None):    # Python line to by constructed from subtree
+                 type,  # type of node
+                 children=None,  # children of the node
+                 value=None,  # stored value of the node (a string)
+                 line=None):  # Python line to by constructed from subtree
         self.type = type
         if children:
             self.children = children
         else:
-            self.children = [ ]
+            self.children = []
         self.value = value
         self.line = line
+
 
 # Utility walker function
 def _do_arglist_subtree(node, code, debug):
@@ -42,6 +45,7 @@ def _do_arglist_subtree(node, code, debug):
         arg = walk_the_tree(node.children[0], code, debug)
         return arg
 
+
 # Main statement block builder
 def _do_stmt_list_subtree(node, code, debug):
     if len(node.children) == 2:
@@ -51,6 +55,7 @@ def _do_stmt_list_subtree(node, code, debug):
     elif len(node.children) == 1:
         stmt = walk_the_tree(node.children[0], code, debug)
         return stmt
+
 
 # Print subtree
 def _do_print_subtree(node, code, debug):
@@ -65,6 +70,7 @@ def _do_print_subtree(node, code, debug):
         print_arglist = _do_arglist_subtree(node.children[1], code, debug)
         return "print %s %% (%s)" % (print_str, print_arglist)
 
+
 # Assignment statement subtree
 def _do_assignment_subtree(node, code, debug):
     '''For building assignment statements'''
@@ -73,10 +79,12 @@ def _do_assignment_subtree(node, code, debug):
     assmnt = lhs + " " + node.value + " " + rhs
     return assmnt
 
+
 # List and list body
 def _do_list(node, code, debug):
     '''For building a list'''
     return "[" + _do_arglist_subtree(node.children[0], code, debug) + "]"
+
 
 # Indented blocks
 def _do_if_subtree(node, code, debug):
@@ -88,9 +96,10 @@ def _do_if_subtree(node, code, debug):
     if_stmt_i = ""
     # Add indents to all the lines in the statement
     for line in if_stmt:
-        if_stmt_i += " "*INDENT + line + "\n"
+        if_stmt_i += " " * INDENT + line + "\n"
     # Construct the if statment
     return "if %s:\n%s" % (expr, if_stmt_i)
+
 
 def _do_elif_block(node, code, debug):
     '''For building an arbitrary number of ELIF blocks'''
@@ -101,7 +110,7 @@ def _do_elif_block(node, code, debug):
         stmt = walk_the_tree(node.children[2], code, debug).split("\n")
         stmt_i = ""
         for line in stmt:
-            stmt_i += " "*INDENT + line + "\n"
+            stmt_i += " " * INDENT + line + "\n"
         return "%s\nelif %s:\n%s" % (block, expr, stmt_i)
     # A block
     elif len(node.children) == 2:
@@ -109,8 +118,9 @@ def _do_elif_block(node, code, debug):
         stmt = walk_the_tree(node.children[1], code, debug).split("\n")
         stmt_i = ""
         for line in stmt:
-            stmt_i += " "*INDENT + line + "\n"
+            stmt_i += " " * INDENT + line + "\n"
         return "elif %s:\n%s" % (expr, stmt_i)
+
 
 def _do_elif_subtree(node, code, debug):
     '''For indenting IF-ELIF code blocks'''
@@ -119,8 +129,9 @@ def _do_elif_subtree(node, code, debug):
     elif_block = _do_elif_block(node.children[2], code, debug)
     if_stmt_i = ""
     for line in if_stmt:
-        if_stmt_i += " "*INDENT + line + "\n"
+        if_stmt_i += " " * INDENT + line + "\n"
     return "if %s:\n%s\n%s" % (expr, if_stmt_i, elif_block)
+
 
 def _do_elif_else_subtree(node, code, debug):
     '''For indenting IF-ELIF-ELSE code blocks'''
@@ -131,11 +142,12 @@ def _do_elif_else_subtree(node, code, debug):
     if_stmt_i = ""
     else_stmt_i = ""
     for line in if_stmt:
-        if_stmt_i += " "*INDENT + line + "\n"
+        if_stmt_i += " " * INDENT + line + "\n"
     for line in else_stmt:
-        else_stmt_i += " "*INDENT + line + "\n"
+        else_stmt_i += " " * INDENT + line + "\n"
     return "if %s:\n%s\n%s\nelse:\n%s" % (expr, if_stmt_i, elif_block,
                                           else_stmt_i)
+
 
 def _do_else_subtree(node, code, debug):
     '''For indenting IF-ELSE code blocks'''
@@ -145,10 +157,11 @@ def _do_else_subtree(node, code, debug):
     if_stmt_i = ""
     else_stmt_i = ""
     for line in if_stmt:
-        if_stmt_i += " "*INDENT + line + "\n"
+        if_stmt_i += " " * INDENT + line + "\n"
     for line in else_stmt:
-        else_stmt_i += " "*INDENT + line + "\n"
+        else_stmt_i += " " * INDENT + line + "\n"
     return "if %s:\n%s\nelse:\n%s" % (expr, if_stmt_i, else_stmt_i)
+
 
 def _do_def_fn(node, code, debug):
     '''Build the head of a def statement'''
@@ -162,14 +175,16 @@ def _do_def_fn(node, code, debug):
         def_arg = _do_arglist_subtree(node.children[0], code, debug)
         return "%s(%s)" % (node.value, def_arg)
 
+
 def _do_def_subtree(node, code, debug):
     '''For indenting DEF code blocks'''
     def_head = _do_def_fn(node.children[0], code, debug)
     def_stmt = walk_the_tree(node.children[1], code, debug).split("\n")
     def_stmt_i = ""
     for line in def_stmt:
-        def_stmt_i += " "*INDENT + line + "\n"
+        def_stmt_i += " " * INDENT + line + "\n"
     return "def %s:\n%s" % (def_head, def_stmt_i)
+
 
 def _do_for_subtree(node, code, debug):
     '''For indenting For block'''
@@ -177,8 +192,9 @@ def _do_for_subtree(node, code, debug):
     for_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
     for_stmt_indented = ""
     for line in for_stmtchild:
-        for_stmt_indented += " "*INDENT + line + "\n"
+        for_stmt_indented += " " * INDENT + line + "\n"
     return "for %s in %s:\n%s" % (node.value, for_atomchild, for_stmt_indented)
+
 
 def _do_while_subtree(node, code, debug):
     '''For indenting While loop block'''
@@ -186,8 +202,9 @@ def _do_while_subtree(node, code, debug):
     while_stmtchild = walk_the_tree(node.children[1], code, debug).split("\n")
     while_stmt_indented = ""
     for line in while_stmtchild:
-        while_stmt_indented += " "*INDENT + line + "\n"
+        while_stmt_indented += " " * INDENT + line + "\n"
     return "while %s:\n%s" % (while_exprchild, while_stmt_indented)
+
 
 def _do_except_subtree(node, code, debug):
     except_try_child = walk_the_tree(node.children[0], code, debug).split("\n")
@@ -196,11 +213,12 @@ def _do_except_subtree(node, code, debug):
     except_trychild_indented = ""
     except_catchchild_indented = ""
     for line in except_try_child:
-        except_trychild_indented += " "*INDENT + line + "\n"
+        except_trychild_indented += " " * INDENT + line + "\n"
     for line in except_catch_child:
-        except_catchchild_indented += " "*INDENT + line + "\n"
+        except_catchchild_indented += " " * INDENT + line + "\n"
     return "try:\n%s\nexcept %s:\n%s" \
-        % (except_trychild_indented, node.value, except_catchchild_indented)
+           % (except_trychild_indented, node.value, except_catchchild_indented)
+
 
 def _do_indent_subtree(node, code, debug):
     '''For indenting statements within blocks'''
@@ -229,6 +247,7 @@ def _do_indent_subtree(node, code, debug):
     if node.type == 'except':
         return _do_except_subtree(node.children[0], code, debug)
 
+
 # Main tree-walking function
 def walk_the_tree(node, code="", debug=False):
     '''Walk the AST and return a string, which is a Python program'''
@@ -237,7 +256,8 @@ def walk_the_tree(node, code="", debug=False):
         return
     # Debugging to watch tree traversal
     if debug:
-        print "#type: %s, value: %s" % (node.type, node.value)
+        print
+        "#type: %s, value: %s" % (node.type, node.value)
     # For nodes with children
     if node.children:
         if node.type == "stmt_list":

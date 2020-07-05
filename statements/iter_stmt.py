@@ -1,16 +1,18 @@
 # Filename:                iter_stmt.py
 # Author:                  Team 13
 # Description:             local parser iteration statements
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 18:22:28 plt>
 
 from localast import Node
+
 
 def p_iter_stmt(p):
     '''iter_stmt : while_stmt
                  | for_stmt'''
 
     p[0] = Node("iter", [p[1]])
+
 
 def p_while_stmt(p):
     '''while_stmt : WHILE expr stmt
@@ -19,6 +21,7 @@ def p_while_stmt(p):
         p[0] = Node("while", [p[2], p[3]])
     elif len(p) == 6:
         p[0] = Node("while", [p[2], p[4]])
+
 
 def p_for_stmt(p):
     '''for_stmt : FOR ID IN atom stmt

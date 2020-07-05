@@ -1,10 +1,11 @@
 # Filename:              expr.py
 # Author:                Team 13
-# Description:           local parser exressions
-# Supported Language(s): Python 2.x
+# Description:           local parser expressions
+# Supported Language(s): Python 3.x
 # Time-stamp:            <2012-05-05 17:57:51 plt>
 
 from localast import Node
+
 
 def p_expr(p):
     '''expr : expr PLUS expr

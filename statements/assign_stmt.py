@@ -1,10 +1,11 @@
 # Filename:              assign_statement.py
 # Author:                Team 13
 # Description:           local parser assignment statements
-# Supported Language(s): Python 2.x
+# Supported Language(s): Python 3.x
 # Time-stamp:            <2012-05-05 15:09:17 plt>
 
 from localast import Node
+
 
 def p_assign_stmt(p):
     '''assign_stmt : arglist EQUALS expr

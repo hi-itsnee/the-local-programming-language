@@ -1,13 +1,16 @@
 # Filename:                localparse.py
 # Author:                  Team 13
 # Description:             The local programming language parser
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 17:58:33 plt>
-import sys,os
-basepath = os.getcwd()+os.path.sep
-sys.path.append(basepath+'libs')
-sys.path.append(basepath+'functions')
-sys.path.append(basepath+'statements')
+
+import os
+import sys
+
+basepath = os.getcwd() + os.path.sep
+sys.path.append(basepath + 'libs')
+sys.path.append(basepath + 'functions')
+sys.path.append(basepath + 'statements')
 
 import ply.yacc as yacc
 import locallex
@@ -31,6 +34,7 @@ from argv_fn import *
 from double_stmt import *
 
 from localast import Node
+
 # Node(type, children=None, value=None, line=None)
 
 # The tokens from our lexer
@@ -49,13 +53,14 @@ precedence = (
     ('left', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE'),
     ('left', 'OR'),
     ('left', 'AND'),
-    ('right','NOT'),
+    ('right', 'NOT'),
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES', 'DIVIDE', 'MODULO'),
     ('left', 'PLUSPLUS', 'MINUSMINUS'),
-    ('left','POWER'),
-    ('right','UMINUS')
-    )
+    ('left', 'POWER'),
+    ('right', 'UMINUS')
+)
+
 
 def p_program(p):
     '''program : program stmt_list
@@ -65,6 +70,7 @@ def p_program(p):
     elif len(p) == 2:
         p[0] = Node("program", [p[1]])
 
+
 def p_stmt_list(p):
     '''stmt_list : stmt_list stmt
                  | stmt'''
@@ -72,6 +78,7 @@ def p_stmt_list(p):
         p[0] = Node("stmt_list", [p[1], p[2]])
     elif len(p) == 2:
         p[0] = Node("stmt_list", [p[1]])
+
 
 def p_stmt(p):
     '''stmt : io_stmt SEMI
@@ -86,20 +93,23 @@ def p_stmt(p):
             | double_stmt SEMI'''
     p[0] = Node("stmt", [p[1]])
 
+
 # Error handler
 def p_error(p):
     if not p:
-        print "There is a catastrophic error in your code. I cannot help you."
+        print("There is a catastrophic error in your code. I cannot help you.")
     else:
-        print "Syntax error at line %s near %s" % (p.lineno, p.value)
+        print("Syntax error at line %s near %s" % (p.lineno, p.value))
         yacc.restart()
+
 
 # The PLY parser (internally runs the lexer)
 lparser = yacc.yacc()
 
+
 def parse(data, debug=False):
     lparser.error = 0
-    p = lparser.parse(data, debug=debug) # The AST
+    p = lparser.parse(data, debug=debug)  # The AST
     if lparser.error:
         return None
     return p

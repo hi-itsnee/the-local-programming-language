@@ -1,10 +1,12 @@
 # Filename:                coord_fn.py
 # Author:                  Team 13
 # Description:             local language parser coordinate functions
-# Supported Lanauge(s):    Python 2.x
+# Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-04-29 23:23:29 plt>
 
 from localast import Node
+
+
 # Node(type, children=None, value=None, line=None)
 
 def p_coord_fn(p):
@@ -12,9 +14,11 @@ def p_coord_fn(p):
                 | convertdist'''
     p[0] = Node("coord_fn", [p[1]])
 
+
 def p_dist(p):
     '''dist : DIST LPAREN atom COMMA atom RPAREN'''
     p[0] = Node("dist", [p[3], p[5]], None, "dist(%s, %s)")
+
 
 def p_convertdist(p):
     '''convertdist : CONVERTDIST LPAREN atom COMMA atom COMMA atom RPAREN
