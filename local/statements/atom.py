@@ -4,14 +4,14 @@
 # Supported Language(s): Python 3.x
 # Time-stamp:            <2012-05-05 13:10:57 plt>
 
-from localast import Node
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
 
 def p_atom(p):
-    '''atom : ID
+    """atom : ID
             | NUMBER
             | BOOL
             | NULL
             | COORD
-            | STRING'''
+            | STRING"""
     p[0] = Node("atom", None, p[1])

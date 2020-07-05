@@ -4,18 +4,18 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 16:29:35 plt>
 
-from localast import Node
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
 
 def p_def_stmt(p):
-    '''def_stmt : DEF def_fn LBRACE stmt_list RBRACE'''
+    """def_stmt : DEF def_fn LBRACE stmt_list RBRACE"""
     p[0] = Node("def", [p[2], p[4]])
 
 
 def p_def_fn(p):
-    '''def_fn : ID LPAREN RPAREN
+    """def_fn : ID LPAREN RPAREN
               | ID LPAREN arglist RPAREN
-              | ID COORD'''
+              | ID COORD"""
     if len(p) == 4:
         value = (p[1],)
         p[0] = Node("def_fn", None, value)
@@ -29,8 +29,8 @@ def p_def_fn(p):
 
 # Note: arglist also used in print_stmt.py and assign_stmt.py
 def p_arglist(p):
-    '''arglist : arglist COMMA atom
-               | atom'''
+    """arglist : arglist COMMA atom
+               | atom"""
     if len(p) == 4:
         p[0] = Node("arglist", [p[1], p[3]])
     elif len(p) == 2:

@@ -4,12 +4,12 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 13:42:14 plt>
 
-from localast import Node
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
 
 def p_list(p):
-    '''list : LBRACKET RBRACKET
-            | LBRACKET list_body RBRACKET'''
+    """list : LBRACKET RBRACKET
+            | LBRACKET list_body RBRACKET"""
     if len(p) == 3:
         p[0] = Node("list", None, "[]")
     elif len(p) == 4:
@@ -17,8 +17,8 @@ def p_list(p):
 
 
 def p_list_body(p):
-    '''list_body : list_body list_item
-                 | list_item'''
+    """list_body : list_body list_item
+                 | list_item"""
     if len(p) == 2:
         p[0] = Node("list_body", [p[1]])
     elif len(p) == 3:
@@ -26,18 +26,18 @@ def p_list_body(p):
 
 
 def p_list_item(p):
-    '''list_item : single_item
-                 | comma_item'''
+    """list_item : single_item
+                 | comma_item"""
     p[0] = Node("list_item", [p[1]])
 
 
 def p_single_item(p):
-    '''single_item : atom
-                   | list'''
+    """single_item : atom
+                   | list"""
     p[0] = Node("single_item", [p[1]])
 
 
 def p_comma_item(p):
-    '''comma_item : COMMA atom
-                  | COMMA list'''
+    """comma_item : COMMA atom
+                  | COMMA list"""
     p[0] = Node("comma_item", [p[2]])

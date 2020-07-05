@@ -4,10 +4,12 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-02 16:33:12 plt>
 
-import sys, os
 import argparse
-from localparse import parse
-from localast import walk_the_tree
+import os
+import sys
+
+from local.localast import walk_the_tree
+from local.localparse import parse
 
 basepath = os.getcwd() + os.path.sep
 sys.path.append(basepath + 'libs')
@@ -16,7 +18,7 @@ sys.path.append(basepath + 'functions')
 
 
 def _output_code(code):
-    '''Return string, which is target Python program'''
+    """Return string, which is target Python program"""
     # Initialize variables
     import_convertdist = False
     import_dist = False
@@ -32,15 +34,16 @@ def _output_code(code):
     code = code.split("\n")
     # One can go insane making newlines/empty lines perfect throughout the
     # compiler, or they can be stripped out here
-    clean_code = ["import sys,os",
+    clean_code = ["import os",
+                  "import sys",
                   "basepath=os.getcwd()+os.path.sep",
                   r"sys.path.append(basepath+'libs')",
                   r"sys.path.append(basepath+'functions')",
                   r"sys.path.append(basepath+'statements')"]
     if import_convertdist:
-        clean_code.append("from conversion import convertdist")
+        clean_code.append("from local.libs.conversion import convertdist")
     if import_dist:
-        clean_code.append("from haversine import dist")
+        clean_code.append("from local.libs.haversine import dist")
     for line in code:
         if not line.strip():
             # Blank line

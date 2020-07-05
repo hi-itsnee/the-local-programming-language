@@ -9,8 +9,7 @@ INDENT = 4
 COUNT = 0
 
 # Indent your children if you are one of these statements
-indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def',
-               'except')
+indent_them = ('if', 'elif', 'elif_else', 'else', 'for', 'while', 'def', 'except')
 
 
 class Node:

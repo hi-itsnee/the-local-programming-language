@@ -4,10 +4,8 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-04-29 21:41:22 plt>
 
-from localast import Node
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
-
-# Node(type, children=Node, value=None, line=None)
 
 def p_print_stmt(p):
     """print_stmt : simple_print_stmt

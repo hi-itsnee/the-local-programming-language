@@ -13,32 +13,32 @@ sys.path.append(basepath + 'functions')
 sys.path.append(basepath + 'statements')
 
 import ply.yacc as yacc
-import locallex
-from io_stmt import *
-from print_stmt import *
-from except_stmt import *
-from cond_stmt import *
-from assign_stmt import *
-from def_stmt import *
-from exit_stmt import *
-from iter_stmt import *
-from expr import *
-from jump_stmt import *
-from list_type import *
-from list_fn import *
-from coord_fn import *
-from str_fn import *
-from num_fn import *
-from atom import *
-from argv_fn import *
-from double_stmt import *
+import local.locallex
+from local.statements.io_stmt import *
+from local.statements.print_stmt import *
+from local.statements.except_stmt import *
+from local.statements.cond_stmt import *
+from local.statements.assign_stmt import *
+from local.statements.def_stmt import *
+from local.statements.exit_stmt import *
+from local.statements.iter_stmt import *
+from local.statements.expr import *
+from local.statements.jump_stmt import *
+from local.statements.list_type import *
+from local.functions.list_fn import *
+from local.functions.coord_fn import *
+from local.functions.str_fn import *
+from local.functions.num_fn import *
+from local.statements.atom import *
+from local.functions.argv_fn import *
+from local.statements.double_stmt import *
 
-from localast import Node
+from local.localast import Node
 
 # Node(type, children=None, value=None, line=None)
 
 # The tokens from our lexer
-tokens = locallex.tokens
+tokens = local.locallex.tokens
 
 # The first rule
 start = 'program'
@@ -48,8 +48,7 @@ precedence = (
     ('nonassoc', 'IFX'),
     ('nonassoc', 'ELIF'),
     ('nonassoc', 'ELSE'),
-    ('left', 'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL',
-     'MINUSEQUAL'),
+    ('left', 'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL'),
     ('left', 'LT', 'LE', 'GT', 'GE', 'EQ', 'NE'),
     ('left', 'OR'),
     ('left', 'AND'),
@@ -63,8 +62,8 @@ precedence = (
 
 
 def p_program(p):
-    '''program : program stmt_list
-               | stmt_list'''
+    """program : program stmt_list
+               | stmt_list"""
     if len(p) == 3:
         p[0] = Node("program", [p[1], p[2]])
     elif len(p) == 2:
@@ -72,8 +71,8 @@ def p_program(p):
 
 
 def p_stmt_list(p):
-    '''stmt_list : stmt_list stmt
-                 | stmt'''
+    """stmt_list : stmt_list stmt
+                 | stmt"""
     if len(p) == 3:
         p[0] = Node("stmt_list", [p[1], p[2]])
     elif len(p) == 2:
@@ -81,7 +80,7 @@ def p_stmt_list(p):
 
 
 def p_stmt(p):
-    '''stmt : io_stmt SEMI
+    """stmt : io_stmt SEMI
             | assign_stmt SEMI
             | cond_stmt
             | exit_stmt SEMI
@@ -90,7 +89,7 @@ def p_stmt(p):
             | jump_stmt SEMI
             | list_fn SEMI
             | except_stmt
-            | double_stmt SEMI'''
+            | double_stmt SEMI"""
     p[0] = Node("stmt", [p[1]])
 
 

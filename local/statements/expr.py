@@ -4,11 +4,11 @@
 # Supported Language(s): Python 3.x
 # Time-stamp:            <2012-05-05 17:57:51 plt>
 
-from localast import Node
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
 
 
 def p_expr(p):
-    '''expr : expr PLUS expr
+    """expr : expr PLUS expr
             | expr MINUS expr
             | expr TIMES expr
             | expr DIVIDE expr
@@ -35,7 +35,7 @@ def p_expr(p):
             | argv_fn
             | def_fn
             | double_stmt
-            | atom list'''
+            | atom list"""
     # BINOP or parenthesis
     if len(p) == 4:
         if p[2] == '+':
