@@ -4,6 +4,8 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-02 16:33:12 plt>
 
+"""The local language compiler."""
+
 import argparse
 import os
 import sys
@@ -22,7 +24,7 @@ def _output_code(code):
     # Initialize variables
     import_convertdist = False
     import_dist = False
-    import_sys = False
+    # import_sys = False
     # Determine if we need to import anything
     if "convertdist(" in code:
         import_convertdist = True
@@ -55,7 +57,7 @@ def _output_code(code):
 
 
 def main(filename, debug, parse_only):
-    """Main function of local compiler"""
+    """Main function of the local compiler."""
     # Read the source file and build the AST
     sourcecode = filename.read()
     ast = parse(sourcecode, debug)
@@ -80,7 +82,7 @@ def main(filename, debug, parse_only):
 
         writetofile.close()
         print("File written successfully to " + testfile_newpath)
-    except Exception:
+    except Exception:  # noqa
         print("Cannot generate code or write to file")
         exit(1)
 

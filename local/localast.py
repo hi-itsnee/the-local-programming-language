@@ -4,6 +4,8 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 19:12:24 plt>
 
+"""Local language abstract syntax tree."""
+
 # Number of spaces a tab equals
 INDENT = 4
 COUNT = 0
@@ -20,6 +22,7 @@ class Node:
                  children=None,  # children of the node
                  value=None,  # stored value of the node (a string)
                  line=None):  # Python line to by constructed from subtree
+        """Node class init."""
         self.type = type
         if children:
             self.children = children

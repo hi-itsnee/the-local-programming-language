@@ -4,6 +4,8 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 20:20:34 plt>
 
+"""Local language lexer."""
+
 import ply.lex as lex
 import re
 
@@ -58,7 +60,7 @@ def t_COORD(t):
         longi = float(longi)
     else:
         longi = int(longi)
-    mw = ( )
+    mw = ()
     mw += (lat,)
     mw += (longi,)
     t.value = str(mw)
@@ -80,7 +82,7 @@ def t_BOOL(t):
 
 
 def t_NULL(t):
-    r'null'
+    r'null'  # noqa:pep257
     t.value = "None"
     return t
 
@@ -146,12 +148,12 @@ def t_STRING(t):
 
 # Comments
 def t_comment(t):
-    r"\'\'\'(.|\n)*?\'\'\'|//(.)*?\n"
+    r'\'\'\'(.|\n)*?\'\'\'|//(.)*?\n'
     t.lexer.lineno += t.value.count("\n")
 
 
 # Lexical errors
-def t_error(t):
+def t_error(t):  # noqa:pep257
     print("Illegal character %s at line %d" %
           (repr(t.value[0]), t.lexer.lineno))
     t.lexer.skip(1)

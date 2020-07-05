@@ -4,38 +4,32 @@
 # Supported Language(s):   Python 3.x
 # Time-stamp:              <2012-05-05 17:58:33 plt>
 
-import os
-import sys
-
-basepath = os.getcwd() + os.path.sep
-sys.path.append(basepath + 'libs')
-sys.path.append(basepath + 'functions')
-sys.path.append(basepath + 'statements')
+"""Local language parser."""
 
 import ply.yacc as yacc
 import local.locallex
-from local.statements.io_stmt import *
-from local.statements.print_stmt import *
-from local.statements.except_stmt import *
-from local.statements.cond_stmt import *
+
+from local.localast import Node  # Node(type, children=None, value=None, line=None)
+from local.functions.argv_fn import *
+from local.functions.coord_fn import *
+from local.functions.list_fn import *
+from local.functions.num_fn import *
+from local.functions.str_fn import *
+
 from local.statements.assign_stmt import *
+from local.statements.cond_stmt import *
 from local.statements.def_stmt import *
+from local.statements.double_stmt import *
+from local.statements.except_stmt import *
 from local.statements.exit_stmt import *
-from local.statements.iter_stmt import *
 from local.statements.expr import *
+from local.statements.io_stmt import *
+from local.statements.iter_stmt import *
 from local.statements.jump_stmt import *
 from local.statements.list_type import *
-from local.functions.list_fn import *
-from local.functions.coord_fn import *
-from local.functions.str_fn import *
-from local.functions.num_fn import *
+from local.statements.print_stmt import *
 from local.statements.atom import *
-from local.functions.argv_fn import *
-from local.statements.double_stmt import *
 
-from local.localast import Node
-
-# Node(type, children=None, value=None, line=None)
 
 # The tokens from our lexer
 tokens = local.locallex.tokens
@@ -94,7 +88,7 @@ def p_stmt(p):
 
 
 # Error handler
-def p_error(p):
+def p_error(p):  # noqa:pep257
     if not p:
         print("There is a catastrophic error in your code. I cannot help you.")
     else:
@@ -107,6 +101,7 @@ lparser = yacc.yacc()
 
 
 def parse(data, debug=False):
+    """Parse."""
     lparser.error = 0
     p = lparser.parse(data, debug=debug)  # The AST
     if lparser.error:
